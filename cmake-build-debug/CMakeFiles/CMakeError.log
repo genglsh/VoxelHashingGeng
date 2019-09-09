@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_16ce0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_16ce0.dir/build.make CMakeFiles/cmTC_16ce0.dir/build
+make[1]: Entering directory '/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_16ce0.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -fPIC    -o CMakeFiles/cmTC_16ce0.dir/CheckSymbolExists.c.o   -c /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_16ce0
+/home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_16ce0.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC     -rdynamic CMakeFiles/cmTC_16ce0.dir/CheckSymbolExists.c.o  -o cmTC_16ce0 
+CMakeFiles/cmTC_16ce0.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_16ce0.dir/build.make:86: recipe for target 'cmTC_16ce0' failed
+make[1]: *** [cmTC_16ce0] Error 1
+make[1]: Leaving directory '/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_16ce0/fast' failed
+make: *** [cmTC_16ce0/fast] Error 2
+
+File /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_05394/fast"
+/usr/bin/make -f CMakeFiles/cmTC_05394.dir/build.make CMakeFiles/cmTC_05394.dir/build
+make[1]: Entering directory '/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_05394.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_05394.dir/CheckFunctionExists.c.o   -c /home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/share/cmake-3.12/Modules/CheckFunctionExists.c
+Linking C executable cmTC_05394
+/home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_05394.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_05394.dir/CheckFunctionExists.c.o  -o cmTC_05394 -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_05394.dir/build.make:86: recipe for target 'cmTC_05394' failed
+make[1]: *** [cmTC_05394] Error 1
+make[1]: Leaving directory '/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_05394/fast' failed
+make: *** [cmTC_05394/fast] Error 2
+
+

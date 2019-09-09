@@ -1,0 +1,7 @@
+git 指令：
+  git rebase -i commitID  合并多个commit为1个
+  git reset --hard commitID reset当前分支到某次提交
+  git cherry-pick 挑选某个分支上的某次提交添加到当前分支上
+  git pull origin master 从远端master分支上拉到当前分支（采用的是merge操作）
+  git push origin master-f 将当前分支上的内容push到远端mater分支 采用的是强制push操作
+

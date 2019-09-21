@@ -498,6 +498,7 @@ namespace ark {
             // if(chunkpos.x == 3 && chunkpos.y == 1 && chunkpos.z == -6){
             //     printf("stream out Frame %d:  3 1 -6 in hash\n", countFrame);
             // }
+            // 修改位置处设置为true，用来排除离群点
             h_chunks[idChunk].isOccupied = true;
 
             // printf("block(%d,%d,%d) in chunk %d at (%d,%d,%d)\n", pos.x, pos.y, pos.z, idChunk, chunkpos.x, chunkpos.y, chunkpos.z);
@@ -1345,14 +1346,9 @@ namespace ark {
         
         cudaMemcpy(dev_c2w_, c2w, 4 * 4 * sizeof(float), cudaMemcpyHostToDevice);
         cudaDeviceSynchronize();
-        std::cout << 1 << std::endl;
-        for(int i = 0; i < 10; i++)
-            std::cout << depth[i]<< " ";
-        std::cout << std::endl;
         cudaMemcpy(dev_depth_, depth, im_height_ * im_width_ * sizeof(float), cudaMemcpyHostToDevice);
         printf("The error before streaminCPU is %s\n", cudaGetErrorName(cudaGetLastError()));
         cudaDeviceSynchronize();
-        std::cout << 2 << std::endl;
 
         cudaMemcpy(dev_rgb_, rgb, 3 * im_height_ * im_width_ * sizeof(unsigned char), cudaMemcpyHostToDevice);
         cudaDeviceSynchronize();

@@ -12,12 +12,11 @@ using namespace std;
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-
 int main( int argc, char** argv )
 {
     cv::Mat R;
     cv::Mat lastR = cv::Mat::eye(4, 4, CV_64F);
-    int sampleNum = 1;
+    int sampleNum = 20;
     for (int x = 0; x < sampleNum; x++) {
         // 声明并从data文件夹里读取两个rgb与深度图
         cv::Mat rgb1 = cv::imread( "../scene0220_02/RGB/" + std::to_string(x)+".png");
@@ -72,20 +71,20 @@ int main( int argc, char** argv )
         // 筛选匹配，把距离太大的去掉
         // 这里使用的准则是去掉大于四倍最小距离的匹配
         vector< cv::DMatch > goodMatches;
-        double minDis = 9999;
-        for ( size_t i=0; i<matches.size(); i++ )
-        {
-            if ( matches[i].distance < minDis )
-                minDis = matches[i].distance;
-        }
-        if (minDis == 0) {
-            minDis += 1;
-        }
+        double minDis = 20;
+//        for ( size_t i=0; i<matches.size(); i++ )
+//        {
+//            if ( matches[i].distance < minDis )
+//                minDis = matches[i].distance;
+//        }
+//        if (minDis == 0) {
+//            minDis += 1;
+//        }
         cout<<"min dis = "<<minDis<<endl;
 
         for ( size_t i=0; i<matches.size(); i++ )
         {
-            if (matches[i].distance < 20*minDis)
+            if (matches[i].distance < 10*minDis)
                 goodMatches.push_back( matches[i] );
         }
 
@@ -125,8 +124,8 @@ int main( int argc, char** argv )
             pts_img.push_back( cv::Point2f( kp2[goodMatches[i].trainIdx].pt ) );
 
             // 将(u,v,d)转成(x,y,z)
-            cv::Point3f pt ( p.x, p.y, d );
-            cv::Point3f pd = point2dTo3d( pt, C );
+            cv::Point3f pt (p.x, p.y, d);
+            cv::Point3f pd = point2dTo3d(pt, C );
             pts_obj.push_back( pd );
         }
 //    cout << pts_img.size() << endl;

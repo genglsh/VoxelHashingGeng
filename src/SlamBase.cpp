@@ -40,7 +40,7 @@ PointCloud::Ptr image2PointCloud( cv::Mat& rgb, cv::Mat& depth, CAMERA_INTRINSIC
 cv::Point3f point2dTo3d( cv::Point3f& point, CAMERA_INTRINSIC_PARAMETERS& camera )
 {
     cv::Point3f p; // 3D 点
-    p.z = double( point.z ) / camera.scale;
+    p.z = double(point.z) / camera.scale;
     p.x = ( point.x - camera.cx) * p.z / camera.fx;
     p.y = ( point.y - camera.cy) * p.z / camera.fy;
     return p;

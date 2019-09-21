@@ -235,17 +235,21 @@ int countFiles(string filename){
 
 void application_thread() {
 //    slam->Start();
-    pointCloudGenerator->Start();
+/*
+!!!!!!!!!!!!!下面一句话注释掉了，不知道有啥用，目前未发现影响
+ */
+//    pointCloudGenerator->Start();
 //    bridgeRSD435->Start();
 
     // Main loop
-    int tframe = 1;
+    int tframe = 0;
     int empty = 0;
-
+    // 可以用chrono::system::time()代替 更好的计算时间
     clock_t t1 = clock();
 
     while (tframe < 15) {
         printf("The tframe is %d\n",tframe);
+        // empty 目前没使用过
         if(empty == 5)
             break;
 
@@ -260,7 +264,7 @@ void application_thread() {
     
         cv::cvtColor(frame.imRGB, frame.imRGB, cv::COLOR_BGR2RGB);
 
-            cv::Mat Twc = frame.mTcw.inv();
+        cv::Mat Twc = frame.mTcw.inv();
 
             // pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, Twc);
 
@@ -351,8 +355,7 @@ void motion_func(int x, int y) {
 }
 
 int main(int argc, char **argv) {
-        std::cout << "here" << std::endl;
-
+    std::cout << "here" << std::endl;
     if (argc != 3) {
         cerr << endl << "Usage: ./load_frames path_to_frames path_to_settings" << endl;
         return 1;

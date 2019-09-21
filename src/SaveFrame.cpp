@@ -180,7 +180,7 @@ namespace ark {
         depth255.convertTo(frame.imDepth, CV_32FC1);
         // frame.imDepth *= 0.001;
         // frame.imDepth *= 0.04;
-        frame.imDepth *= 0.8333;
+        frame.imDepth *= 0.056;
 //         std::cout << "depth255 = "<< std::endl << " "  << frame.imDepth << std::endl << std::endl;
         // return;
         /*

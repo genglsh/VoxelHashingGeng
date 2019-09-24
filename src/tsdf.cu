@@ -498,7 +498,6 @@ namespace ark {
             // if(chunkpos.x == 3 && chunkpos.y == 1 && chunkpos.z == -6){
             //     printf("stream out Frame %d:  3 1 -6 in hash\n", countFrame);
             // }
-            // 修改位置处设置为true，用来排除离群点
             h_chunks[idChunk].isOccupied = true;
 
             // printf("block(%d,%d,%d) in chunk %d at (%d,%d,%d)\n", pos.x, pos.y, pos.z, idChunk, chunkpos.x, chunkpos.y, chunkpos.z);
@@ -1171,6 +1170,7 @@ namespace ark {
         im_height_ = height;
 
         memset(K_, 0.0f, sizeof(float) * 3 * 3);
+        //K_ 不是应该为k的逆吗 这个地方需要后续留意
         K_[0] = fx;
         K_[2] = cx;
         K_[4] = fy;
@@ -1186,6 +1186,7 @@ namespace ark {
         // std::cout<<" d_outBlock init "<<std::endl;
         // cudaSafeCall(cudaMalloc(&d_outBlockPos, sizeof(VoxelBlockPos) * MAX_CPU2GPU_BLOCKS));
         // std::cout<<" d_outBlockPos init "<<std::endl;
+        // MAX_CPU2GPU_BLOCKS 这个参数是否必须要现在设置
         cudaSafeCall(cudaMalloc(&d_inBlock, sizeof(VoxelBlock) * MAX_CPU2GPU_BLOCKS));
         std::cout<<" d_inBlock init "<<std::endl;
         cudaSafeCall(cudaMalloc(&d_inBlockPos, sizeof(VoxelBlockPos) * MAX_CPU2GPU_BLOCKS));
@@ -1349,6 +1350,7 @@ namespace ark {
         cudaMemcpy(dev_depth_, depth, im_height_ * im_width_ * sizeof(float), cudaMemcpyHostToDevice);
         printf("The error before streaminCPU is %s\n", cudaGetErrorName(cudaGetLastError()));
         cudaDeviceSynchronize();
+        std::cout << 2 << std::endl;
 
         cudaMemcpy(dev_rgb_, rgb, 3 * im_height_ * im_width_ * sizeof(unsigned char), cudaMemcpyHostToDevice);
         cudaDeviceSynchronize();
@@ -1486,6 +1488,7 @@ namespace ark {
         delete dev_blockmap_;
         delete dev_blockmap_chunks;
     }
+    //插值函数 同时也会对表面上色（插值tsdf值的同时为点附上了颜色)
 
     __host__ __device__
     Vertex VertexInterp(float isolevel, Vertex p1, Vertex p2, float valp1, float valp2) {

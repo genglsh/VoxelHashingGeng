@@ -27,13 +27,6 @@ int main( int argc, char** argv )
         cv::Ptr<cv::FeatureDetector> detector;
         cv::Ptr<cv::DescriptorExtractor> descriptor;
 
-        // 构建提取器，默认两者都为 ORB
-
-        // 如果使用 sift, surf ，之前要初始化nonfree模块
-        // cv::initModule_nonfree();
-        // _detector = cv::FeatureDetector::create( "SIFT" );
-        // _descriptor = cv::DescriptorExtractor::create( "SIFT" );
-
         detector = cv::FeatureDetector::create("ORB");
         descriptor = cv::DescriptorExtractor::create("ORB");
 
@@ -71,7 +64,8 @@ int main( int argc, char** argv )
         // 筛选匹配，把距离太大的去掉
         // 这里使用的准则是去掉大于四倍最小距离的匹配
         vector< cv::DMatch > goodMatches;
-        double minDis = 20;
+        double minDis = 30;
+        // 最小距离方法为选取最近匹配距离
 //        for ( size_t i=0; i<matches.size(); i++ )
 //        {
 //            if ( matches[i].distance < minDis )

@@ -2,7 +2,6 @@
 #include <unordered_map>
 //当前设置的最大深度为10个单位 这个需要调整
 //chunk的初始位置 也需要调整
-//注释color部分 先不考虑上色
 
 // using namespace CUDASTL;
 using std::vector;
@@ -13,7 +12,7 @@ using std::default_random_engine;
 #define DEBUG_X  113
 #define DEBUG_Y  26
 #define DEBUG_Z  3
-#define DDA_STEP 10
+#define DDA_STEP 1 //DDA的步骤好像有点问题， 这个的大小代表每次在像素平面上的移动距离？
 // CUDA kernel function to integrate a TSDF voxel volume given depth images
 namespace ark {
     // static const int LOCK_HASH = -1;
@@ -80,6 +79,9 @@ namespace ark {
     void cam2frame(float* pt_cam, int *pt_pix, float* K){
         pt_pix[0] = roundf(K[0 * 3 + 0] * (pt_cam[0] / pt_cam[2]) + K[0 * 3 + 2]);
         pt_pix[1] = roundf(K[1 * 3 + 1] * (pt_cam[1] / pt_cam[2]) + K[1 * 3 + 2]);
+//        printf("k0 is %f k2 is %f k4 is %f k5 is %f\n", K[0], K[2], K[4], K[5]);
+        // 验证反向投影成功 没错误。
+//        printf("camera is %f %f %f    frame is %d %d\n", pt_cam[0], pt_cam[1], pt_cam[2], pt_pix[0], pt_pix[1]);
     }
 
     __host__ __device__
@@ -94,6 +96,9 @@ namespace ark {
                 c2w_[0 * 4 + 1] * tmp_pt[0] + c2w_[1 * 4 + 1] * tmp_pt[1] + c2w_[2 * 4 + 1] * tmp_pt[2];
         pt_cam[2] =
                 c2w_[0 * 4 + 2] * tmp_pt[0] + c2w_[1 * 4 + 2] * tmp_pt[1] + c2w_[2 * 4 + 2] * tmp_pt[2];
+//        printf("base is %f %f %f\n camera is %f %f %f\n", pt_base[0], pt_base[1], pt_base[2],
+//                pt_cam[0], pt_cam[1], pt_cam[2]);
+
     }
 
     __host__  __device__
@@ -102,7 +107,6 @@ namespace ark {
         pt_base[0] = pt_cam[0] * c2w_[0 * 4 + 0] + pt_cam[1] * c2w_[0 * 4 + 1] + pt_cam[2] * c2w_[0 * 4 + 2] + c2w_[0 * 4 + 3];
         pt_base[1] = pt_cam[0] * c2w_[1 * 4 + 0] + pt_cam[1] * c2w_[1 * 4 + 1] + pt_cam[2] * c2w_[1 * 4 + 2] + c2w_[1 * 4 + 3];
         pt_base[2] = pt_cam[0] * c2w_[2 * 4 + 0] + pt_cam[1] * c2w_[2 * 4 + 1] + pt_cam[2] * c2w_[2 * 4 + 2] + c2w_[2 * 4 + 3];
-
         // //debug herererrere  origin
         // pt_base[0] -= param->vox_origin.x;
         // pt_base[1] -= param->vox_origin.y;
@@ -117,8 +121,12 @@ namespace ark {
         
         float pt_base[3];
         cam2base(pt_cam, pt_base, c2w_);
-        printf("camera is %f %f %f\n base is %f %f %f\n pt is %d %d %f\n"
-        ,pt_cam[0],pt_cam[1], pt_cam[2], pt_base[0], pt_base[1], pt_base[2], pt_pix_x, pt_pix_y, pt_cam_z);
+        // 显示从像素坐标系到世界坐标系的转换。验证成功。
+//        if(pt_cam_z && pt_cam_z != 10.0) {
+//            printf("camera is %f %f %f\n base is %f %f %f\n pt is %d %d %f\n"
+//                    ,pt_cam[0],pt_cam[1], pt_cam[2], pt_base[0], pt_base[1], pt_base[2], pt_pix_x, pt_pix_y, pt_cam_z);
+//        }
+
         return make_float3(pt_base[0], pt_base[1], pt_base[2]);
     }
 
@@ -175,8 +183,10 @@ namespace ark {
         float3 chunk_center = make_float3(((float)x + 0.5) * chunk_size, ((float)y + 0.5) * chunk_size, ((float)z + 0.5) * chunk_size);
         // float3 cam_center = getCameraPos();
         // printf("host: isChunkInCameraFrustum  %f %f %f\n", chunk_center.x, chunk_center.y, chunk_center.z);
-
-        float chunkRadius = 0.5f*CHUNK_RADIUS*sqrt(3.0f) * 1.1;
+        // 之前的chunk_radius定义方法
+//        float chunkRadius = 0.5f*CHUNK_RADIUS*sqrt(3.0f) * 1.1;
+        //当前将chunk半径直接定为3
+        float  chunkRadius = CHUNK_RADIUS * chunk_size;
         float3 vec = (frustumCenter - chunk_center);
         float l = sqrt(vec.x * vec.x + vec.z * vec.z + vec.y * vec.y);
         // printf("\t\t chunkRadius %f \t distance %f\n", chunkRadius, l);
@@ -186,7 +196,7 @@ namespace ark {
         // if(x == 2 && y == 1 && z == 1){
         //     printf("2 1 1 chunk_center = (%f,%f,%f) dist = %f chunkRadius = %f\n", chunk_center.x, chunk_center.y, chunk_center.z, l,chunkRadius);
         // }
-
+        printf("distance is %f\n chunk radius is %f\n", l, chunkRadius);
         if(l <= std::abs(chunkRadius))
             return true;
         else
@@ -217,10 +227,10 @@ namespace ark {
         // const uint total_vx_p_block = VOXEL_PER_BLOCK * VOXEL_PER_BLOCK * VOXEL_PER_BLOCK;
         if(bucketId < h_inChunkCounter){
             int3 pos = d_inBlockPos[bucketId].pos;
-//            printf("Pos is %d %d %d\n",pos.x,pos.y,pos.z);
+            // printf("Pos is %d %d %d\n",pos.x,pos.y,pos.z);
             // if(dev_blockmap_chunks.find(pos) == dev_blockmap_chunks.end())
-                dev_blockmap_chunks[pos] = d_inBlock[bucketId];//关键步骤 获取位置 插入到hash列表当中 涉及到hash方法
-                //设法将每一次步骤的hash结果和插入序列展现出来 尝试将中间结果进行输出?
+            dev_blockmap_chunks[pos] = d_inBlock[bucketId];//关键步骤 获取位置 插入到hash列表当中 涉及到hash方法
+            // 设法将每一次步骤的hash结果和插入序列展现出来 尝试将中间结果进行输出?
         }
     }
 
@@ -298,14 +308,14 @@ namespace ark {
 
         int3 camera_chunk = world2chunk(frustumCenter);
         printf("camera_chunk = %d %d %d \n", camera_chunk.x, camera_chunk.y, camera_chunk.z);
-        float3 chunk_center = chunk2world(camera_chunk, chunk_size);
+//        float3 chunk_center = chunk2world(camera_chunk, chunk_size);
         // printf("MAX_CHUNK_NUM = %d chunk start from %d of size %f\n", MAX_CHUNK_NUM, -MAX_CHUNK_NUM/2, chunk_size);
         // // printf("frustum_chunk = %d %d %d  pos = %f %f %f block = %d %d %d \n", camera_chunk.x, camera_chunk.y, camera_chunk.z,
         //     chunk_center.x, chunk_center.y, chunk_center.z,
         //     camera_chunk.x * BLOCK_PER_CHUNK, camera_chunk.y * BLOCK_PER_CHUNK, camera_chunk.z * BLOCK_PER_CHUNK);
-
-        int chunk_range_i = ceil(CHUNK_RADIUS/chunk_size); 
-
+        // 之前的chunk范围
+//        int chunk_range_i = ceil(CHUNK_RADIUS/chunk_size);
+        int chunk_range_i = CHUNK_RADIUS;
         printf("chunk_range_i = %d\n", chunk_range_i);
 
         int3 chunk_start = make_int3(max(camera_chunk.x - chunk_range_i, - MAX_CHUNK_NUM / 2),
@@ -344,33 +354,11 @@ namespace ark {
             }
         }
 
-            // if(isChunkInCameraFrustum(ck)){
-            //     // for(int x = 0; x < BLOCK_PER_CHUNK; x ++){
-            //     //     for(int y = 0; y < BLOCK_PER_CHUNK; y ++){
-            //     //         for(int z = 0; z < BLOCK_PER_CHUNK; z ++){
-            //     //             int idBlock = chunkGetLinearIdx(x,y,z);
-            //     //             if(ck->blocksPos[idBlock].idx != -1){
-            //     //                 h_input_blocks[h_inChunkCounter] = ck->blocksPos[idBlock];
-            //     //             }
-            //     //         }
-            //     //     }
-            //     // }
-            //     // VoxelBlock* vb = d_inBlock + h_inChunkCounter;
-            //     // VoxelBlockPos* vbpos = d_inBlockPos + h_inChunkCounter;
-            //     // cudaSafeCall(cudaMalloc(&vb, sizeof(VoxelBlock))); //debug
-            //     // cudaSafeCall(cudaMalloc(&vbpos, sizeof(VoxelBlockPos)));  //debug
-
-            //     // cudaSafeCall(cudaMemcpy(d_inBlock + h_inChunkCounter,ck->blocks, sizeof(VoxelBlock) * block_total, cudaMemcpyHostToDevice));
-            //     // cudaSafeCall(cudaMemcpy(d_inBlockPos + h_inChunkCounter,ck->blocks, sizeof(VoxelBlockPos) * block_total, cudaMemcpyHostToDevice));
-            //     // h_inChunkCounter += block_total;
-            // }
-        // }
-
-        // std::cout<< "TOTAL: h_inChunkCounter === " <<h_inChunkCounter<<std::endl;
-
         if(h_inChunkCounter > 0){
             const dim3 grid_size((h_inChunkCounter + T_PER_BLOCK * T_PER_BLOCK - 1) / (T_PER_BLOCK * T_PER_BLOCK), 1);
             const dim3 block_size(T_PER_BLOCK * T_PER_BLOCK, 1);
+            printf("grid is %d, block is %d", (h_inChunkCounter + T_PER_BLOCK * T_PER_BLOCK - 1) / (T_PER_BLOCK * T_PER_BLOCK),
+                   T_PER_BLOCK * T_PER_BLOCK);
 
             // printf(" streamInCPU2GPUKernel grid %d  block %d \n", (h_inChunkCounter + T_PER_BLOCK * T_PER_BLOCK - 1) / (T_PER_BLOCK * T_PER_BLOCK), T_PER_BLOCK * T_PER_BLOCK);
             
@@ -581,8 +569,10 @@ namespace ark {
                    VoxelBlockPos* d_inBlockPosHeap, unsigned int *d_heapBlockCounter){
 
         unsigned int idheap = blockIdx.x;
+//        if (idheap == 1)
+//            printf("can reach 1\n");
 
-        // if(idheap != 80 || threadIdx.x != 0)
+        // if(idheap != 20000 || threadIdx.x != 0)
         //     return;
         // printf("heap\t%d\tvoxel\t%d\n",idheap, threadIdx.x);
         if(idheap < *d_heapBlockCounter){
@@ -594,8 +584,8 @@ namespace ark {
             int z = threadIdx.x % VOXEL_PER_BLOCK;
             int y = ((threadIdx.x - z) % VOXEL_PER_BLOCK2) / VOXEL_PER_BLOCK;
             int x = threadIdx.x / VOXEL_PER_BLOCK2;
-
-            // // printf("block\t%d\tthread\t%d\trank\t%d\tvoxel\t(%d,%d,%d)\n", blockIdx.x, threadIdx.x, blockIdx.x*blockDim.x+threadIdx.x, x, y, z);
+            if (idheap == 20000)
+                printf("block\t%d\tthread\t%d\trank\t%d\tvoxel\t(%d,%d,%d)\n", blockIdx.x, threadIdx.x, blockIdx.x*blockDim.x+threadIdx.x, x, y, z);
 
             int3 idVoxel = idBlock * VOXEL_PER_BLOCK + make_int3(x,y,z);
 
@@ -624,22 +614,25 @@ namespace ark {
             voxelpos.y,// + param->vox_origin.y, 
             voxelpos.z};// + param->vox_origin.z};// voxel2world(idVoxel, param->vox_size);
 
-            float tmp_pt[3] = {0};
-            tmp_pt[0] = pt_base[0] - c2w[0 * 4 + 3];
-            tmp_pt[1] = pt_base[1] - c2w[1 * 4 + 3];
-            tmp_pt[2] = pt_base[2] - c2w[2 * 4 + 3];
-            float pt_cam_x =
-                    c2w[0 * 4 + 0] * tmp_pt[0] + c2w[1 * 4 + 0] * tmp_pt[1] + c2w[2 * 4 + 0] * tmp_pt[2];
-            float pt_cam_y =
-                    c2w[0 * 4 + 1] * tmp_pt[0] + c2w[1 * 4 + 1] * tmp_pt[1] + c2w[2 * 4 + 1] * tmp_pt[2];
-            float pt_cam_z =
-                    c2w[0 * 4 + 2] * tmp_pt[0] + c2w[1 * 4 + 2] * tmp_pt[1] + c2w[2 * 4 + 2] * tmp_pt[2];
-            float pt_cam[3] = {pt_cam_x, pt_cam_y, pt_cam_z};
+//            float tmp_pt[3] = {0};
+//            tmp_pt[0] = pt_base[0] - c2w[0 * 4 + 3];
+//            tmp_pt[1] = pt_base[1] - c2w[1 * 4 + 3];
+//            tmp_pt[2] = pt_base[2] - c2w[2 * 4 + 3];
+//            float pt_cam_x =
+//                    c2w[0 * 4 + 0] * tmp_pt[0] + c2w[1 * 4 + 0] * tmp_pt[1] + c2w[2 * 4 + 0] * tmp_pt[2];
+//            float pt_cam_y =
+//                    c2w[0 * 4 + 1] * tmp_pt[0] + c2w[1 * 4 + 1] * tmp_pt[1] + c2w[2 * 4 + 1] * tmp_pt[2];
+//            float pt_cam_z =
+//                    c2w[0 * 4 + 2] * tmp_pt[0] + c2w[1 * 4 + 2] * tmp_pt[1] + c2w[2 * 4 + 2] * tmp_pt[2];
+//            float pt_cam[3] = {pt_cam_x, pt_cam_y, pt_cam_z};
+            float pt_cam[3] = {0};
+//            printf("ptCam is %f %f %f\n", pt_cam[0], pt_cam[1], pt_cam[2]);
 
             base2cam(pt_base, pt_cam, c2w);
-            pt_cam_x = pt_cam[0];
-            pt_cam_y = pt_cam[1];
-            pt_cam_z = pt_cam[2];
+//            printf("ptCam function is %f %f %f\n", pt_cam[0], pt_cam[1], pt_cam[2]);
+//            pt_cam_x = pt_cam[0];
+//            pt_cam_y = pt_cam[1];
+           float  pt_cam_z = pt_cam[2];
 
             int pt_pix[2];
             cam2frame(pt_cam, pt_pix, K);
@@ -703,15 +696,16 @@ namespace ark {
             int image_idx = pt_pix_y * width + pt_pix_x;
             float dist = fmin(1.0f, diff / param->trunc_margin);
             float weight_old = voxel.weight;
-            // printf("Tsdf is %f\n",weight_old);
+
             float weight_new = weight_old + 1.0f;
             voxel.weight = weight_new;
+//             printf("Tsdf is %f\n", voxel.weight);
             voxel.sdf = (voxel.sdf * voxel.weight + dist) / weight_new;
-            /*color部分 等到采集完整的color数据之后要重新启用
-            // voxel.sdf_color[0] = (voxel.sdf_color[0] * weight_old + rgb[3 * image_idx]) / weight_new;
-            // voxel.sdf_color[1] = (voxel.sdf_color[1] * weight_old + rgb[3 * image_idx + 1]) / weight_new;
-            // voxel.sdf_color[2] = (voxel.sdf_color[2] * weight_old + rgb[3 * image_idx + 2]) / weight_new;
-            */
+//            color部分 等到采集完整的color数据之后要重新启用
+            voxel.sdf_color[0] = (voxel.sdf_color[0] * weight_old + rgb[3 * image_idx]) / weight_new;
+            voxel.sdf_color[1] = (voxel.sdf_color[1] * weight_old + rgb[3 * image_idx + 1]) / weight_new;
+            voxel.sdf_color[2] = (voxel.sdf_color[2] * weight_old + rgb[3 * image_idx + 2]) / weight_new;
+
             // if(idheap == 100)
             //     printf("sdf\t%f\tcolor\t%d\t%d\t%d\tweight%f\n", voxel.sdf,voxel.sdf_color[0],voxel.sdf_color[1],voxel.sdf_color[2],voxel.weight);
 
@@ -909,7 +903,7 @@ namespace ark {
                     // if(blockIdx.x == 0 && threadIdx.x == 0)
                     //     printf("nbvoxel\t%d\t%d\t%d\tr%dg%db%d\tsdf%f\n", cxi, cyi, czi,grid.p[k].r,grid.p[k].g,grid.p[k].b, grid.val[k]);
                     //     // printf("%d\tnbvoxel\t%d\t%d\t%d\tsdf=%f\n", linear_id, cxi, cyi, czi,voxel.sdf);
-                }else{
+                } else{
                     // grid.p[k].r = 0;
                     // grid.p[k].g = 0;
                     // grid.p[k].b = 0;
@@ -1011,7 +1005,7 @@ namespace ark {
 
                 if(tri[index * 5 + count].p[0] == tri[index * 5 + count].p[1] || 
                     tri[index * 5 + count].p[1] == tri[index * 5 + count].p[2] || 
-                    tri[index * 5 + count].p[0] == tri[index * 5 + count].p[1])
+                    tri[index * 5 + count].p[0] == tri[index * 5 + count].p[2])
                     tri[index * 5 + count].valid = false;
 
                 count++;
@@ -1359,8 +1353,9 @@ namespace ark {
         
         std::cout<< "clear h_heapBlockCounter" <<std::endl;
         clearheap();
-       
+        //验证第一步， streaminGPU部分
         streamInCPU2GPU(dev_K_, dev_c2w_, dev_depth_);
+        //验证第一步， streaminGPU部分
         cudaDeviceSynchronize();
         // checkCUDA(__LINE__, cudaGetLastError());
         printf("The error after streaminCPU is %s\n", cudaGetErrorName(cudaGetLastError()));
@@ -1388,19 +1383,20 @@ namespace ark {
         {
             std::unique_lock<std::mutex> lock(tsdf_mutex_);
             // printf("The heapblockcounter is %d\n", h_heapBlockCounter);
+//            printf("h_heapBlockCounter is %d\n", h_heapBlockCounter);
+            cudaDeviceSynchronize();
             const dim3 gridSize(h_heapBlockCounter, 1);
             const dim3 blockSize(VOXEL_PER_BLOCK * VOXEL_PER_BLOCK * VOXEL_PER_BLOCK, 1);
             // checkCUDA(__LINE__, cudaGetLastError());
 
             // std::cout<<"start IntegrateHashKernel"<<std::endl;
-
-            IntegrateHashKernel <<< gridSize, blockSize >>> (dev_K_, dev_c2w_, dev_depth_, dev_rgb_, 
+            IntegrateHashKernel <<< gridSize, blockSize >>> (dev_K_, dev_c2w_, dev_depth_, dev_rgb_,
                 im_height_, im_width_, dev_param_, *dev_blockmap_, d_inBlockPosHeap, d_heapBlockCounter);
 
             // checkCUDA(__LINE__, cudaGetLastError());
             // std::cout<<"finish IntegrateHashKernel"<<std::endl;
 
-
+            cudaDeviceSynchronize();
             cudaMalloc(&dev_hash_tri_, sizeof(Triangle) * total_vox * 5);
             cudaMemset(dev_hash_tri_, 0, sizeof(Triangle) * total_vox * 5);
 
@@ -1563,19 +1559,6 @@ namespace ark {
     __host__
     void GpuTsdfGenerator::render() {
         std::unique_lock<std::mutex> lock(chunk_mutex_);
-        // for (int i = 0; i < param_->total_vox * 5; ++i) {
-        //     if (!tri_[i].valid)
-        //         continue;
-        //     glBegin(GL_TRIANGLES);
-        //     for (int j = 0; j < 3; ++j) {
-        //         glColor3f(tri_[i].p[j].r / 255.f, tri_[i].p[j].g / 255.f, tri_[i].p[j].b / 255.f);
-        //         glVertex3f(10 * tri_[i].p[j].x * param_->vox_size - 25,
-        //                    10 * tri_[i].p[j].y * param_->vox_size - 25,
-        //                    10 * tri_[i].p[j].z * param_->vox_size - 20);
-        //         // printf("\t%d\t%d\t%\n", tri_[i].p[j].x, tri_[i].p[j].y, tri_[i].p[j].z);
-        //     }
-        //     glEnd();
-        // }
         int chunk_half = MAX_CHUNK_NUM / 2;
         int block_total = BLOCK_PER_CHUNK * BLOCK_PER_CHUNK * BLOCK_PER_CHUNK;
         int total_vox = VOXEL_PER_BLOCK * VOXEL_PER_BLOCK * VOXEL_PER_BLOCK * block_total;
@@ -1598,10 +1581,13 @@ namespace ark {
                             // std::cout<<"render"<<std::endl;
                             glBegin(GL_TRIANGLES);
                             for (int j = 0; j < 3; ++j) {
-                                // glColor3f(tri_[i].p[j].r / 255.f, tri_[i].p[j].g / 255.f, tri_[i].p[j].b / 255.f);
-                                glVertex3f(10 * tri_[i].p[j].x * param_->vox_size - 25,
-                                           10 * tri_[i].p[j].y * param_->vox_size - 25,
-                                           10 * tri_[i].p[j].z * param_->vox_size - 20);
+                                glColor3f(tri_[i].p[j].r / 255.f, tri_[i].p[j].g / 255.f, tri_[i].p[j].b / 255.f);
+//                                glVertex3f(10 * tri_[i].p[j].x * param_->vox_size - 25,
+//                                           10 * tri_[i].p[j].y * param_->vox_size - 25,
+//                                           10 * tri_[i].p[j].z * param_->vox_size - 20);
+                                glVertex3f(10 * tri_[i].p[j].x * param_->vox_size,
+                                           10 * tri_[i].p[j].y * param_->vox_size,
+                                           10 * tri_[i].p[j].z * param_->vox_size);
                             }
                             glEnd();
                         }
@@ -1975,7 +1961,7 @@ namespace ark {
             raymax = frame2base(x,y,param->max_depth , K, c2w, param);
             // raymin = frame2base(x,y,minDepth, K, c2w, param);
             // raymax = frame2base(x,y,maxDepth , K, c2w, param);
-            float3 camcenter = frame2base(x,y,0, K, c2w, param);
+            // float3 camcenter = frame2base(x,y,0, K, c2w, param);
             // printf("raymin\t%f\t%f\t%f\traymax \t%f\t%f\t%f\torigin\t%f\t%f\t%f\n", 
             //         raymin.x, raymin.y, raymin.z, raymax.x, raymax.y, raymax.z, camcenter.x, camcenter.y, camcenter.z);
 
@@ -1990,11 +1976,13 @@ namespace ark {
             // idEnd.x, idEnd.y, idEnd.z);
 
             float3 step = make_float3(sign(rayDir));
+            // 单纯判断 1, 0的方向。
+            // printf("step is %f %f %f\n", step.x, step.y, step.z);
             float3 boundarypos = block2world(idCurrentBlock + make_int3(clamp(step, 0.0, 1.0f)), param->block_size) - 0.5f * param->vox_size;
             float3 tmax = (boundarypos - raymin) / rayDir;
             float3 tDelta = (step * param->vox_size * VOXEL_PER_BLOCK) / rayDir;
             int3 idBound = make_int3(make_float3(idEnd) + step);
-
+            // 无法向前传播的错误情况
             if(rayDir.x == 0.0f || boundarypos.x - raymin.x == 0.0f){ tmax.x = PINF; tDelta.x = PINF;}
             if(rayDir.y == 0.0f || boundarypos.y - raymin.y == 0.0f){ tmax.y = PINF; tDelta.y = PINF;}
             if(rayDir.z == 0.0f || boundarypos.z - raymin.z == 0.0f){ tmax.z = PINF; tDelta.z = PINF;}

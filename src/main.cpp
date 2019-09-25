@@ -247,7 +247,7 @@ void application_thread() {
     // 可以用chrono::system::time()代替 更好的计算时间
     clock_t t1 = clock();
 
-    while (tframe < 15) {
+    while (tframe < 5) {
         printf("The tframe is %d\n",tframe);
         // empty 目前没使用过
         if(empty == 5)

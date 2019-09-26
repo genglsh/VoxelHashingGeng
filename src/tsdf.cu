@@ -196,7 +196,7 @@ namespace ark {
         // if(x == 2 && y == 1 && z == 1){
         //     printf("2 1 1 chunk_center = (%f,%f,%f) dist = %f chunkRadius = %f\n", chunk_center.x, chunk_center.y, chunk_center.z, l,chunkRadius);
         // }
-        printf("distance is %f\n chunk radius is %f\n", l, chunkRadius);
+        // printf("distance is %f\n chunk radius is %f\n", l, chunkRadius);
         if(l <= std::abs(chunkRadius))
             return true;
         else
@@ -333,7 +333,8 @@ namespace ark {
         std::unique_lock<std::mutex> lock(chunk_mutex_);
 
         //x y z  real pos idx
-        for(int x = chunk_start.x; x <= chunk_end.x; x ++){   //should reach end   ======
+        //should reach end   ======
+        for(int x = chunk_start.x; x <= chunk_end.x; x ++){
             for(int y = chunk_start.y; y <= chunk_end.y; y ++){
                 for(int z = chunk_start.z; z <= chunk_end.z; z++){
                     int idChunk = chunkGetLinearIdx(x,y,z);
@@ -342,7 +343,7 @@ namespace ark {
                         if(h_chunks[idChunk].blocks == nullptr){
                             h_chunks[idChunk].create(make_int3(x,y,z));
                         }
-                        printf("cuda malloc total %d  max :% d\n", h_inChunkCounter, MAX_CPU2GPU_BLOCKS);
+//                        printf("cuda malloc total %d  max :% d\n", h_inChunkCounter, MAX_CPU2GPU_BLOCKS);
                         cudaSafeCall(cudaMemcpy(d_inBlock + h_inChunkCounter,h_chunks[idChunk].blocks, sizeof(VoxelBlock) * block_total, cudaMemcpyHostToDevice));
                         cudaSafeCall(cudaMemcpy(d_inBlockPos + h_inChunkCounter,h_chunks[idChunk].blocksPos, sizeof(VoxelBlockPos) * block_total, cudaMemcpyHostToDevice));
                         // h_chunks[idChunk].isOnGPU = 1;
@@ -357,8 +358,9 @@ namespace ark {
         if(h_inChunkCounter > 0){
             const dim3 grid_size((h_inChunkCounter + T_PER_BLOCK * T_PER_BLOCK - 1) / (T_PER_BLOCK * T_PER_BLOCK), 1);
             const dim3 block_size(T_PER_BLOCK * T_PER_BLOCK, 1);
-            printf("grid is %d, block is %d", (h_inChunkCounter + T_PER_BLOCK * T_PER_BLOCK - 1) / (T_PER_BLOCK * T_PER_BLOCK),
-                   T_PER_BLOCK * T_PER_BLOCK);
+            printf("grid is %d, block is %d\n",
+                    (h_inChunkCounter + T_PER_BLOCK * T_PER_BLOCK - 1) / (T_PER_BLOCK * T_PER_BLOCK),
+                    T_PER_BLOCK * T_PER_BLOCK);
 
             // printf(" streamInCPU2GPUKernel grid %d  block %d \n", (h_inChunkCounter + T_PER_BLOCK * T_PER_BLOCK - 1) / (T_PER_BLOCK * T_PER_BLOCK), T_PER_BLOCK * T_PER_BLOCK);
             
@@ -569,12 +571,6 @@ namespace ark {
                    VoxelBlockPos* d_inBlockPosHeap, unsigned int *d_heapBlockCounter){
 
         unsigned int idheap = blockIdx.x;
-//        if (idheap == 1)
-//            printf("can reach 1\n");
-
-        // if(idheap != 20000 || threadIdx.x != 0)
-        //     return;
-        // printf("heap\t%d\tvoxel\t%d\n",idheap, threadIdx.x);
         if(idheap < *d_heapBlockCounter){
             int3 idBlock = dev_blockmap_.key_heap[idheap];
             VoxelBlock& vb = dev_blockmap_[idBlock];
@@ -584,8 +580,8 @@ namespace ark {
             int z = threadIdx.x % VOXEL_PER_BLOCK;
             int y = ((threadIdx.x - z) % VOXEL_PER_BLOCK2) / VOXEL_PER_BLOCK;
             int x = threadIdx.x / VOXEL_PER_BLOCK2;
-            if (idheap == 20000)
-                printf("block\t%d\tthread\t%d\trank\t%d\tvoxel\t(%d,%d,%d)\n", blockIdx.x, threadIdx.x, blockIdx.x*blockDim.x+threadIdx.x, x, y, z);
+//            if (idheap == 20000)
+//                printf("block\t%d\tthread\t%d\trank\t%d\tvoxel\t(%d,%d,%d)\n", blockIdx.x, threadIdx.x, blockIdx.x*blockDim.x+threadIdx.x, x, y, z);
 
             int3 idVoxel = idBlock * VOXEL_PER_BLOCK + make_int3(x,y,z);
 
@@ -1969,16 +1965,22 @@ namespace ark {
             int3 idCurrentBlock = wolrd2block(raymin, param->block_size);
             int3 idEnd = wolrd2block(raymax, param->block_size);
 
-            float3 cam_pos = make_float3(c2w[0 * 4 + 3],c2w[1 * 4 + 3],c2w[2 * 4 + 3]);
+            float3 cam_pos = make_float3(c2w[0 * 4 + 3], c2w[1 * 4 + 3], c2w[2 * 4 + 3]);
 
             // printf("kernel at(%d,%d), camera(%f,%f,%f), ray(%f,%f,%f) block(%d,%d,%d) to (%d,%d,%d)\n", x, y, cam_pos.x, cam_pos.y, cam_pos.z, rayDir.x, rayDir.y, rayDir.z,
             // idCurrentBlock.x, idCurrentBlock.y, idCurrentBlock.z,
             // idEnd.x, idEnd.y, idEnd.z);
-
+            // DDA中的stepXYZ 判断当前的行进方向。
             float3 step = make_float3(sign(rayDir));
+            int3 dirTem = make_int3(clamp(step, -1.0f, 1.0f));
             // 单纯判断 1, 0的方向。
-            // printf("step is %f %f %f\n", step.x, step.y, step.z);
-            float3 boundarypos = block2world(idCurrentBlock + make_int3(clamp(step, 0.0, 1.0f)), param->block_size) - 0.5f * param->vox_size;
+//            if (step.x < 0 || step.y < 0 || step.z < 0) {
+//                printf("step is %f %f %f\n dir is %d %d %d\n",
+//                        step.x, step.y, step.z, dirTem.x, dirTem.y, dirTem.z);
+//            }
+
+            // 之前该位置的值为0.0f
+            float3 boundarypos = block2world(idCurrentBlock + make_int3(clamp(step, -1.0f, 1.0f)), param->block_size) - 0.5f * param->vox_size;
             float3 tmax = (boundarypos - raymin) / rayDir;
             float3 tDelta = (step * param->vox_size * VOXEL_PER_BLOCK) / rayDir;
             int3 idBound = make_int3(make_float3(idEnd) + step);
@@ -1988,42 +1990,42 @@ namespace ark {
             if(rayDir.z == 0.0f || boundarypos.z - raymin.z == 0.0f){ tmax.z = PINF; tDelta.z = PINF;}
 
             unsigned int iter = 0;
-            unsigned int maxLoopIterCount = 100;
+            unsigned int maxLoopIterCount = 300;
 
             while(iter < maxLoopIterCount){
-                // if(idCurrentBlock.x == 20 && idCurrentBlock.y == 8 && idCurrentBlock.z == 0)
-                //     printf("arrive 20 8 0\n");
-                // if(idCurrentBlock.x == 20 && idCurrentBlock.y == 10 && idCurrentBlock.z == 2)
-                //     printf("arrive 20 10 2\n");                
                 float3 blocks_pos = block2world(idCurrentBlock, param->block_size);
                 if(dev_blockmap_chunks.find(idCurrentBlock) != dev_blockmap_chunks.end()){
-                    if(isBlockInCameraFrustum(blocks_pos, c2w, param)){
-
-                        //debug
+                    if(isBlockInCameraFrustum(blocks_pos, c2w, param) || 1){
                         int3 chunkpos = block2chunk(idCurrentBlock);
                         dev_blockmap_[idCurrentBlock] = dev_blockmap_chunks[idCurrentBlock];
                     }
                 }
                 if(tmax.x < tmax.y && tmax.x < tmax.z){
                     idCurrentBlock.x += step.x;
-                    if(idCurrentBlock.x == idBound.x) return;
+                    if(idCurrentBlock.x == idBound.x) {
+                        return;
+                    }
                     tmax.x += tDelta.x;
                 }
                 else if(tmax.z < tmax.y)
                 {
                     idCurrentBlock.z += step.z;
-                    if(idCurrentBlock.z == idBound.z) return;
+                    if(idCurrentBlock.z == idBound.z) {
+                        return;
+                    }
                     tmax.z += tDelta.z;
                 }
                 else
                 {
                     idCurrentBlock.y += step.y;
-                    if(idCurrentBlock.y == idBound.y) return;
+                    if(idCurrentBlock.y == idBound.y) {
+                        return;
+                    }
                     tmax.y += tDelta.y;
-                }  
-
+                }
                 iter++;
             }
+            printf("Max Iterator is %d\n", iter);
         }
     }
 
@@ -2044,8 +2046,6 @@ namespace ark {
         MarchingCubeParam *param, float* K, float* c2w){    
         // vhashing::HashTable<int3, VoxelBlock, BlockHasher, BlockEqual, vhashing::std_memspace>
         // bmhi_chunk(*dev_blockmap_chunks);
-        
-
         {
             int dda_step = DDA_STEP;//光线每步所走的长度
             const dim3 grid_size((im_width_ / dda_step  + T_PER_BLOCK - 1) / T_PER_BLOCK, (im_height_ / dda_step + T_PER_BLOCK - 1) / T_PER_BLOCK, 1);

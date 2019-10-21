@@ -1,4 +1,4 @@
-# Install script for directory: /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF
+# Install script for directory: /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/Example/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

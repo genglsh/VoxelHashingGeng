@@ -3,7 +3,7 @@
 
 CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.o
  ../include/SlamBase.h
- /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/RgbPart.cpp
+ /home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng face/src/RgbPart.cpp
  /usr/local/cuda-9.0/include/builtin_types.h
  /usr/local/cuda-9.0/include/channel_descriptor.h
  /usr/local/cuda-9.0/include/common_functions.h
@@ -309,8 +309,8 @@ CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.o
  /usr/local/include/pcl-1.8/pcl/point_types.h
  /usr/local/include/pcl-1.8/pcl/register_point_struct.h
 CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.o
- /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/include/SlamBase.h
- /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/SlamBase.cpp
+ /home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng face/include/SlamBase.h
+ /home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng face/src/SlamBase.cpp
  /usr/local/cuda-9.0/include/builtin_types.h
  /usr/local/cuda-9.0/include/channel_descriptor.h
  /usr/local/cuda-9.0/include/common_functions.h

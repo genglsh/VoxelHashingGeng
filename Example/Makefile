@@ -136,6 +136,33 @@ TSDF/fast:
 	$(MAKE) -f CMakeFiles/TSDF.dir/build.make CMakeFiles/TSDF.dir/build
 .PHONY : TSDF/fast
 
+src/ICP_part.o: src/ICP_part.cpp.o
+
+.PHONY : src/ICP_part.o
+
+# target to build an object file
+src/ICP_part.cpp.o:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ICP_part.cpp.o
+.PHONY : src/ICP_part.cpp.o
+
+src/ICP_part.i: src/ICP_part.cpp.i
+
+.PHONY : src/ICP_part.i
+
+# target to preprocess a source file
+src/ICP_part.cpp.i:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ICP_part.cpp.i
+.PHONY : src/ICP_part.cpp.i
+
+src/ICP_part.s: src/ICP_part.cpp.s
+
+.PHONY : src/ICP_part.s
+
+# target to generate assembly for a file
+src/ICP_part.cpp.s:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ICP_part.cpp.s
+.PHONY : src/ICP_part.cpp.s
+
 src/PointCloudGenerator.o: src/PointCloudGenerator.cpp.o
 
 .PHONY : src/PointCloudGenerator.o
@@ -162,6 +189,33 @@ src/PointCloudGenerator.s: src/PointCloudGenerator.cpp.s
 src/PointCloudGenerator.cpp.s:
 	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.s
 .PHONY : src/PointCloudGenerator.cpp.s
+
+src/RgbPart.o: src/RgbPart.cpp.o
+
+.PHONY : src/RgbPart.o
+
+# target to build an object file
+src/RgbPart.cpp.o:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/RgbPart.cpp.o
+.PHONY : src/RgbPart.cpp.o
+
+src/RgbPart.i: src/RgbPart.cpp.i
+
+.PHONY : src/RgbPart.i
+
+# target to preprocess a source file
+src/RgbPart.cpp.i:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/RgbPart.cpp.i
+.PHONY : src/RgbPart.cpp.i
+
+src/RgbPart.s: src/RgbPart.cpp.s
+
+.PHONY : src/RgbPart.s
+
+# target to generate assembly for a file
+src/RgbPart.cpp.s:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/RgbPart.cpp.s
+.PHONY : src/RgbPart.cpp.s
 
 src/SaveFrame.o: src/SaveFrame.cpp.o
 
@@ -254,9 +308,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... load_frames"
 	@echo "... TSDF"
+	@echo "... src/ICP_part.o"
+	@echo "... src/ICP_part.i"
+	@echo "... src/ICP_part.s"
 	@echo "... src/PointCloudGenerator.o"
 	@echo "... src/PointCloudGenerator.i"
 	@echo "... src/PointCloudGenerator.s"
+	@echo "... src/RgbPart.o"
+	@echo "... src/RgbPart.i"
+	@echo "... src/RgbPart.s"
 	@echo "... src/SaveFrame.o"
 	@echo "... src/SaveFrame.i"
 	@echo "... src/SaveFrame.s"

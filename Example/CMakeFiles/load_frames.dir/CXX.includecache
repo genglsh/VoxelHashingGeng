@@ -46,6 +46,14 @@ opencv2/highgui/highgui.hpp
 opencv2/imgproc/imgproc.hpp
 ../include/opencv2/imgproc/imgproc.hpp
 
+../include/ObjectExtract.h
+opencv2/core/core.hpp
+-
+opencv2/highgui/highgui.hpp
+-
+opencv2/imgproc/imgproc.hpp
+-
+
 ../include/PointCloudGenerator.h
 Utils.h
 ../include/Utils.h
@@ -133,6 +141,12 @@ condition_variable
 -
 mutex
 -
+iostream
+-
+string
+-
+chrono
+-
 
 ../include/cutil_math.h
 cuda_runtime.h
@@ -209,6 +223,8 @@ device_launch_parameters.h
 ../include/device_launch_parameters.h
 vhashing.h
 ../include/vhashing.h
+Utils.h
+../include/Utils.h
 string
 -
 iostream
@@ -255,6 +271,8 @@ thrust/sort.h
 -
 thrust/unique.h
 -
+Utils.h
+../include/Utils.h
 
 /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/main.cpp
 iostream
@@ -301,6 +319,10 @@ preview.h
 /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/preview.h
 SlamBase.h
 -
+Utils.h
+-
+ObjectExtract.h
+/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/ObjectExtract.h
 
 /home/gengshuai/Downloads/OpenNI2.3.0.61-Bate/2.3.0.61/Demo/UVCDemo/Linux/OrbbecStreamSample-Linux/OrbbecStreamSample-Linux/include/Android-Arm/OniPlatformAndroid-Arm.h
 ../Linux-x86/OniPlatformLinux-x86.h

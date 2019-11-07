@@ -76,12 +76,12 @@ preinstall:
 CMakeFiles/load_frames.dir/all: CMakeFiles/TSDF.dir/all
 	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/depend
 	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles" --progress-num=3,4,5,6,7,8,9 "Built target load_frames"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles" --progress-num=3,4,5,6,7,8,9,10 "Built target load_frames"
 .PHONY : CMakeFiles/load_frames.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/load_frames.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles" 9
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles" 10
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/load_frames.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles" 0
 .PHONY : CMakeFiles/load_frames.dir/rule

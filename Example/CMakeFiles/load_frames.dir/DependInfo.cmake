@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/PointCloudGenerator.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o"
   "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/RgbPart.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles/load_frames.dir/src/RgbPart.cpp.o"
   "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/SaveFrame.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o"
+  "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/Utils.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles/load_frames.dir/src/Utils.cpp.o"
   "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/main.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles/load_frames.dir/src/main.cpp.o"
   "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/safecall.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/Example/CMakeFiles/load_frames.dir/src/safecall.cpp.o"
   )

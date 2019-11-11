@@ -1,4 +1,4 @@
-/home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF
+/home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face"
 -- Boost version: 1.58.0
 -- Found the following Boost libraries:
 --   system
@@ -12,7 +12,7 @@
 --   regex
 -- Checking for module 'libopenni2'
 --   No package 'libopenni2' found
--- Could NOT find OpenNI2 (missing: OPENNI2_LIBRARY OPENNI2_INCLUDE_DIRS) 
+-- Could NOT find OpenNI2 (missing: OPENNI2_INCLUDE_DIRS) 
 ** WARNING ** io features related to openni2 will be disabled
 -- Could NOT find ensenso (missing: ENSENSO_LIBRARY ENSENSO_INCLUDE_DIR) 
 ** WARNING ** io features related to ensenso will be disabled
@@ -43,7 +43,7 @@ but not all the files it references.
 ** WARNING ** io features related to libusb-1.0 will be disabled
 -- Checking for module 'libopenni2'
 --   No package 'libopenni2' found
--- Could NOT find OpenNI2 (missing: OPENNI2_LIBRARY OPENNI2_INCLUDE_DIRS) 
+-- Could NOT find OpenNI2 (missing: OPENNI2_INCLUDE_DIRS) 
 ** WARNING ** visualization features related to openni2 will be disabled
 -- Could NOT find ensenso (missing: ENSENSO_LIBRARY ENSENSO_INCLUDE_DIR) 
 ** WARNING ** visualization features related to ensenso will be disabled
@@ -76,4 +76,4 @@ but not all the files it references.
 -- looking for PCL_PEOPLE
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug
+-- Build files have been written to: /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug

@@ -98,7 +98,7 @@ struct BlockAllocBase {
 		int which = (*link_head)++;
 #endif
 
-		offsets[which + 1] = p;//这个地方没懂.
+		offsets[which + 1] = p;//可分配的位置.
 	}
 
 };

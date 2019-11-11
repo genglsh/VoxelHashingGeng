@@ -35,30 +35,43 @@ Camera.bf: 11.5 #19.174 #30.93
 Camera.RGB: 0
 
 # Close/Far threshold. Baseline times.
-ThDepth: 40.0
+ThDepth: 20.0
 
-MaxDepth: 10.0
+MaxDepth: 1100.0
 
 # Deptmap values factor
 DepthMapFactor: 1000
 
 # TSDF values
 
-Voxel.Origin.x: 0.5 #right
+#Voxel.Origin.x: 0.5 #right
+#
+#Voxel.Origin.y: 0.0 #forward
+#
+#Voxel.Origin.z: -0.5 #up
 
-Voxel.Origin.y: 0.0 #forward
- 
-Voxel.Origin.z: -0.5 #up
+Voxel.Origin.x: 0 #right
 
-Voxel.Size: 0.036
+Voxel.Origin.y: 0 #forward
 
-Voxel.TruncMargin: 0.18
+Voxel.Origin.z: 0 #up
+# initial data
+#Voxel.Size: 0.036
+#Voxel.size: 6
+Voxel.Size: 8
+# initial TruncMargin
+# Voxel.TruncMargin: 0.18
+
+#设置会不会存在问题,此处维度并不与实际维度相同。
+Voxel.TruncMargin: 40
 
 Voxel.Dim.x: 200
 
 Voxel.Dim.y: 200
 
 Voxel.Dim.z: 200
+
+
 
 
 #--------------------------------------------------------------------------------------------

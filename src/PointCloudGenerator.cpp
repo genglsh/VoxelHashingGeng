@@ -49,6 +49,12 @@ namespace ark {
         mbRequestStop = false;
     }
 
+    void PointCloudGenerator::SetMaxDepth(int depthV) {
+//        mpGpuTsdfGenerator->setMaxDepth(depthV);
+        mpGpuTsdfGenerator->setMaxDepth(depthV);
+
+    }
+
     void PointCloudGenerator::Start() {
         mptRun = new std::thread(&PointCloudGenerator::Run, this);
     }
@@ -92,15 +98,18 @@ namespace ark {
         }
     }
 
-    void PointCloudGenerator::Reproject(const cv::Mat &imRGB, const cv::Mat &imD, const cv::Mat &Twc) {
+    void PointCloudGenerator::Reproject(const cv::Mat &imRGB, const cv::Mat &imD, const cv::Mat &Tcw) {
+
         float cam2base[16];
+
         for(int r=0;r<3;++r)
             for(int c=0;c<4;++c)
-                cam2base[r*4+c] = Twc.at<float>(r,c);
+                cam2base[r*4+c] = Tcw.at<double>(r,c);
         cam2base[12] = 0.0f;
         cam2base[13] = 0.0f;
         cam2base[14] = 0.0f;
         cam2base[15] = 1.0f;
+
         // std::cout << "TSDF processed" << std::endl;
         mpGpuTsdfGenerator->processFrame((float *)imD.datastart, (unsigned char *)imRGB.datastart, cam2base);
         //std::cout << "TSDF processed" << std::endl;
@@ -117,8 +126,10 @@ namespace ark {
     }
 
     void PointCloudGenerator::PushFrame(const RGBDFrame &frame) {
-        cv::Mat Twc = frame.mTcw.inv();
-        Reproject(frame.imRGB, frame.imDepth, Twc);
+
+        // fix bug c2w 和 w2c 搞混
+        cv::Mat Tcw = frame.mTcw;
+        Reproject(frame.imRGB, frame.imDepth, Tcw);
     }
 
     void PointCloudGenerator::OnKeyFrameAvailable(const RGBDFrame &keyFrame) {

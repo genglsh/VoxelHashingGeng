@@ -1,6 +1,13 @@
 #include <iostream>
 #include <algorithm>
 #include <thread>
+#include <queue>
+#include <chrono>
+#include <time.h>
+#include <cstdlib>
+#include <condition_variable>
+#include <mutex>
+#include <vector>
 
 
 #include <stdio.h>
@@ -17,34 +24,518 @@
 //#include <ORBSLAMSystem.h>
 //#include <BridgeRSD435.h>
 #include <PointCloudGenerator.h>
+#include <opencv2/core/eigen.hpp>
+#include <ICP_part.h>
+#include "preview.h"
+#include <SlamBase.h>
+#include <Utils.h>
+#include "ObjectExtract.h"
 
-#include <time.h>
+using namespace std;
+using namespace std::chrono;
 
 //OpenGL global variable
 float window_width = 800;
 float window_height = 800;
-float xRot = 15.0f;
+float xRot = 0.0f;
 float yRot = 0.0f;
 float xTrans = 0.0;
 float yTrans = 0;
-float zTrans = -35.0;
+float zTrans = -20.0;
 int ox;
 int oy;
 int buttonState;
 float xRotLength = 0.0f;
-float yRotLength = 0.0f;
-bool wireframe = false;
+float yRotLength = 180.0f;
+bool wireframe = true;
 bool stop = false;
+bool getROI = false;
+cv::Rect selectROI;
+
+cv::Mat showImage;
+bool selectFlag = false;
 
 ark::PointCloudGenerator *pointCloudGenerator;
-//ark::ORBSLAMSystem *slam;
-//BridgeRSD435 *bridgeRSD435;
 ark::SaveFrame *saveFrame;
 std::thread *app;
+ark::ICPPart *ICP;
+ark::orbAlignment *ORBAlignment;
+ark::RGBDFrame FirstFrame;
 
-using namespace std;
 
 
+static const int kItemsToProduce  = 30;   // How many items we plan to produce.
+
+struct ItemRepository {
+    queue<ark::RGBDFrame> item_buffer; // 产品缓冲区, 配合 read_position 和 write_position 模型环形队列.
+    std::mutex mtx; // 互斥量,保护产品缓冲区
+    std::condition_variable repo_not_full; // 条件变量, 指示产品缓冲区不为满.
+    std::condition_variable repo_not_empty; // 条件变量, 指示产品缓冲区不为空.
+
+    std::condition_variable repoRT_not_empty; //条件变量，用来保存RT.
+    queue<cv::Mat> RTQueue;
+    std::mutex mtxRT;
+    queue<ark::RGBDFrame> RGB_RT_buffer;//第二生产者产品缓冲区
+
+} gItemRepository; // 产品库全局变量, 生产者和消费者操作该变量
+
+typedef struct ItemRepository ItemRepository;
+
+//ROI 可以利用cv::rectangel 的类来代替。
+struct ROI {
+    float xLU, yLU;
+    float xRD, yRD;
+
+    ROI(){
+        xLU = yLU = xRD = yRD = 0.0;
+    }
+
+};
+
+
+void onMouse(int event, int x, int y, int flags, void*param) {
+
+//    printf("进入线程\n");
+    cv::Point p1, p2;
+    if (event == EVENT_LBUTTONDOWN)
+    {
+        selectROI.x = x;
+        selectROI.y = y;
+        selectFlag = true;
+    }
+    else if (selectFlag && event == EVENT_MOUSEMOVE)
+    {
+//        cv::Mat img;
+//        img.copyTo(FirstFrame.imRGB);
+        p1 = Point(selectROI.x, selectROI.y);
+        p2 = Point(x, y);
+        selectROI.width = (x- p1.x);
+        selectROI.height = (y - p1.y);
+        rectangle(FirstFrame.imRGB, p1, p2, Scalar(0, 255, 0), 2);
+        cv::imshow("test", FirstFrame.imRGB);
+    }
+    else if (selectFlag && event == EVENT_LBUTTONUP)
+    {
+        selectFlag = false;
+    }
+}
+
+
+void GetROI(const ark::RGBDFrame& firstFrame) {
+    string windowName = "test";
+
+    cv::namedWindow(windowName, CV_WINDOW_AUTOSIZE);
+
+
+    cv::imshow(windowName, firstFrame.imRGB);
+    cv::setMouseCallback(windowName, onMouse, 0);
+
+//    while (1) {
+////        cout << p1.x << " " << p1.y << " " << p2.x << " " << p2.y << endl;
+//        int key = cv::waitKey(10);
+//
+//        if(key == 27)
+//            break;
+//    }
+    cv::waitKey(0);
+    cv::Mat ROIDepth = firstFrame.imDepth(selectROI).clone();
+
+    cv::Rect foreground = ICP->CVTimage2PointForeground(ROIDepth, 4, 4);
+
+    printf("%d %d %d %d\n", foreground.x, foreground.y, foreground.width, foreground.height);
+
+    cv::imwrite("../scene0220_02/depth/roi.png", ROIDepth);
+
+    cv::destroyWindow(windowName);
+//    return;
+
+
+}
+
+void FusionPart(ark::RGBDFrame& frame, int cnt){
+
+    system_clock::time_point startTime = system_clock::now();
+/*
+ * 利用ICP方法来做对齐。
+    bool KeyFrame = ICP->CVTimage2Point(cnt, frame.imDepth);
+    if (!KeyFrame) {
+        return;
+    }
+
+    Eigen::Matrix4f show = ICP->getRT();
+    cout << ICP->frameID << endl;
+    cout << ICP->currentFrame->size()<<endl;
+    cout << ICP->lastFrame->size() << endl;
+    cout << "current RT is \n" << show << endl;
+//    Eigen::Matrix4f showInv = Eigen::Matrix4f::Identity();
+    Eigen::Matrix4f showInv = show.inverse();
+    cv::eigen2cv(showInv, frame.mTcw);
+    cout << frame.mTcw << endl;
+    // 这个地方还需要注意视频流提供的彩色图是RGB还是BGR， 需不需要进行二次转换。
+    cout << "frame data" << endl;
+*/
+
+//    利用orb方法来做对齐。
+
+    bool setFlag = ORBAlignment->setCurrentFrame(frame, cnt);
+    system_clock::time_point setFrameTime = system_clock::now();
+    ark::printTime(startTime, setFrameTime, "set 时间为");
+//    auto setTime = duration_cast<std::chrono::microseconds>(setFrameTime - startTime).count();
+//    cout << "set时间为　" << (float)setTime * microseconds::period::num / microseconds::period::den << "s"<< endl;
+
+//    ark::countTime(startTime, setFrameTime);
+    if(cnt){
+        bool alignFlag = ORBAlignment->align();
+//        cout << "当前帧为"<< cnt << endl;
+//        cout<< ORBAlignment->RT << endl;
+    }
+    auto alignTime = system_clock::now();
+    auto alignT = duration_cast<std::chrono::microseconds>(alignTime - setFrameTime).count();
+    cout << "align时间为　" << (float)alignT * microseconds::period::num / microseconds::period::den << "s"<< endl;
+
+//    ark::countTime(setFrameTime, alignTime);
+
+//    cout << "depth 阈值 is " << ark::globalThresholdPM(frame.imDepth)<< endl;
+//    system_clock::time_point fbTime = system_clock::now();
+    auto baTime = system_clock::now();
+    pointCloudGenerator->SetMaxDepth(ark::globalThresholdPM(frame.imDepth));
+    auto bafTime = system_clock::now();
+    ark::printTime(baTime, bafTime, "前后景分割处理时间");
+//    system_clock::time_point fbendTime = system_clock::now();
+//    auto durationbf = duration_cast<std::chrono::microseconds>(fbendTime - fbTime).count();
+//    cout << "前后景分割处理时间为　" << (float)durationbf * microseconds::period::num / microseconds::period::den << "s"<< endl;
+
+    frame.mTcw = (ORBAlignment->RT);
+    cout<< frame.mTcw;
+
+//    cv::imshow("rgb",frame.imRGB);
+//    cv::waitKey(0);
+//    cv::imshow("depth", frame.imDepth);
+//    cv::waitKey(0);
+//    cout << frame.mTcw<<endl;
+
+    cout<< frame.imRGB.size().width << " " << frame.imRGB.size().height << " " << frame.imRGB.channels()<<endl;
+
+
+    auto cvtColorT = system_clock::now();
+
+    cv::cvtColor(frame.imRGB, frame.imRGB, cv::COLOR_BGR2RGB);
+
+    auto cvtColorA = system_clock::now();
+    ark::printTime(cvtColorT, cvtColorA, "颜色转换时间");
+//    cv::Mat Twc = frame.mTcw.inv();
+//    pointCloudGenerator->PushFrame(frame); //OnKeyFrameAvailable(frame);
+
+    pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, frame.mTcw);
+
+    system_clock::time_point endTime = system_clock::now();
+    auto duration = duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+    cout << "每帧处理时间为　" << (float)duration * microseconds::period::num / microseconds::period::den << "s"<< endl;
+
+}
+
+void FusionFunction(ark::RGBDFrame& frame, const cv::Mat& RT) {
+
+    cout << "RT IS \n" << RT;
+    pointCloudGenerator->SetMaxDepth(ark::globalThresholdPM(frame.imDepth));
+    frame.mTcw = RT;
+    cv::cvtColor(frame.imRGB, frame.imRGB, cv::COLOR_BGR2RGB);
+    pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, frame.mTcw);
+
+}
+
+
+void ProduceAlignPart(ItemRepository* it, const ark::RGBDFrame& data, const int& cnt){
+
+    std::unique_lock<std::mutex> lock(it->mtxRT);
+
+    bool setFlag = ORBAlignment->setCurrentFrame(data, cnt);
+    if(cnt){
+        bool alignFlag = ORBAlignment->align();
+    }
+
+//    cv::Mat temRT = ORBAlignment->RT;
+    it->RTQueue.push(ORBAlignment->RT);
+    it->RGB_RT_buffer.push(data);
+    it->repoRT_not_empty.notify_all();
+    lock.unlock();
+}
+
+
+void ProduceItem(ItemRepository *ir, const ark::RGBDFrame& item) {
+    std::unique_lock<std::mutex> lock(ir->mtx);
+    while(ir->item_buffer.size() == kItemsToProduce) { // item buffer is full, just wait here.
+        std::cout << "the number of \n";
+        (ir->repo_not_full).wait(lock); // 生产者等待"产品库缓冲区不为满"这一条件发生.
+    }
+
+    ir->item_buffer.push(item);
+    (ir->repo_not_empty).notify_all(); // 通知消费者产品库不为空.
+    lock.unlock(); // 解锁.代码结束后自动解锁
+}
+
+ark::RGBDFrame ConsumeItem(ItemRepository *ir) {
+
+    std::unique_lock<std::mutex> lock(ir->mtx);
+    // item buffer is empty, just wait here.
+    while(ir->item_buffer.empty()) {
+        std::cout << "当前数据列表为空\n";
+        (ir->repo_not_empty).wait(lock); // 消费者等待"产品库缓冲区不为空"这一条件发生.
+    }
+
+    ark::RGBDFrame data((ir->item_buffer).front()); // 读取某一产品
+    (ir->item_buffer).pop();
+    (ir->repo_not_full).notify_all(); // 通知消费者产品库不为满.
+    lock.unlock(); // 解锁.
+
+    return std::move(data); // 返回产品.
+}
+
+std::pair<cv::Mat, ark::RGBDFrame> ConsumeRTItem(ItemRepository *ir) {
+    std::unique_lock<std::mutex> lock(ir->mtxRT);
+
+    while(ir->RTQueue.empty()) {
+        std::cout << "当前RT数据为空\n";
+        (ir->repoRT_not_empty).wait(lock);
+    }
+    cv::Mat temMat = ir->RTQueue.front();
+    ir->RTQueue.pop();
+
+    ark::RGBDFrame temRGB = ir->RGB_RT_buffer.front();
+    ir->RGB_RT_buffer.pop();
+
+//    lock.unlock();
+    return std::make_pair(std::move(temMat), std::move(temRGB));
+}
+
+/*
+int ProducerTask(){
+
+    int camNum = 1;
+
+    Status rc;
+    rc = openni::OpenNI::initialize();
+    if(rc != STATUS_OK) {
+        printf("init failed:%s\n", OpenNI::getExtendedError());
+        return 1;
+    }
+
+    rc = device.open(ANY_DEVICE);
+    if(rc != STATUS_OK) {
+        printf("Couldn't open device\n%s\n", OpenNI::getExtendedError());
+        return 2;
+    }
+
+    if (device.getSensorInfo(SENSOR_DEPTH) != NULL)
+    {
+        rc = depth.create(device, SENSOR_DEPTH);
+        if (rc != STATUS_OK)
+        {
+            printf("Couldn't create depth stream\n%s\n", OpenNI::getExtendedError());
+            return 3;
+        }
+    }
+
+    VideoMode videoMode = depth.getVideoMode();
+    videoMode.setPixelFormat(PIXEL_FORMAT_DEPTH_1_MM);
+    videoMode.setResolution(640, 480);
+    videoMode.setFps(30);
+    depth.setVideoMode(videoMode);
+
+    rc = depth.start();
+    if (rc != STATUS_OK)
+    {
+        printf("Couldn't start the depth stream\n%s\n", OpenNI::getExtendedError());
+        return 4;
+    }
+    rc = device.setImageRegistrationMode(openni::IMAGE_REGISTRATION_DEPTH_TO_COLOR);
+    if(rc != STATUS_OK) {
+        printf("Couldn't Set 对齐\n%s\n", OpenNI::getExtendedError());
+        return 2;
+    }
+
+    const SensorInfo* colorSensorInfo = device.getSensorInfo(openni::SENSOR_COLOR);
+
+    if (colorSensorInfo != NULL){
+        isUvcCamera = false;
+        rc = color.create(device, SENSOR_COLOR);
+        if (rc != STATUS_OK) {
+            printf("Couldn't create ir stream\n%s\n", OpenNI::getExtendedError());
+            return 3;
+        }
+
+        rc = color.start();
+        if (rc != STATUS_OK) {
+            printf("Couldn't start the ir stream\n%s\n", OpenNI::getExtendedError());
+            return 4;
+        }
+    }
+
+    if (isUvcCamera && openAllStream) {
+
+        if (device.getSensorInfo(SENSOR_IR) != NULL)
+        {
+            rc = ir.create(device, SENSOR_IR);
+            if (rc != STATUS_OK)
+            {
+                printf("Couldn't create ir stream\n%s\n", OpenNI::getExtendedError());
+                return 3;
+            }
+        }
+
+        rc = ir.start();
+        if (rc != STATUS_OK)
+        {
+            printf("Couldn't start the ir stream\n%s\n", OpenNI::getExtendedError());
+            return 4;
+        }
+
+    }
+
+    if (isUvcCamera) {
+        capture.set(6, CV_FOURCC('M', 'J', 'P', 'G'));
+        if (!capture.open(1))
+        {
+            capture.open(0);
+        }
+
+        if (!capture.isOpened())
+        {
+            return -1;
+        }
+    }
+
+
+    const char* title = "UVC Color";
+    cvNamedWindow(title, 1);
+    int cnt = 0;
+    char fpsStr[64] = "30.0";
+//  最大上限问题在p
+    int frameNum = 1000;
+    int realNum = 0;
+    while(cnt < frameNum){
+        Mat previewImg(480, 640, CV_8UC3);
+        waitForFrame(previewImg);
+        IplImage image = previewImg;
+        if(cnt > 10 && cnt % 5 == 0){
+            cv::Mat floatMat;
+            depthRaw.convertTo(floatMat, CV_32FC1);
+            ark::RGBDFrame tem(colorImg, floatMat, realNum++);
+            ProduceItem(&gItemRepository, tem);
+        }
+
+        cnt++;
+        cvShowImage(title, &image);
+        int key = cvWaitKey(10);
+        if(key >= 0) {
+            break;
+        }
+    }
+    if (isUvcCamera) {
+        capture.release();
+    }
+    device.close();
+    openni::OpenNI::shutdown();
+
+    return 0;
+}
+*/
+
+
+
+// 生产者任务
+void ProducerTask() {
+    for (int i = 0; i < kItemsToProduce; ++i) {
+        ark::RGBDFrame frame = saveFrame->frameLoad(i);
+        if (i == 0) {
+
+            FirstFrame = frame;
+        }
+        ProduceItem(&gItemRepository, frame); // 循环生产 kItemsToProduce 个产品.
+    }
+}
+
+
+void ConsumerTask() // 第一消费者任务，用来计算对齐矩阵
+{
+    static int cntFrame = 0;
+    while(1) {
+        ark::RGBDFrame item = ConsumeItem(&gItemRepository); // 消费一个产品.
+        printf("current frame id is %d\n", item.frameId);
+
+        //第一消费者 第二生产者。
+//        ProduceAlignPart(&gItemRepository, item, item.frameId);
+        FusionPart(item, cntFrame);
+
+
+
+        if (++cntFrame == kItemsToProduce) break; // 如果产品消费个数为 kItemsToProduce, 则退出.
+    }
+}
+
+void SecondConsumerTask(){ // 第二消费者任务， 用来计算融合
+
+    int cntF = 0;
+    while(1) {
+        auto data = ConsumeRTItem(&gItemRepository);
+        FusionFunction(data.second, data.first);
+        if (++cntF == kItemsToProduce) break;
+    }
+
+}
+
+
+
+void application_thread() {
+
+    auto a = system_clock::now();
+    std::thread producer(ProducerTask); // 创建生产者线程.
+    std::thread consumerAlign(ConsumerTask); // 创建消费之线程.
+//    std::thread consumerFusion(SecondConsumerTask);
+    producer.join();
+    consumerAlign.join();
+//    consumerFusion.join();
+    auto b = system_clock::now();
+    ark::printTime(a, b, "总时间");
+    //需要研究判断此处添加join是否合理。
+//    int tframe = 0;
+//    using namespace std::chrono;
+//    system_clock::time_point startTime = system_clock::now();
+    // clock_t t1 = clock();
+
+//    while (tframe < 10) {
+//        printf("The tframe is %d\n",tframe);
+//        //当前按照文件的读取方法
+//        ark::RGBDFrame frame = saveFrame->frameLoad(tframe);
+//
+//        ICP->CVTimage2Point(tframe, frame.imDepth);
+//
+//        Eigen::Matrix4f show = ICP->getRT();
+//        cout << ICP->frameID << endl;
+//        cout << ICP->currentFrame->size()<<endl;
+//        cout << ICP->lastFrame->size() << endl;
+//        cout << "last RT is \n" << ICP->lastMat << endl;
+//        cout << "current RT is \n" << show << endl;
+//        tframe += 1;
+//        Eigen::Matrix4f showInv = show.inverse();
+//        cv::eigen2cv(showInv, frame.mTcw);
+//        cout << frame.mTcw << endl;
+//
+//
+//        if(frame.frameId == -1){
+//            empty ++;
+//            continue;
+//        }
+//
+//        cv::cvtColor(frame.imRGB, frame.imRGB, cv::COLOR_BGR2RGB);
+//        cv::Mat Twc = frame.mTcw.inv();
+//        // pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, Twc);
+//        pointCloudGenerator->PushFrame(frame); //OnKeyFrameAvailable(frame);
+//    }
+//    system_clock::time_point endTime = system_clock::now();
+//    auto duration = duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+//    cout << "总的时间消耗为　" << (float)duration * microseconds::period::num / microseconds::period::den << "s"<< endl;
+}
 
 void draw_box(float ox, float oy, float oz, float width, float height, float length) {
     glLineWidth(1.0f);
@@ -116,14 +607,16 @@ void init() {
     glViewport(0, 0, window_width, window_height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-
-    gluLookAt(0,20,0,0,0,0,0,1,0);
-    gluPerspective(45.0, (float) window_width / window_height, 10.0f, 100.0);
+//    glRotatef(-90,0.0,1.0,0.0);
+//    gluLookAt(0,20,0,0,0,0,0,1,0);
+    gluLookAt(-60,60,80,0,0,0,0,-1,0);
+    gluPerspective(90.0, (float) window_width / window_height, 10.0f, 100.0);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(0.0f, 0.0f, -3.0f);
-    glRotatef(90,1.0,0.0,0.0);
+    //设置物体视角没用？ 当前物体按照y轴旋转90°可见？
+    glTranslatef(0.0f, 0.0f, 0.0f);
+    glRotatef(90,0.0,1.0,0.0);
 
 }
 
@@ -159,7 +652,8 @@ void display_func() {
 }
 
 void idle_func() {
-    glutPostRedisplay();
+    //空闲时间不做任何处理。
+//    glutPostRedisplay();
 }
 
 void reshape_func(GLint width, GLint height) {
@@ -176,13 +670,13 @@ void reshape_func(GLint width, GLint height) {
     glLoadIdentity();
     // glRotatef(90,0.0,1.0,0.0);
 
-    glTranslatef(0.0f, 0.0f, -3.0f);
+    glTranslatef(0.0f, 0.0f, -0.0f);
 }
 
 int countFiles(string filename){
     DIR *dp;
     int i = 0;
-    struct dirent *ep;     
+    struct dirent *ep;
     dp = opendir (filename.c_str());
 
     if (dp != NULL) {
@@ -194,91 +688,19 @@ int countFiles(string filename){
     else {
         perror ("Couldn't open the directory");
     }
-    
+
     i -= 2;
     printf("There's %d files in the current directory.\n", i);
     return i;
 }
 
 
-// void application_thread() {
-//     pointCloudGenerator->Start();
-
-//     // Main loop, loads key frames
-//     int tframe = 0;
-//     int empty = 0;
-//     while (true && !stopSaveFrame) {
-
-//         if(empty > 40)
-//             break;
-
-//         ark::RGBDFrame frame = saveFrame->frameLoad(tframe);
-//         tframe++;
-
-//         if(frame.frameId == -1){
-//             empty++;
-//             continue;
-//         }
-
-//         cv::cvtColor(frame.imRGB, frame.imRGB, cv::COLOR_BGR2RGB);
-
-//         cv::Mat Twc = frame.mTcw.inv();
-
-//         pointCloudGenerator->PushFrame(frame); 
-
-//         empty = 0;
-//     }
-//     pointCloudGenerator->RequestStop();
-//     pointCloudGenerator->SavePly();
-// }
-
-
-void application_thread() {
-//    slam->Start();
-/*
-!!!!!!!!!!!!!下面一句话注释掉了，不知道有啥用，目前未发现影响
- */
-//    pointCloudGenerator->Start();
-//    bridgeRSD435->Start();
-
-    // Main loop
-    int tframe = 0;
-    int empty = 0;
-    // 可以用chrono::system::time()代替 更好的计算时间
-    clock_t t1 = clock();
-
-    while (tframe < 10) {
-        printf("The tframe is %d\n",tframe);
-        // empty 目前没使用过
-        if(empty == 5)
-            break;
-
-        ark::RGBDFrame frame = saveFrame->frameLoad(tframe);
-        tframe += 1;
-        
-
-        if(frame.frameId == -1){
-            empty ++;
-            continue;
-        }
-    
-        cv::cvtColor(frame.imRGB, frame.imRGB, cv::COLOR_BGR2RGB);
-
-        cv::Mat Twc = frame.mTcw.inv();
-
-            // pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, Twc);
-
-        pointCloudGenerator->PushFrame(frame); //OnKeyFrameAvailable(frame);
-    }
-
-    cout <<"frames: 101\t" << "time:"<< (clock() - t1) * 1.0 / CLOCKS_PER_SEC<<"s"<< endl;
-}
-
 void keyboard_func(unsigned char key, int x, int y) {
     if (key == ' ') {
         if (!stop) {
             app = new thread(application_thread);
             stop = !stop;
+//            app->join();
         } else {
 //            slam->RequestStop();
             pointCloudGenerator->RequestStop();
@@ -320,6 +742,24 @@ void keyboard_func(unsigned char key, int x, int y) {
 
     if (key == 'v')
         wireframe = !wireframe;
+
+    if(key == 'g') {
+        // 按下g键后返回
+        if (!getROI) {
+
+            thread* test = new thread(GetROI, std::ref(FirstFrame));
+            test->join();
+            printf("thread Over!\n");
+            cout << selectROI.x << " " << selectROI.y << " " <<
+            selectROI.width << " " << selectROI.height << endl;
+
+            getROI = !getROI;
+        }
+
+
+//        test->join();
+
+    }
 
 
     glutPostRedisplay();
@@ -375,6 +815,10 @@ int main(int argc, char **argv) {
     std::cout << "here" << std::endl;
     saveFrame = new ark::SaveFrame(argv[1]);
     std::cout << "here" << std::endl;
+    ICP = new ark::ICPPart();
+    ORBAlignment = new ark::orbAlignment();
+    //初始化ICP部分
+//    ICP = new ark::ICPPart();
 
 //    slam->AddKeyFrameAvailableHandler([pointCloudGenerator](const ark::RGBDFrame &keyFrame) {
 //        return pointCloudGenerator->OnKeyFrameAvailable(keyFrame);
@@ -396,6 +840,8 @@ int main(int argc, char **argv) {
 //    delete bridgeRSD435;
     delete saveFrame;
     delete app;
+    delete ICP;
+    delete ORBAlignment;
 
     return EXIT_SUCCESS;
 }

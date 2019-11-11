@@ -8,6 +8,7 @@
 #include <memory>
 #include <thrust/sort.h>
 #include <thrust/unique.h>
+#include "Utils.h"
 
 namespace vhashing {
 
@@ -19,7 +20,7 @@ template <typename Key>
 struct HashEntryBase {
   Key			      key;//表征当前的block位置(世界当中的block)
   int32_t		    offset;//方便查找 与该hash元素同值的后插入元素在该表的位置
-  int32_t    	block_index;//hashtable对应的储存voxel的序列 这个应该类似于线性排列 类似vector
+  int32_t    	block_index;//hashtable对应的储存voxelblock的位置 其排序为类似数组排布。类似于线性排列 类似vector
 };
 
 
@@ -66,7 +67,7 @@ struct HashTableBase {
     entries_per_bucket(entries_per_bucket),
     num_entries(num_buckets * entries_per_bucket),
 
-    alloc(num_blocks),
+    alloc(num_blocks), //调用初始化函数
 
     emptyKey(emptyKey),
     hasher(hasher),
@@ -80,6 +81,7 @@ struct HashTableBase {
   	void clearheap(){
 		if(heap_counter == nullptr)
 			// __syncthreads();
+		    //CUDA_ARCH 宏定义在何处
 		#ifdef __CUDA_ARCH__
 			int add = atomicExch(&heap_counter[0], 0);
 			// __syncthreads();
@@ -102,11 +104,11 @@ struct HashTableBase {
 	__device__ __host__
 	void error(int errcode, const char *errstring) {
 #ifndef __CUDA_ARCH__
-		throw "Error here!";
+      throw "Error here!";
 #else
-		printf("Error at %s\n", errstring);
-    *((int*)0) = 0xdeadbeef;
-    assert(false);
+      printf("Error at %s\n", errstring);
+      *((int*)0) = 0xdeadbeef;
+      assert(false);
 #endif
 	}
 
@@ -232,7 +234,7 @@ struct HashTableBase {
 			return *rv;
 		}
 		else {
-      assert(false);
+            assert(false);
 			return *((Value*)0);
 		}
 	}
@@ -317,7 +319,7 @@ struct HashTableBase {
 			HashEntry &entr = hash_table[offset];
 
 			if (isequal(entr.key, k)) {
-        alloc[entr.block_index].~Value();
+			    alloc[entr.block_index].~Value();
 				alloc.free(entr.block_index);
 
 				if (i == entries_per_bucket - 1 && entr.offset) {
@@ -433,6 +435,7 @@ struct HashTableBase {
 			int nextBucket = ((offset + hash_table[offset].offset) % num_entries) / entries_per_bucket;
 			if (!lockset.TryLock(bucket_locks[nextBucket]))
 				return 0;
+			//对当前的bucket进行解锁操作，当前bucket当中未找到合适的位置，解除对当前bucket的锁定，跳到下一个位置。
 			lockset.Yield(bucket_locks[offset / entries_per_bucket]);//解锁操作
 
 			offset = (offset + hash_table[offset].offset) % num_entries;
@@ -440,7 +443,7 @@ struct HashTableBase {
 
 		// found the list tail
 		int32_t last_bucket = (int32_t) -1;
-		for (short rel_offset = 1;rel_offset < 0x7FFF;rel_offset++) {
+		for (short rel_offset = 1; rel_offset < 0x7FFF; rel_offset++) {
 			int32_t real_offset = (offset + rel_offset) % num_entries;
 
 			int32_t next_bucket = real_offset / entries_per_bucket;
@@ -661,17 +664,25 @@ class HashTable : public HashTableBase<Key,Value,Hash,Equal> {
     this->key_heap = raw_pointer_cast(&key_heap_shared[0]);
 
     /* allocator -- offsets */
+
     thrust::sequence(
                   offsets_shared.begin(),
                   offsets_shared.end(),
                   1);
+
+
     this->alloc.num_elems = num_blocks;
+
     this->alloc.offsets = raw_pointer_cast(&offsets_shared[0]);
     this->alloc.mutex = (int*)raw_pointer_cast(&offsets_shared[num_blocks]);
+    auto a = system_clock::now();
     offsets_shared[num_blocks] = 0;
 
     this->alloc.link_head = (int*)raw_pointer_cast(&offsets_shared[num_blocks + 1]);
     offsets_shared[num_blocks + 1] = num_blocks - 1;
+
+    auto b = system_clock::now();
+    ark::printTime(a,b,"sequene Time");
   }
 
   /* copy constructor -- need to update our pointers,
@@ -686,6 +697,7 @@ class HashTable : public HashTableBase<Key,Value,Hash,Equal> {
     key_heap_shared(other.key_heap_shared),
     heap_counter_shared(other.heap_counter)
   {
+
     using thrust::raw_pointer_cast;
 
     this->hash_table = raw_pointer_cast(&hash_table_shared[0]);

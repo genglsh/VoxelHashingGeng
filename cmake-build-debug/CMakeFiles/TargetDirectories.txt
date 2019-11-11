@@ -1,4 +1,4 @@
-/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/load_frames.dir
-/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/TSDF.dir
+/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles/load_frames.dir
+/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles/TSDF.dir

@@ -38,7 +38,6 @@ namespace ark {
 
     SaveFrame::SaveFrame(std::string folderPath) {
 
-
         struct stat info;
 
         createFolder(info, folderPath);
@@ -159,6 +158,7 @@ namespace ark {
 
 
         cv::Mat rgbBig = cv::imread(rgbPath + std::to_string(frame.frameId) + ".png",cv::IMREAD_COLOR);
+//        std::cout << rgbBig.size().width << " " << rgbBig.size().height << " " << rgbBig.channels() << std::endl;
 
         if(rgbBig.rows == 0){
             frame.frameId = -1;
@@ -169,7 +169,12 @@ namespace ark {
         std::cout << frame.imRGB.rows << " rgb "<<frame.imRGB.cols <<std::endl;
         std::cout<<depthPath + std::to_string(frame.frameId) + ".png"<<std::endl;
         cv::Mat depth255 = cv::imread(depthPath + std::to_string(frame.frameId) + ".png",-1);
-        std::cout << depth255.rows << " depth "<<depth255.cols <<std::endl;
+        //当前参数设置情况下，未发现双边滤波有什么效果。
+//        cv::Mat depth255tem;
+//        depth255.convertTo(depth255tem, CV_32FC1);
+//        cv::Mat bilaterRes;
+//        cv::bilateralFilter(depth255tem, bilaterRes, 5, 50, 25);
+//        std::cout << depth255.rows << " depth "<<depth255.cols <<std::endl;
         //std::cout << "type: " << depth255.type() << std::endl ;
         //if(frame.frameId == 1)
 //        for(int x = 0;x <10;x++)
@@ -178,17 +183,18 @@ namespace ark {
         
 
         depth255.convertTo(frame.imDepth, CV_32FC1);
-        // frame.imDepth *= 0.001;
-        // frame.imDepth *= 0.04;
-        frame.imDepth *= 0.056;
-//         std::cout << "depth255 = "<< std::endl << " "  << frame.imDepth << std::endl << std::endl;
+//        bilaterRes.convertTo(frame.imDepth, CV_32FC1);
+        // 当前设置下的深度范围为 0-10 对应我们的最大范围。
+        //frame.imDepth *= 0.056;
+//        frame.imDepth *= 0.0222;
+//        frame.imDepth *= 0.01667;
+//        frame.imDepth *= 1.0;
+        //         std::cout << "depth255 = "<< std::endl << " "  << frame.imDepth << std::endl << std::endl;
         // return;
         /*
             这个位置的超参有待商榷,将深度进行了一个整体压缩,需要根据实际情况调整压缩幅度.
         */
         //cv::normalize(depth255, frame.imDepth, 0.2, 10, cv::NORM_MINMAX, CV_32F);
-        
-
 
         //TCW FROM XML
         /*
@@ -199,9 +205,9 @@ namespace ark {
         fs2.release();
         */
 
-
-
         //TCW FROM TEXT
+
+        // * 从文件中读取旋转矩阵
         float tcwArr[4][4];
         std::ifstream tcwFile;
         tcwFile.open(tcwPath + std::to_string(frame.frameId) + ".txt");
@@ -210,20 +216,48 @@ namespace ark {
                 tcwFile >> tcwArr[i][k];
             }
         }
-        cv::Mat tcw(4, 4, CV_32FC1, tcwArr);    
-        frame.mTcw = tcw.inv();
+        cv::Mat tcw(4, 4, CV_32FC1, tcwArr);
 
-
-
-
-        //std::cout << "debugging frame#: " << frame.frameId << std::endl; 
-        //std::cout << tcw << std::endl;
-        //std::cout << frame.imRGB.rows << std::endl;
-        //std::cout << frame.imDepth << std::endl;
-        //std::cout << frame.imDepth.rows << std::endl;
+        frame.mTcw = tcw;
 
         return frame;
     }
+
+    RGBDFrame SaveFrame::frameLoadAuto(int frameId){
+
+        RGBDFrame frame;
+        frame.frameId = frameId;
+        cv::Mat rgbBig = cv::imread(rgbPath + std::to_string(frame.frameId) + ".png",cv::IMREAD_COLOR);
+
+        if(rgbBig.rows == 0){
+            frame.frameId = -1;
+            return frame;
+        }
+
+        cv::resize(rgbBig, frame.imRGB, cv::Size(640,480));
+        cv::Mat depth255 = cv::imread(depthPath + std::to_string(frame.frameId) + ".png",-1);
+        std::cout << depth255.rows << " depth "<<depth255.cols <<std::endl;
+
+        depth255.convertTo(frame.imDepth, CV_32FC1);
+
+        float tcwArr[4][4];
+
+        std::ifstream tcwFile;
+        tcwFile.open(tcwPath + std::to_string(frame.frameId) + ".txt");
+        for (int i = 0; i < 4; ++i) {
+            for (int k = 0; k < 4; ++k) {
+                tcwFile >> tcwArr[i][k];
+            }
+        }
+
+        cv::Mat tcw(4, 4, CV_32FC1, tcwArr);
+
+        frame.mTcw = tcw.inv();
+
+        return std::move(frame);
+
+    }
+
 
 }
 

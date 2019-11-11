@@ -15,6 +15,7 @@ namespace ark{
 
     class SaveFrame{
     public:
+        SaveFrame();
         SaveFrame(std::string folderPath);
 
         void Start();
@@ -34,6 +35,10 @@ namespace ark{
         void frameWrite(const RGBDFrame &frame);
 
         ark::RGBDFrame frameLoad(int frameId);
+
+        //自动读取图像流程， 当前差一个视频流传接器。！（！——！）！
+        RGBDFrame frameLoadAuto(int frameID);
+//        RGBDFrame frameLoadAuto(const cv::Mat& depthImg, const cv::Mat& colorImg, const cv::Mat& tcw);
 
 //        RGBDFrame loadFrame();
 
@@ -69,15 +74,7 @@ namespace ark{
         std::mutex mRequestStopMutex;
         bool mbRequestStop;
 
-//        //Camera params
-//        float fx_, fy_, cx_, cy_;
-//        float maxdepth_;
-//        int width_, height_;
-//        float depthfactor_;
     };
 }
-
-
-
 
 #endif  //#define OPENARK_SAVEFRAME_H

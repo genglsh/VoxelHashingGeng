@@ -3,10 +3,14 @@ project(TSDF)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -std=c++11")
 
+set(OB_DIRECTORY /home/gengshuai/Downloads/OpenNI2.3.0.61-Bate/2.3.0.61/Demo/UVCDemo/Linux/OrbbecStreamSample-Linux/OrbbecStreamSample-Linux/)
+
 include_directories(
+        ${OB_DIRECTORY}/include
         ${PROJECT_SOURCE_DIR}
         ${PROJECT_SOURCE_DIR}/include
         ${CUDA_INCLUDE_DIRS}
+
 )
 
 find_package(CUDA REQUIRED)
@@ -28,12 +32,17 @@ include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
+link_directories(/home/gengshuai/Downloads/OpenNI2.3.0.61-Bate/2.3.0.61/Demo/UVCDemo/Linux/OrbbecStreamSample-Linux/OrbbecStreamSample-Linux)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Example)
 
 add_executable(load_frames src/main.cpp
+        src/ICP_part.cpp
+        src/RgbPart.cpp
         src/PointCloudGenerator.cpp
         src/SaveFrame.cpp
-        src/safecall.cpp)
+        src/safecall.cpp
+        src/Utils.cpp)
 
 target_link_libraries(load_frames 
     ${PROJECT_NAME}
@@ -41,5 +50,6 @@ target_link_libraries(load_frames
     ${PCL_LIBRARIES}
     ${Boost_LIBRARIES}
     glog
+    OpenNI2
 	glut GL GLU GLEW)
 

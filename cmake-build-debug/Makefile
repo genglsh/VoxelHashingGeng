@@ -48,10 +48,10 @@ RM = /home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -E remove
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF
+CMAKE_SOURCE_DIR = "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug
+CMAKE_BINARY_DIR = "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles/progress.marks"
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -136,6 +136,33 @@ TSDF/fast:
 	$(MAKE) -f CMakeFiles/TSDF.dir/build.make CMakeFiles/TSDF.dir/build
 .PHONY : TSDF/fast
 
+src/ICP_part.o: src/ICP_part.cpp.o
+
+.PHONY : src/ICP_part.o
+
+# target to build an object file
+src/ICP_part.cpp.o:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ICP_part.cpp.o
+.PHONY : src/ICP_part.cpp.o
+
+src/ICP_part.i: src/ICP_part.cpp.i
+
+.PHONY : src/ICP_part.i
+
+# target to preprocess a source file
+src/ICP_part.cpp.i:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ICP_part.cpp.i
+.PHONY : src/ICP_part.cpp.i
+
+src/ICP_part.s: src/ICP_part.cpp.s
+
+.PHONY : src/ICP_part.s
+
+# target to generate assembly for a file
+src/ICP_part.cpp.s:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ICP_part.cpp.s
+.PHONY : src/ICP_part.cpp.s
+
 src/PointCloudGenerator.o: src/PointCloudGenerator.cpp.o
 
 .PHONY : src/PointCloudGenerator.o
@@ -163,6 +190,33 @@ src/PointCloudGenerator.cpp.s:
 	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.s
 .PHONY : src/PointCloudGenerator.cpp.s
 
+src/RgbPart.o: src/RgbPart.cpp.o
+
+.PHONY : src/RgbPart.o
+
+# target to build an object file
+src/RgbPart.cpp.o:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/RgbPart.cpp.o
+.PHONY : src/RgbPart.cpp.o
+
+src/RgbPart.i: src/RgbPart.cpp.i
+
+.PHONY : src/RgbPart.i
+
+# target to preprocess a source file
+src/RgbPart.cpp.i:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/RgbPart.cpp.i
+.PHONY : src/RgbPart.cpp.i
+
+src/RgbPart.s: src/RgbPart.cpp.s
+
+.PHONY : src/RgbPart.s
+
+# target to generate assembly for a file
+src/RgbPart.cpp.s:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/RgbPart.cpp.s
+.PHONY : src/RgbPart.cpp.s
+
 src/SaveFrame.o: src/SaveFrame.cpp.o
 
 .PHONY : src/SaveFrame.o
@@ -189,6 +243,33 @@ src/SaveFrame.s: src/SaveFrame.cpp.s
 src/SaveFrame.cpp.s:
 	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/SaveFrame.cpp.s
 .PHONY : src/SaveFrame.cpp.s
+
+src/Utils.o: src/Utils.cpp.o
+
+.PHONY : src/Utils.o
+
+# target to build an object file
+src/Utils.cpp.o:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/Utils.cpp.o
+.PHONY : src/Utils.cpp.o
+
+src/Utils.i: src/Utils.cpp.i
+
+.PHONY : src/Utils.i
+
+# target to preprocess a source file
+src/Utils.cpp.i:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/Utils.cpp.i
+.PHONY : src/Utils.cpp.i
+
+src/Utils.s: src/Utils.cpp.s
+
+.PHONY : src/Utils.s
+
+# target to generate assembly for a file
+src/Utils.cpp.s:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/Utils.cpp.s
+.PHONY : src/Utils.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -254,12 +335,21 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... load_frames"
 	@echo "... TSDF"
+	@echo "... src/ICP_part.o"
+	@echo "... src/ICP_part.i"
+	@echo "... src/ICP_part.s"
 	@echo "... src/PointCloudGenerator.o"
 	@echo "... src/PointCloudGenerator.i"
 	@echo "... src/PointCloudGenerator.s"
+	@echo "... src/RgbPart.o"
+	@echo "... src/RgbPart.i"
+	@echo "... src/RgbPart.s"
 	@echo "... src/SaveFrame.o"
 	@echo "... src/SaveFrame.i"
 	@echo "... src/SaveFrame.s"
+	@echo "... src/Utils.o"
+	@echo "... src/Utils.i"
+	@echo "... src/Utils.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

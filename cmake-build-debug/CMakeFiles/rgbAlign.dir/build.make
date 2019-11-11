@@ -43,10 +43,10 @@ RM = /home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -E remove
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF
+CMAKE_SOURCE_DIR = "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug
+CMAKE_BINARY_DIR = "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/rgbAlign.dir/depend.make
@@ -59,29 +59,29 @@ include CMakeFiles/rgbAlign.dir/flags.make
 
 CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.o: CMakeFiles/rgbAlign.dir/flags.make
 CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.o: ../src/RgbPart.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.o -c /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/RgbPart.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.o -c "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/RgbPart.cpp"
 
 CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/RgbPart.cpp > CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/RgbPart.cpp" > CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.i
 
 CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/RgbPart.cpp -o CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/RgbPart.cpp" -o CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.s
 
 CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.o: CMakeFiles/rgbAlign.dir/flags.make
 CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.o: ../src/SlamBase.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.o -c /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/SlamBase.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.o -c "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/SlamBase.cpp"
 
 CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/SlamBase.cpp > CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/SlamBase.cpp" > CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.i
 
 CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/SlamBase.cpp -o CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/src/SlamBase.cpp" -o CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.s
 
 # Object files for target rgbAlign
 rgbAlign_OBJECTS = \
@@ -401,7 +401,7 @@ rgbAlign_EXTERNAL_OBJECTS =
 ../Example/rgbAlign: /usr/lib/x86_64-linux-gnu/libproj.so
 ../Example/rgbAlign: /usr/lib/x86_64-linux-gnu/libvtkCommonCore-6.2.so.6.2.0
 ../Example/rgbAlign: CMakeFiles/rgbAlign.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ../Example/rgbAlign"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ../Example/rgbAlign"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rgbAlign.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -414,6 +414,6 @@ CMakeFiles/rgbAlign.dir/clean:
 .PHONY : CMakeFiles/rgbAlign.dir/clean
 
 CMakeFiles/rgbAlign.dir/depend:
-	cd /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug /home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/cmake-build-debug/CMakeFiles/rgbAlign.dir/DependInfo.cmake --color=$(COLOR)
+	cd "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles/rgbAlign.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/rgbAlign.dir/depend
 

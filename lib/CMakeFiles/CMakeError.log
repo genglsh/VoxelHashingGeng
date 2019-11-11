@@ -1,0 +1,63 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng/lib/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_dcae5/fast && /usr/bin/make -f CMakeFiles/cmTC_dcae5.dir/build.make CMakeFiles/cmTC_dcae5.dir/build
+make[1]: Entering directory '/home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng/lib/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_dcae5.dir/src.c.o
+/usr/bin/cc   -fPIC -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_dcae5.dir/src.c.o   -c /home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng/lib/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_dcae5
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dcae5.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_dcae5.dir/src.c.o  -o cmTC_dcae5 
+CMakeFiles/cmTC_dcae5.dir/src.c.o: In function `main':
+src.c:(.text+0x3e): undefined reference to `pthread_create'
+src.c:(.text+0x4a): undefined reference to `pthread_detach'
+src.c:(.text+0x5b): undefined reference to `pthread_join'
+src.c:(.text+0x6f): undefined reference to `pthread_atfork'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_dcae5.dir/build.make:86: recipe for target 'cmTC_dcae5' failed
+make[1]: *** [cmTC_dcae5] Error 1
+make[1]: Leaving directory '/home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng/lib/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_dcae5/fast' failed
+make: *** [cmTC_dcae5/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng/lib/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_5cd51/fast && /usr/bin/make -f CMakeFiles/cmTC_5cd51.dir/build.make CMakeFiles/cmTC_5cd51.dir/build
+make[1]: Entering directory '/home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng/lib/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5cd51.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_5cd51.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.15/Modules/CheckFunctionExists.c
+Linking C executable cmTC_5cd51
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5cd51.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_5cd51.dir/CheckFunctionExists.c.o  -o cmTC_5cd51 -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_5cd51.dir/build.make:86: recipe for target 'cmTC_5cd51' failed
+make[1]: *** [cmTC_5cd51] Error 1
+make[1]: Leaving directory '/home/gengshuai/Desktop/graduate/test/new/VoxelHashingGeng/lib/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_5cd51/fast' failed
+make: *** [cmTC_5cd51/fast] Error 2
+
+
+

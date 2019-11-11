@@ -5,6 +5,7 @@
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 #include "vhashing.h"
+#include "Utils.h"
 
 #include <string>
 #include <iostream>
@@ -37,11 +38,17 @@
 #define PINF __int_as_float(0x7f800000)
 #endif
 
-#define VOXEL_PER_BLOCK 5
-#define BLOCK_PER_CHUNK 8
-#define MAX_CPU2GPU_BLOCKS 1000000
-#define MAX_CHUNK_NUM 128
-#define CHUNK_RADIUS 3.0
+#define VOXEL_PER_BLOCK 6
+// #define VOXEL_PER_BLOCK 6
+#define BLOCK_PER_CHUNK 6
+// #define BLOCK_PER_CHUNK 6
+#define MAX_CPU2GPU_BLOCKS 10000
+//#define MAX_CPU2GPU_BLOCKS 200000
+#define MAX_CHUNK_NUM 64
+// #define MAX_CHUNK_NUM 128
+#define CHUNK_RADIUS 1.0
+
+#define MAXWEIGHT 20
 
 __host__
 static void FatalError(const int lineNumber = 0) {
@@ -535,7 +542,7 @@ namespace ark {
     };
 
     __host__ __device__
-    Vertex VertexInterp(float isolevel, Vertex p1, Vertex p2, float valp1, float valp2);
+    Vertex VertexInterp(const float& isolevel, const Vertex& p1, const Vertex& p2, const float& valp1, const float& valp2);
 
     // typedef struct 
     // {
@@ -556,6 +563,7 @@ namespace ark {
         MarchingCubeParam *param_;
         float K_[3 * 3];
         float c2w_[4 * 4];
+	float w2c_[4*4];
         Triangle *tri_ = nullptr;
         Triangle* hash_tri_ = nullptr;
         float chunk_size;
@@ -569,6 +577,7 @@ namespace ark {
         float *dev_K_ = nullptr;
         float *dev_c2w_ = nullptr;
         float *dev_depth_ = nullptr;
+	float *dev_w2c_ = nullptr;
         unsigned char *dev_rgb_ = nullptr;
         Triangle *dev_tri_ = nullptr;
         MarchingCubeParam *dev_param_;
@@ -605,6 +614,8 @@ namespace ark {
         __host__
         GpuTsdfGenerator(int width, int height, float fx, float fy, float cx, float cy, float max_depth, float origin_x, float origin_y,
                          float origin_z, float vox_size, float trunc_m, int vox_dim_x, int vox_dim_y, int vox_dim__z);
+	__host__
+	void setMaxDepth(int depth);
 
         __host__
         void processFrame(float *depth, unsigned char *rgb, float *c2w);
@@ -679,7 +690,7 @@ namespace ark {
 
         __host__ void clearheap();
 
-        __host__ float3 getFrustumCenter();
+        __host__ float3 getFrustumCenter(const float& depthValue, const float& xBias = 0, const float& yBias = 0);
     };
 
     // class TSDFHashMap

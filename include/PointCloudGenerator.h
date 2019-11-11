@@ -45,6 +45,9 @@ namespace ark{
         void Reproject(const cv::Mat &imRGB,const cv::Mat &imD, const cv::Mat &Twc);
 
         void PushFrame(const RGBDFrame &frame);
+
+        //处理图像获取前后景分割阈值，然后重置最大深度参数。
+        void SetMaxDepth(int depthV);
     private:
 
 

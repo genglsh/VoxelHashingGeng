@@ -1,84 +1,1 @@
-#include <iostream>
-#include <fstream>
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_types.h>
-#include <pcl/registration/icp.h>
-#include <string>
-#include <sstream>
-using namespace std;
-using pcl::PointXYZ;
-using pcl::PointCloud;
-
-Eigen::Matrix4f get_align_matrix(PointCloud<PointXYZ>::Ptr cloud_source, PointCloud<PointXYZ>::Ptr cloud_target,
-                                 Eigen::Matrix4f init_mat){
-    pcl::IterativeClosestPoint<PointXYZ, PointXYZ> icp;
-    cloud_source->is_dense = false;
-    cloud_target->is_dense = false;
-    PointCloud<PointXYZ>::Ptr cloud_source_registered(new PointCloud<PointXYZ>());
-    icp.setInputSource(cloud_source);
-    icp.setInputTarget (cloud_target);
-    icp.setMaxCorrespondenceDistance (10);
-    icp.setMaximumIterations (50);
-    icp.setTransformationEpsilon (1e-12);
-    icp.setEuclideanFitnessEpsilon (1e-7);
-
-    icp.align(*(cloud_source_registered), init_mat);
-
-    Eigen::Matrix4f transformation = icp.getFinalTransformation ();
-    cout<<"最优对齐结果"<<icp.getFitnessScore()<<endl;
-    return transformation;
-}
-
-void open_Point_XYZ(char* name, PointCloud<PointXYZ>::Ptr pc){
-    ifstream fin(name);
-    if (fin.fail())
-    {
-        cout<<"打开文件错误!"<<endl;
-    }
-    string tem;
-    while(getline(fin,tem)){
-        stringstream tem_buffer(tem);
-        float a, b, c;
-        tem_buffer >> a;
-        tem_buffer >> b;
-        tem_buffer >> c;
-        pc->push_back(*(new PointXYZ(a, b, c)));
-    }
-    fin.close();
-}
-
-void open_eigen_mat(char* name, Eigen::Matrix4f& init){
-    ifstream fin(name);
-    if (fin.fail())
-    {
-        cout<<"打开文件错误!"<<endl;
-    }
-    string tem;
-    int cnt = 0;
-    while(getline(fin, tem)) {
-        stringstream tem_buffer(tem);
-        float a, b, c, d;
-        tem_buffer >> a;
-        tem_buffer >> b;
-        tem_buffer >> c;
-        tem_buffer >> d;
-        init(cnt, 0) = a;
-        init(cnt, 1) = b;
-        init(cnt, 2) = c;
-        init(cnt, 3) = d;
-        cnt++;
-    }
-}
-
-int main(int argv, char** argc){
-    PointCloud<PointXYZ>::Ptr pc1(new PointCloud<PointXYZ>());
-    PointCloud<PointXYZ>::Ptr pc2(new PointCloud<PointXYZ>());
-    open_Point_XYZ("/home/gengshuai/Downloads/PicoZenseSDK_Ubuntu16.04_20190316_v2.3.9.2_DCAM710/Samples/FrameViewer/PointCloud0.txt",pc1);
-    open_Point_XYZ("/home/gengshuai/Downloads/PicoZenseSDK_Ubuntu16.04_20190316_v2.3.9.2_DCAM710/Samples/FrameViewer/PointCloud1.txt", pc2);
-    Eigen::Matrix4f init = Eigen::Matrix4f::Identity();
-    open_eigen_mat("/home/gengshuai/Desktop/graduate/test/Voxel-Hashing-SDF/scene0220_02/tcw/0.txt",init);
-    cout << "init_transform" << init << endl;
-    Eigen::Matrix4f tran =  get_align_matrix(pc2,pc1, init);
-    cout << tran << endl;
-}
-
+#include "ICP_part.h"namespace ark {    ICPPart::ICPPart(){        //TODO::(耿立帅)当前未发现较好的初始化发法，待修改        PointCloud<PointXYZ>::Ptr CF (new PointCloud<PointXYZ> ());        PointCloud<PointXYZ>::Ptr LF (new PointCloud<PointXYZ> ());        currentFrame = CF;        lastFrame = LF;        RT = Eigen::Matrix4f::Identity();        frameID = -1;        cameraParam = Eigen::Matrix3f::Identity();        float fx = 517.448, fy = 517.448, cx = 305.432, cy = 250.411;        cameraParam(0, 0) = fx;        cameraParam(0, 2) = cx;        cameraParam(1, 1) = fy;        cameraParam(1, 2) = cy;        lastMat = Eigen::Matrix4f::Identity();    }    bool ICPPart::CVTimage2Point(int frameID, const cv::Mat& image,                        int steph, int stepw, int xS,                        int yS, int xE, int yE) {        this->frameID = frameID;        //判断收集到的帧合理时再进行赋值操作//        lastFrame = currentFrame;        PointCloud<PointXYZ>::Ptr tem (new PointCloud<PointXYZ>());//        currentFrame = tem;        Eigen::Matrix3f cameraParamInv = this->cameraParam.inverse();        for (int h = yS; h < yE; h += steph) {            for (int w = xS; w < xE; w += stepw) {                float depthV = (float)image.at<float>(h, w);                if (depthV > 0 && depthV < 700) {                    Eigen::Vector3f axis(h, w, 1);                    Eigen::Vector3f pcamera = depthV * cameraParamInv * axis;                    tem->push_back(*(new PointXYZ(pcamera[0], pcamera[1], pcamera[2])));                }            }        }        if (frameID == 0){            lastFrame = currentFrame;            currentFrame = tem;            return false;        }        pcl::PointCloud<pcl::PointXYZ>::Ptr alignPC( new PointCloud<PointXYZ>());        if (this->frameID > 0) {            bool align_result = CalculateAlignment(tem, alignPC);            if(align_result) {                lastFrame = currentFrame;                currentFrame = tem;                return true;            }            else{                return false;            }        }    }    cv::Rect ICPPart::CVTimage2PointForeground(const cv::Mat& image, int steph, int stepw) {//        PointCloud<PointXYZ>::Ptr tem (new PointCloud<PointXYZ>());//        currentFrame = tem;        Eigen::Matrix3f cameraParamInv = this->cameraParam.inverse();        float minX = 10000, maxX = -10000, minY = 10000, maxY = -10000;        int yE = image.rows;        int xE = image.cols;        for (int h = 0; h < yE; h += steph) {            for (int w = 0; w < xE; w += stepw) {                float depthV = (float)image.at<float>(h, w);                if(depthV > 0.00001) {                    Eigen::Vector3f axis(h, w, 1);                    Eigen::Vector3f pcamera = depthV * cameraParamInv * axis;                    if(pcamera[0] > maxX)                        maxX = pcamera[0];                    if(pcamera[0] < minX)                        minX = pcamera[0];                    if(pcamera[1] > maxY)                        maxY = pcamera[1];                    if(pcamera[1] < minY)                        minY = pcamera[1];                }            }        }        return std::move(cv::Rect(minX, minY, (maxX-minX), (maxY-minY)));    }    bool ICPPart::align(Eigen::Matrix4f& final_transformation,                         pcl::PointCloud<pcl::PointXYZ>::Ptr temPC,                         pcl::PointCloud<pcl::PointXYZ>::Ptr cloudCVT,                         float& result) {        pcl::PointCloud<pcl::PointNormal>::Ptr Final(new pcl::PointCloud<pcl::PointNormal>);        pcl::PointCloud<pcl::PointNormal>::Ptr points_with_normals_src(                new pcl::PointCloud<pcl::PointNormal>); //创建源点云指针（注意点的类型包含坐标和法向量）        pcl::PointCloud<pcl::PointNormal>::Ptr points_with_normals_tgt(                new pcl::PointCloud<pcl::PointNormal>); //创建目标点云指针（注意点的类型包含坐标和法向量）        pcl::NormalEstimation<pcl::PointXYZ, pcl::PointNormal> norm_est; //该对象用于计算法向量        pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>()); //创建kd树，用于计算法向量的搜索方法        norm_est.setSearchMethod(tree); //设置搜索方法        norm_est.setKSearch(15); //设置最近邻的数量        norm_est.setInputCloud(temPC); //设置输入云        norm_est.compute(*points_with_normals_src); //计算法向量，并存储在points_with_normals_src        pcl::copyPointCloud(*temPC, *points_with_normals_src); //复制点云（坐标）到points_with_normals_src（包含坐标和法向量）        norm_est.setInputCloud(currentFrame);        norm_est.compute(*points_with_normals_tgt);        pcl::copyPointCloud(*currentFrame, *points_with_normals_tgt);        pcl::IterativeClosestPointWithNormals<pcl::PointNormal, pcl::PointNormal> icp;        icp.setInputSource(points_with_normals_src);        icp.setInputTarget(points_with_normals_tgt);//    icp.setMaxCorrespondenceDistance (0.05);        icp.setMaximumIterations(50);        icp.setTransformationEpsilon(1e-5);//    icp.setMaxCorrespondenceDistance(0.5);        icp.align(*Final);        final_transformation = icp.getFinalTransformation();//    cout << final_transformation << endl;        result = icp.getFitnessScore();        cout << "最优对齐结果\n" << icp.getFitnessScore() << endl;        cloudCVT->resize(Final->size());        for (size_t i = 0; i <Final->points.size(); ++i) {            cloudCVT->points[i].x = Final->points[i].x;            cloudCVT->points[i].y = Final->points[i].y;            cloudCVT->points[i].z = Final->points[i].z;        }//        return icp.getFitnessScore();        return icp.hasConverged();    }    bool ICPPart::CalculateAlignment(pcl::PointCloud<pcl::PointXYZ>::Ptr tem,            pcl::PointCloud<pcl::PointXYZ>::Ptr alignPC) {        Eigen::Matrix4f rt, rtINV;        float goal = 1000;        bool haveCoverage = align(rt, tem, alignPC, goal);        //判断当前对齐效果        if (goal < 30) {            printf("对齐完成\n");            rtINV = this->lastMat * rt;            this->lastMat = rtINV;            this->RT = rtINV.inverse();            return true;        }        return false;    }    // 挑选关键帧    Eigen::Matrix4f ICPPart::getRT() {        return this->RT;    }/*    Eigen::Matrix4f ICPPart::getRT() {        pcl::PointCloud<pcl::PointXYZ>::Ptr alignPC( new PointCloud<PointXYZ>());        if (this->frameID > 0) {            bool align_result = CalculateAlignment(alignPC);        }        return this->RT;    }*///void display(const std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> &clouds) {//    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer(new pcl::visualization::PCLVisualizer("3D Viewer"));//    viewer->setBackgroundColor(0, 0, 0);//    for (int i = 0; i < clouds.size(); i++) {//        pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color(clouds[i], (i % 3 == 0) * 255,//                                                                                     (i % 3 == 1) * 255,//                                                                                     (i % 3 == 2) * 255);//        viewer->addPointCloud<pcl::PointXYZ>(clouds[i], single_color, "sample cloud " + std::to_string(i));//        viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3,//                                                 "sample cloud " + std::to_string(i));//    }////    viewer->addCoordinateSystem(1.0);////    viewer->setCameraPosition(0, 0, -1500, 0, 0, -1500, 0);//    viewer->initCameraParameters();//    //--------------------//    // -----Main loop-----//    //--------------------//    while (!viewer->wasStopped()) {//        viewer->spinOnce(100);//        boost::this_thread::sleep(boost::posix_time::microseconds(100000));//    }////}    void open_Point_XYZ(const char* name, PointCloud<PointXYZ>::Ptr pc){        ifstream fin(name);        if (fin.fail()) {            cout<<"打开文件错误!"<<endl;        }        string tem;        while(getline(fin,tem)){            stringstream tem_buffer(tem);            float a, b, c;            tem_buffer >> a;            tem_buffer >> b;            tem_buffer >> c;            pc->push_back(*(new PointXYZ(a, b, c)));        }        fin.close();    }    void SavePLY(PointCloud<PointXYZ>::Ptr pc1, PointCloud<PointXYZ>::Ptr pc2, const char* fileName) {        ofstream fout(fileName);        int num1 = pc1->size();        int num2 = pc2->size();        fout << "ply\nformat ascii 1.0\ncomment stanford bunny\nelement vertex " + std::to_string(num1 + num2)                +"\nproperty float x\nproperty float y\nproperty float z\nend_header\n";        for (int i = 0; i < num1; i++) {            fout << pc1->at(i).x << " " << pc1->at(i).y << " " << pc1->at(i).z << "\n";        }        for (int i = 0; i < num2; i++) {            fout << pc2->at(i).x << " " << pc2->at(i).y << " " << pc2->at(i).z << "\n";        }    }    void Savetxt(PointCloud<PointXYZ>::Ptr pc1, const char* fileName) {        ofstream fout(fileName);        int num1 = pc1->size();        for (int i = 0; i < num1; i++) {            fout << pc1->at(i).x << " " << pc1->at(i).y << " " << pc1->at(i).z << "\n";        }    }    void open_eigen_mat(const char* name, Eigen::Matrix4f& init){        ifstream fin(name);        if (fin.fail()) {            cout<<"打开文件错误!"<<endl;        }        string tem;        int cnt = 0;        while(getline(fin, tem) && cnt < 4) {            stringstream tem_buffer(tem);            float a, b, c, d;            tem_buffer >> a;            tem_buffer >> b;            tem_buffer >> c;            tem_buffer >> d;            init(cnt, 0) = a;            init(cnt, 1) = b;            init(cnt, 2) = c;            init(cnt, 3) = d;            cnt++;        }    }    void SaveEignMat(const char* name, const Eigen::Matrix4f& init) {        ofstream fout(name);        for(int x = 0; x < 4; x++) {            for (int y = 0; y < 4; y++) {                fout << init(x,y) << " ";            }            fout << "\n";        }    }    cv::Mat GetDepth(int cnt) {        string testImg = "../scene0220_02/depth/" + std::to_string(cnt) + ".png";        cv::Mat testMat = cv::imread(testImg, -1);        cv::Mat realDepth;        testMat.convertTo(realDepth, CV_32FC1);        return std::move(realDepth);    }}/* *测试用ICP部分函数int main(int argv, char** argc){    //用来保存上一帧点云，方便计算    pcl::PointCloud<pcl::PointXYZ>::Ptr lastFramePC(new PointCloud<PointXYZ>());    //定义相机内参    Eigen::Matrix3f cameraParam = Eigen::Matrix3f::Identity();    float fx = 517.448, fy = 517.448, cx = 305.432, cy = 250.411;    cameraParam(0, 0) = fx;    cameraParam(0, 2) = cx;    cameraParam(1, 1) = fy;    cameraParam(1, 2) = cy;    Eigen::Matrix4f lastMat = Eigen::Matrix4f::Identity();    for(int frame = 0; frame < 10; frame++) {        pcl::PointCloud<pcl::PointXYZ>::Ptr currentFramePC(new PointCloud<PointXYZ>());        Eigen::Matrix4f RT;        printf("current frame is %d\n", frame);        cv::Mat realDepth = GetDepth(frame);        bool result = CVTimage2Point(realDepth, cameraParam, currentFramePC);        pcl::PointCloud<pcl::PointXYZ>::Ptr cloudCVT(new pcl::PointCloud<pcl::PointXYZ>);        std::string outMat = "../scene0220_02/tcw/" + std::to_string(frame) + ".txt";        if (frame) {            CalculateAlignment(currentFramePC, lastFramePC, cloudCVT, RT, lastMat);            cout << "RT is \n" << RT <<endl;            SaveEignMat(outMat.data(), RT);        }        lastFramePC = currentFramePC;    }}*//*    文件读取部分内容保存//    Eigen::Matrix4f lastMat = Eigen::Matrix4f::Identity();//    for (int x = 0; x < 100; x++) {//        cout << "current frame x is " << x << endl;//        PointCloud<PointXYZ>::Ptr pc1(new PointCloud<PointXYZ>());//        PointCloud<PointXYZ>::Ptr pc2(new PointCloud<PointXYZ>());////        std::string firstFrame = "../scene0220_02/depth/" + std::to_string(x) + ".txt";//        std::string secondFrame = "../scene0220_02/depth/" + std::to_string(x+1) + ".txt";//        std::string alignICP = "../scene0220_02/depth/" + std::to_string(x+1) + "align.txt";////        open_Point_XYZ(firstFrame.data(), pc1);//        open_Point_XYZ(secondFrame.data(), pc2);////        std::string outMat = "../scene0220_02/tcw/" + std::to_string(x+1) + ".txt";//        Eigen::Matrix4f RT, currentRT;//        pcl::PointCloud<pcl::PointXYZ>::Ptr cloudCVT(new pcl::PointCloud<pcl::PointXYZ>);//        align(pc2, pc1, RT, cloudCVT);//        currentRT = lastMat * RT;//        Eigen::Matrix4f invMat = currentRT.inverse();//        SaveEignMat(outMat.data(), invMat);//        printf("inv MAT IS\n");//        cout << invMat << endl;//        lastMat = currentRT;//        Savetxt(cloudCVT,alignICP.data());//    }*/

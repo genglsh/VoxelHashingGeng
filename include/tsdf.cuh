@@ -43,10 +43,11 @@
 #define BLOCK_PER_CHUNK 6
 // #define BLOCK_PER_CHUNK 6
 #define MAX_CPU2GPU_BLOCKS 10000
-//#define MAX_CPU2GPU_BLOCKS 200000
+//#define MAX_CPU2GPU_BLOCKS 10000
 #define MAX_CHUNK_NUM 64
 // #define MAX_CHUNK_NUM 128
-#define CHUNK_RADIUS 1.0
+//#define CHUNK_RADIUS 3.0
+#define CHUNK_RADIUS 2.0
 
 #define MAXWEIGHT 20
 
@@ -618,7 +619,7 @@ namespace ark {
 	void setMaxDepth(int depth);
 
         __host__
-        void processFrame(float *depth, unsigned char *rgb, float *c2w);
+        void processFrame(float *depth, unsigned char *rgb, float *c2w, const Eigen::Vector4f&);
 
         __host__
         void getLocalGrid();
@@ -636,7 +637,7 @@ namespace ark {
         void SaveTSDF(std::string filename);
 
         __host__
-        void SavePLY(std::string filename);
+        void SavePLY(std::string filename, const cv::Rect& foreground);
 
         __host__
         std::vector<Vertex>* getVertices();
@@ -655,7 +656,7 @@ namespace ark {
     private:
 
         __host__
-        void tsdf2mesh(std::string outputFileName);
+        void tsdf2mesh(std::string outputFileName, const cv::Rect& foreground);
 
         __host__
         int3 calc_cell_pos(Vertex p, float cell_size);

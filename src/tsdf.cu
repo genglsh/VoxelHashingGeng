@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <driver_types.h>
 #include <device_launch_parameters.h>
+#include <cxcore.h>
+#include <Eigen/src/Core/Matrix.h>
 //当前设置的最大深度为10个单位 这个需要调整
 //chunk的初始位置 也需要调整
 
@@ -557,10 +559,12 @@ namespace ark {
     __global__ void IntegrateHashKernel(float *K, float *c2w, float *depth, unsigned char *rgb,
                    int height, int width, MarchingCubeParam *param,  
                    vhashing::HashTableBase<int3, VoxelBlock, BlockHasher, BlockEqual> dev_blockmap_,
-                   VoxelBlockPos* d_inBlockPosHeap, unsigned int *d_heapBlockCounter){
+                   VoxelBlockPos* d_inBlockPosHeap, unsigned int *d_heapBlockCounter,
+                   float* planeParam){
 
         unsigned int idheap = blockIdx.x;
         if(idheap < *d_heapBlockCounter){
+//            printf("planeparam is %f %f %f %f\n", planeParam[0], planeParam[1], planeParam[2], planeParam[3]);
             int3 idBlock = dev_blockmap_.key_heap[idheap];
             VoxelBlock& vb = dev_blockmap_[idBlock];
             Voxel& voxel = vb.voxels[threadIdx.x];
@@ -574,6 +578,9 @@ namespace ark {
 
             int3 idVoxel = idBlock * VOXEL_PER_BLOCK + make_int3(x,y,z);
             float3 voxelpos = voxel2world(idVoxel, param->vox_size);
+            //此处添加一个形参：float4 表征平面法向量。
+//            printf("%f %f %f %f \n", planeParam[0], planeParam[1], planeParam[2], planeParam[3]);
+
 
             // Convert from base frame camera coordinates to current frame camera coordinates
             float pt_base[3] = {voxelpos.x,// + param->vox_origin.x, 
@@ -585,6 +592,11 @@ namespace ark {
 
             base2cam(pt_base, pt_cam, c2w);
             float  pt_cam_z = pt_cam[2];
+
+            //由于RT不一定准确所以暂时停止这个方法，直接在深度图上进行处理。
+//            if(fabs(pt_cam[0] * planeParam[0] + planeParam[1] * pt_cam[1] +
+//                    planeParam[2] * pt_cam[2] + planeParam[3]) < 10)
+//                return;
 
             int pt_pix[2];
             cam2frame(pt_cam, pt_pix, K);
@@ -1110,6 +1122,28 @@ namespace ark {
         // d_heapBlockCounter = 0;
     }
 
+    __global__ void RidOfPlane(float* depth, float* planeParam) {
+
+        int id = blockIdx.x * blockDim.x + threadIdx.x;
+
+        if(id >= 640 * 480)
+            return;
+
+        float fx = 0.00193256, fy = 0.00193256, cx = -0.59026608, cy = -0.48393462;
+        float inv[] = {fx, cx, fy, cy};
+
+        int row = id / 640;
+        int col = id % 640;
+
+        float pointCamera[]  =  {depth[id] * (inv[0] * col + inv[1]),
+                            depth[id] * (inv[2] * row + inv[3]),
+                            depth[id]};
+
+        if(fabs(pointCamera[0] * planeParam[0] + pointCamera[1] * planeParam[1] +
+             pointCamera[2] * planeParam[2]  + planeParam[3]) < 5)
+            depth[id] = 0.f;
+    }
+
     __host__
     GpuTsdfGenerator::GpuTsdfGenerator(int width, int height, float fx, float fy, float cx, float cy, float max_depth,
                                        float origin_x = -1.5f, float origin_y = -1.5f, float origin_z = 0.5f,
@@ -1286,9 +1320,13 @@ namespace ark {
     }
 
     __host__
-    void GpuTsdfGenerator::processFrame(float *depth, unsigned char *rgb, float *c2w) {
+    void GpuTsdfGenerator::processFrame(float *depth, unsigned char *rgb, float *c2w,
+            const Eigen::Vector4f& planeParam) {
+
+        printf("planeparam is %f %f %f %f\n", planeParam[0], planeParam[1], planeParam[2], planeParam[3]);
 
         system_clock::time_point startTimePerFrame = system_clock::now();
+//        dev_blockmap_ = new vhashing::HashTable<int3, VoxelBlock, BlockHasher, BlockEqual, vhashing::device_memspace>(2001, 10, 10000, int3{999999, 999999, 999999});
 
         dev_blockmap_ = new vhashing::HashTable<int3, VoxelBlock, BlockHasher, BlockEqual, vhashing::device_memspace>(2001, 10, 5000, int3{999999, 999999, 999999});
         std::cout<<" dev_blockmap_ init "<<std::endl;
@@ -1297,9 +1335,12 @@ namespace ark {
         
         cudaDeviceSynchronize();
         std::cout<<" d_heapBlockCounter init "<<std::endl;
+//        dev_blockmap_chunks = new vhashing::HashTable<int3, VoxelBlock, BlockHasher, BlockEqual, vhashing::device_memspace>(3001, 10,30000, int3{999999, 999999, 999999});
         dev_blockmap_chunks = new vhashing::HashTable<int3, VoxelBlock, BlockHasher, BlockEqual, vhashing::device_memspace>(2001, 10,12000, int3{999999, 999999, 999999});
         std::cout<<" dev_blockmap_chunks init "<<std::endl;
         cudaDeviceSynchronize();
+
+        float temPlane[] = {planeParam[0], planeParam[1], planeParam[2], planeParam[3]};
         std::cout << 1 <<std::endl;
 
         auto middleT = system_clock::now();
@@ -1313,11 +1354,29 @@ namespace ark {
         cudaMemcpy(dev_param_, param_, sizeof(MarchingCubeParam), cudaMemcpyHostToDevice);
         
         cudaMemcpy(dev_c2w_, c2w, 4 * 4 * sizeof(float), cudaMemcpyHostToDevice);
+        float* ridOfPlane;
+        cudaMalloc(&ridOfPlane, 4 * sizeof(float));
+        cudaMemcpy(ridOfPlane, temPlane, 4* sizeof(float), cudaMemcpyHostToDevice);
+
+
         //是否成功复制
         printf("The error after hash Memcpy%s\n", cudaGetErrorName(cudaGetLastError()));
         std::cout<<2<<std::endl;
         cudaDeviceSynchronize();
         cudaMemcpy(dev_depth_, depth, im_height_ * im_width_ * sizeof(float), cudaMemcpyHostToDevice);
+
+        auto ridPlaneTime = system_clock::now();
+        const dim3 gridDepth(300,1);
+        const dim3 blockDepth(1024,1);
+
+        RidOfPlane<<<gridDepth, blockDepth>>>(dev_depth_, ridOfPlane);
+        cudaDeviceSynchronize();
+
+        auto endRidPlaneTime = system_clock::now();
+
+        //清除地板背景耗时很小
+//        ark::printTime(ridPlaneTime, endRidPlaneTime, "清除地板背景所用时间");
+
         std::cout << 3 << std::endl;
         printf("The error before streaminCPU is %s\n", cudaGetErrorName(cudaGetLastError()));
         cudaDeviceSynchronize();
@@ -1383,7 +1442,8 @@ namespace ark {
 
             // std::cout<<"start IntegrateHashKernel"<<std::endl;
             IntegrateHashKernel <<< gridSize, blockSize >>> (dev_K_, dev_c2w_, dev_depth_, dev_rgb_,
-                im_height_, im_width_, dev_param_, *dev_blockmap_, d_inBlockPosHeap, d_heapBlockCounter);
+                im_height_, im_width_, dev_param_, *dev_blockmap_, d_inBlockPosHeap, d_heapBlockCounter,
+                    ridOfPlane);
 
             // checkCUDA(__LINE__, cudaGetLastError());
             // std::cout<<"finish IntegrateHashKernel"<<std::endl;
@@ -1533,7 +1593,7 @@ namespace ark {
     }
 
     __host__
-    void GpuTsdfGenerator::SavePLY(std::string filename) {
+    void GpuTsdfGenerator::SavePLY(std::string filename, const cv::Rect& foreground) {
         // {
         //     std::unique_lock<std::mutex> lock(tsdf_mutex_);
         //     cudaMemcpy(TSDF_, dev_TSDF_,
@@ -1543,7 +1603,7 @@ namespace ark {
 
         //     checkCUDA(__LINE__, cudaGetLastError());
         // }
-        tsdf2mesh(filename);
+        tsdf2mesh(filename, foreground);
     }
 
     __host__
@@ -1596,7 +1656,14 @@ namespace ark {
     }
 
     __host__
-    void GpuTsdfGenerator::tsdf2mesh(std::string outputFileName) {
+    void GpuTsdfGenerator::tsdf2mesh(std::string outputFileName, const cv::Rect& foreground) {
+//        printf("%f %f %f %f\n", foreground.x, foreground.y, foreground.width, foreground.height);
+
+//        float minX = foreground.x * 1.0 / param_->vox_size,
+//        maxX = (foreground.x + foreground.width) * 1.0 / param_->vox_size,
+//        minY = foreground.y * 1.0 / param_->vox_size,
+//        maxY = (foreground.y + foreground.height) * 1.0 / param_->vox_size;
+
         std::vector<Face> faces;
         std::vector<Vertex> vertices;
 
@@ -1637,29 +1704,40 @@ namespace ark {
 
                         // int count = 0;
 
-                        for(int k = 0; k < total_vox; k ++){
+                        for(int k = 0; k < total_vox; k++){
                             int flag = 0;
                             for(int i = 0; i < 5; i ++){
                                 int pi = 5 * k + i;
                                 if(!h_chunks[id].tri_[pi].valid)
                                     continue;
+
                                 flag = 1;
                                 Face f;
                                 for (int j = 0; j < 3; ++j) {
+                                    //根据手动画框方法提前前景
+//                                    if(!(tri_[pi].p[j].x >= minY && tri_[pi].p[j].x <= maxY &&
+//                                            tri_[pi].p[j].y >= minX && tri_[pi].p[j].y <= maxX)) {
+//                                        flag = 0;
+//                                        break;
+//                                    }
+
                                     if(vertexHashTable.find(tri_[pi].p[j]) == vertexHashTable.end()){
                                         unsigned int count = vertices.size();
                                         vertexHashTable[tri_[pi].p[j]] = count;
                                         f.vIdx[j] = count;
                                         Vertex vp = tri_[pi].p[j];
-                                        vp.x *= param_->vox_size * 10;
-                                        vp.y *= param_->vox_size * 10;
-                                        vp.z *= param_->vox_size * 10;
+                                        vp.x *= param_->vox_size ;
+                                        vp.y *= param_->vox_size ;
+                                        vp.z *= param_->vox_size ;
+
+//                                        std::cout << vp.x << " " <<vp.y << std::endl;
                                         vertices.push_back(vp);
                                     } else{
                                         f.vIdx[j] = vertexHashTable[tri_[pi].p[j]];
                                     }
                                 }
-                                faces.push_back(f);
+                                if(flag)
+                                    faces.push_back(f);
                             }
                             if(flag)
                                 validCount ++;
@@ -1716,6 +1794,8 @@ namespace ark {
         for (auto v : vertices) {
             plyFile << v.x << " " << v.y << " " << v.z << " " << (int) v.r << " " << (int) v.g << " " << (int) v.b
                     << "\n";
+
+//            plyFile << v.x << " " << v.y << " " << v.z << "\n";
         }
         for (auto f : faces) {
             plyFile << "3 " << f.vIdx[0] << " " << f.vIdx[1] << " " << f.vIdx[2] << "\n";
@@ -1999,6 +2079,7 @@ namespace ark {
                 float3 blocks_pos = block2world(idCurrentBlock, param->block_size);
                 if(dev_blockmap_chunks.find(idCurrentBlock) != dev_blockmap_chunks.end()){
                     if(1 || isBlockInCameraFrustum(blocks_pos, c2w, param)){
+
                         int3 chunkpos = block2chunk(idCurrentBlock);
                         dev_blockmap_[idCurrentBlock] = dev_blockmap_chunks[idCurrentBlock];
                     }

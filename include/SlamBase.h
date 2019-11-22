@@ -29,7 +29,8 @@ using namespace std;
 
 // OpenCV 特征检测模块
 #include <opencv2/features2d/features2d.hpp>
-// #include <opencv2/nonfree/nonfree.hpp> // use this if you want to use SIFT or SURF
+
+//#include <opencv2/nonfree/nonfree.hpp> // use this if you want to use SIFT or SURF
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -75,6 +76,7 @@ namespace ark{
             int ID;
             cv::Ptr<cv::FeatureDetector> detector;
             cv::Ptr<cv::DescriptorExtractor> descriptor;
+//            cv::Ptr<cv::Feature2D> detector;
     };
 }
 #endif //#define OPENARK_SLAMBASE_H

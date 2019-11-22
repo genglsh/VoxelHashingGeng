@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o"
   "../lib/libTSDF.pdb"
   "../lib/libTSDF.so"
+  "CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o"
 )
 
 # Per-language clean rules from dependency scanning.

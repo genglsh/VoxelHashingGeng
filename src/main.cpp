@@ -30,9 +30,16 @@
 #include <SlamBase.h>
 #include <Utils.h>
 #include "ObjectExtract.h"
+#include <iostream>
+#include "ridOfPlane.h"
 
-using namespace std;
+// 0.642468 -0.228258 0.731528 -507.952
+
+
 using namespace std::chrono;
+using  std::cout;
+using  std::cin;
+using  std::string;
 
 //OpenGL global variable
 float window_width = 800;
@@ -47,10 +54,12 @@ int oy;
 int buttonState;
 float xRotLength = 0.0f;
 float yRotLength = 180.0f;
+float pcthreshold = 0;
 bool wireframe = true;
 bool stop = false;
 bool getROI = false;
-cv::Rect selectROI;
+cv::Rect mySelectROI;
+cv::Rect foregroundRect;
 
 cv::Mat showImage;
 bool selectFlag = false;
@@ -58,13 +67,13 @@ bool selectFlag = false;
 ark::PointCloudGenerator *pointCloudGenerator;
 ark::SaveFrame *saveFrame;
 std::thread *app;
-ark::ICPPart *ICP;
+//ark::ICPPart *ICP;
 ark::orbAlignment *ORBAlignment;
 ark::RGBDFrame FirstFrame;
 
 
 
-static const int kItemsToProduce  = 30;   // How many items we plan to produce.
+static const int kItemsToProduce  = 10;   // How many items we plan to produce.
 
 struct ItemRepository {
     queue<ark::RGBDFrame> item_buffer; // 产品缓冲区, 配合 read_position 和 write_position 模型环形队列.
@@ -93,26 +102,22 @@ struct ROI {
 };
 
 
-void onMouse(int event, int x, int y, int flags, void*param) {
+void onMouse(int event, int x, int y, int flags, void* param) {
 
 //    printf("进入线程\n");
     cv::Point p1, p2;
-    if (event == EVENT_LBUTTONDOWN)
-    {
-        selectROI.x = x;
-        selectROI.y = y;
+    if (event == EVENT_LBUTTONDOWN && !selectFlag) {
+        mySelectROI.x = x;
+        mySelectROI.y = y;
         selectFlag = true;
-    }
-    else if (selectFlag && event == EVENT_MOUSEMOVE)
-    {
-//        cv::Mat img;
-//        img.copyTo(FirstFrame.imRGB);
-        p1 = Point(selectROI.x, selectROI.y);
+    } else if (selectFlag && event == EVENT_MOUSEMOVE) {
+        cv::Mat img = FirstFrame.imRGB.clone();
+        p1 = Point(mySelectROI.x, mySelectROI.y);
         p2 = Point(x, y);
-        selectROI.width = (x- p1.x);
-        selectROI.height = (y - p1.y);
-        rectangle(FirstFrame.imRGB, p1, p2, Scalar(0, 255, 0), 2);
-        cv::imshow("test", FirstFrame.imRGB);
+        mySelectROI.width = (x - p1.x);
+        mySelectROI.height = (y - p1.y);
+        rectangle(img, p1, p2, Scalar(0, 255, 0), 2);
+        cv::imshow("test", img);
     }
     else if (selectFlag && event == EVENT_LBUTTONUP)
     {
@@ -121,10 +126,11 @@ void onMouse(int event, int x, int y, int flags, void*param) {
 }
 
 
-void GetROI(const ark::RGBDFrame& firstFrame) {
-    string windowName = "test";
+void GetROI(const ark::RGBDFrame& firstFrame, const float& depthV) {
+    std::string windowName = "test";
 
-    cv::namedWindow(windowName, CV_WINDOW_AUTOSIZE);
+    cv::namedWindow(windowName, CV_WINDOW_AUTOSIZE | CV_WINDOW_KEEPRATIO);
+    cv::resizeWindow(windowName, 640, 480);
 
 
     cv::imshow(windowName, firstFrame.imRGB);
@@ -138,11 +144,15 @@ void GetROI(const ark::RGBDFrame& firstFrame) {
 //            break;
 //    }
     cv::waitKey(0);
-    cv::Mat ROIDepth = firstFrame.imDepth(selectROI).clone();
 
-    cv::Rect foreground = ICP->CVTimage2PointForeground(ROIDepth, 4, 4);
+    printf("挑选区域范围 %d %d %d %d\n", mySelectROI.x, mySelectROI.y,
+           mySelectROI.x + mySelectROI.width, mySelectROI.y + mySelectROI.height);
+    cv::Mat ROIDepth = firstFrame.imDepth(mySelectROI).clone();
 
-    printf("%d %d %d %d\n", foreground.x, foreground.y, foreground.width, foreground.height);
+//    foregroundRect = ICP->CVTimage2PointForeground(ROIDepth, depthV, mySelectROI.x, mySelectROI.y, 1, 1);
+//
+    printf("%d %d %d %d\n", foregroundRect.x, foregroundRect.y,
+            foregroundRect.width, foregroundRect.height);
 
     cv::imwrite("../scene0220_02/depth/roi.png", ROIDepth);
 
@@ -153,6 +163,22 @@ void GetROI(const ark::RGBDFrame& firstFrame) {
 }
 
 void FusionPart(ark::RGBDFrame& frame, int cnt){
+
+//    int numPC;
+//    pcl::PointCloud<pcl::PointXYZ>::Ptr testPlane(new pcl::PointCloud<pcl::PointXYZ>());
+//
+//     testPlane->width = 3221;
+//     testPlane->height = 1;
+//     testPlane->points.resize(testPlane->width * testPlane->height);
+//
+//     ICP->CVTimage2PC(frame.imDepth, testPlane, numPC);
+//
+//    std::cerr << "Point cloud data: " << testPlane->points.size () << " points" << std::endl;
+//
+//     ark::getRidOfPlane(std::move(testPlane));
+//    return ;
+
+
 
     system_clock::time_point startTime = system_clock::now();
 /*
@@ -177,6 +203,13 @@ void FusionPart(ark::RGBDFrame& frame, int cnt){
 
 //    利用orb方法来做对齐。
 
+    Eigen::Vector4f planeParam;
+    ark::ridOfPlane(frame.imDepth, planeParam);
+    //todo::直接在深度图上去背景。
+//    ark::ridOfPlaneInDepth(frame.imDepth, planeParam);
+
+    printf("planeparam is %f %f %f %f\n", planeParam[0], planeParam[1], planeParam[2], planeParam[3]);
+
     bool setFlag = ORBAlignment->setCurrentFrame(frame, cnt);
     system_clock::time_point setFrameTime = system_clock::now();
     ark::printTime(startTime, setFrameTime, "set 时间为");
@@ -191,14 +224,15 @@ void FusionPart(ark::RGBDFrame& frame, int cnt){
     }
     auto alignTime = system_clock::now();
     auto alignT = duration_cast<std::chrono::microseconds>(alignTime - setFrameTime).count();
-    cout << "align时间为　" << (float)alignT * microseconds::period::num / microseconds::period::den << "s"<< endl;
+    std::cout << "align时间为　" << (float)alignT * microseconds::period::num / microseconds::period::den << "s"<< endl;
 
 //    ark::countTime(setFrameTime, alignTime);
 
 //    cout << "depth 阈值 is " << ark::globalThresholdPM(frame.imDepth)<< endl;
 //    system_clock::time_point fbTime = system_clock::now();
     auto baTime = system_clock::now();
-    pointCloudGenerator->SetMaxDepth(ark::globalThresholdPM(frame.imDepth));
+    pcthreshold = ark::globalThresholdPM(frame.imDepth);
+    pointCloudGenerator->SetMaxDepth(pcthreshold);
     auto bafTime = system_clock::now();
     ark::printTime(baTime, bafTime, "前后景分割处理时间");
 //    system_clock::time_point fbendTime = system_clock::now();
@@ -226,7 +260,7 @@ void FusionPart(ark::RGBDFrame& frame, int cnt){
 //    cv::Mat Twc = frame.mTcw.inv();
 //    pointCloudGenerator->PushFrame(frame); //OnKeyFrameAvailable(frame);
 
-    pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, frame.mTcw);
+    pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, frame.mTcw, planeParam);
 
     system_clock::time_point endTime = system_clock::now();
     auto duration = duration_cast<std::chrono::microseconds>(endTime - startTime).count();
@@ -240,7 +274,7 @@ void FusionFunction(ark::RGBDFrame& frame, const cv::Mat& RT) {
     pointCloudGenerator->SetMaxDepth(ark::globalThresholdPM(frame.imDepth));
     frame.mTcw = RT;
     cv::cvtColor(frame.imRGB, frame.imRGB, cv::COLOR_BGR2RGB);
-    pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, frame.mTcw);
+//    pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, frame.mTcw);
 
 }
 
@@ -488,6 +522,7 @@ void SecondConsumerTask(){ // 第二消费者任务， 用来计算融合
 
 void application_thread() {
 
+
     auto a = system_clock::now();
     std::thread producer(ProducerTask); // 创建生产者线程.
     std::thread consumerAlign(ConsumerTask); // 创建消费之线程.
@@ -617,6 +652,7 @@ void init() {
     //设置物体视角没用？ 当前物体按照y轴旋转90°可见？
     glTranslatef(0.0f, 0.0f, 0.0f);
     glRotatef(90,0.0,1.0,0.0);
+//    glRotatef(90,1.0,0.0,0.0);
 
 }
 
@@ -736,8 +772,16 @@ void keyboard_func(unsigned char key, int x, int y) {
 //        slam->RequestStop();
         pointCloudGenerator->RequestStop();
 //        bridgeRSD435->Stop();
+        cout << mySelectROI.x << " "<<mySelectROI.y
+        << " " << mySelectROI.width << " " << mySelectROI.height<<endl;
 
-        pointCloudGenerator->SavePly("model.ply");
+        cout << "前后景分割阈值" << endl;
+        cout << foregroundRect.x << " " << foregroundRect.y << " " <<
+        foregroundRect.width << " " << foregroundRect.height << endl;
+
+        pointCloudGenerator->SavePly("model.ply", foregroundRect);
+        cout << mySelectROI.x << " "<<mySelectROI.y
+             << " " << mySelectROI.width << " " << mySelectROI.height<<endl;
     }
 
     if (key == 'v')
@@ -747,18 +791,16 @@ void keyboard_func(unsigned char key, int x, int y) {
         // 按下g键后返回
         if (!getROI) {
 
-            thread* test = new thread(GetROI, std::ref(FirstFrame));
+            thread* test = new thread(GetROI, std::ref(FirstFrame), pcthreshold);
             test->join();
             printf("thread Over!\n");
-            cout << selectROI.x << " " << selectROI.y << " " <<
-            selectROI.width << " " << selectROI.height << endl;
+            cout << mySelectROI.x << " " << mySelectROI.y << " " <<
+            mySelectROI.width << " " << mySelectROI.height << endl;
 
             getROI = !getROI;
         }
 
-
 //        test->join();
-
     }
 
 
@@ -815,8 +857,9 @@ int main(int argc, char **argv) {
     std::cout << "here" << std::endl;
     saveFrame = new ark::SaveFrame(argv[1]);
     std::cout << "here" << std::endl;
-    ICP = new ark::ICPPart();
+//    ICP = new ark::ICPPart();
     ORBAlignment = new ark::orbAlignment();
+
     //初始化ICP部分
 //    ICP = new ark::ICPPart();
 
@@ -840,7 +883,7 @@ int main(int argc, char **argv) {
 //    delete bridgeRSD435;
     delete saveFrame;
     delete app;
-    delete ICP;
+//    delete ICP;
     delete ORBAlignment;
 
     return EXIT_SUCCESS;

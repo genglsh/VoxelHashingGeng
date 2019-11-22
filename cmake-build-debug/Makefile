@@ -48,10 +48,10 @@ RM = /home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -E remove
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face"
+CMAKE_SOURCE_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug"
+CMAKE_BINARY_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng face/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -135,33 +135,6 @@ TSDF: cmake_check_build_system
 TSDF/fast:
 	$(MAKE) -f CMakeFiles/TSDF.dir/build.make CMakeFiles/TSDF.dir/build
 .PHONY : TSDF/fast
-
-src/ICP_part.o: src/ICP_part.cpp.o
-
-.PHONY : src/ICP_part.o
-
-# target to build an object file
-src/ICP_part.cpp.o:
-	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ICP_part.cpp.o
-.PHONY : src/ICP_part.cpp.o
-
-src/ICP_part.i: src/ICP_part.cpp.i
-
-.PHONY : src/ICP_part.i
-
-# target to preprocess a source file
-src/ICP_part.cpp.i:
-	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ICP_part.cpp.i
-.PHONY : src/ICP_part.cpp.i
-
-src/ICP_part.s: src/ICP_part.cpp.s
-
-.PHONY : src/ICP_part.s
-
-# target to generate assembly for a file
-src/ICP_part.cpp.s:
-	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ICP_part.cpp.s
-.PHONY : src/ICP_part.cpp.s
 
 src/PointCloudGenerator.o: src/PointCloudGenerator.cpp.o
 
@@ -298,6 +271,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/ridOfPlane.o: src/ridOfPlane.cpp.o
+
+.PHONY : src/ridOfPlane.o
+
+# target to build an object file
+src/ridOfPlane.cpp.o:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o
+.PHONY : src/ridOfPlane.cpp.o
+
+src/ridOfPlane.i: src/ridOfPlane.cpp.i
+
+.PHONY : src/ridOfPlane.i
+
+# target to preprocess a source file
+src/ridOfPlane.cpp.i:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.i
+.PHONY : src/ridOfPlane.cpp.i
+
+src/ridOfPlane.s: src/ridOfPlane.cpp.s
+
+.PHONY : src/ridOfPlane.s
+
+# target to generate assembly for a file
+src/ridOfPlane.cpp.s:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.s
+.PHONY : src/ridOfPlane.cpp.s
+
 src/safecall.o: src/safecall.cpp.o
 
 .PHONY : src/safecall.o
@@ -335,9 +335,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... load_frames"
 	@echo "... TSDF"
-	@echo "... src/ICP_part.o"
-	@echo "... src/ICP_part.i"
-	@echo "... src/ICP_part.s"
 	@echo "... src/PointCloudGenerator.o"
 	@echo "... src/PointCloudGenerator.i"
 	@echo "... src/PointCloudGenerator.s"
@@ -353,6 +350,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/ridOfPlane.o"
+	@echo "... src/ridOfPlane.i"
+	@echo "... src/ridOfPlane.s"
 	@echo "... src/safecall.o"
 	@echo "... src/safecall.i"
 	@echo "... src/safecall.s"

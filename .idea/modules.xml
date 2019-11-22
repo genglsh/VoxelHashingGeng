@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/VoxelHashingGeng.iml" filepath="$PROJECT_DIR$/.idea/VoxelHashingGeng.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/VoxelHashingGeng_face.iml" filepath="$PROJECT_DIR$/.idea/VoxelHashingGeng_face.iml" />
     </modules>
   </component>
 </project>

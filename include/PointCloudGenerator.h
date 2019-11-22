@@ -38,11 +38,12 @@ namespace ark{
 
         void Run();
 
-        void SavePly(std::string filename);
+        void SavePly(std::string filename, const cv::Rect& foreground);
 
         void Render();
 
-        void Reproject(const cv::Mat &imRGB,const cv::Mat &imD, const cv::Mat &Twc);
+        void Reproject(const cv::Mat &imRGB,const cv::Mat &imD, const cv::Mat &Twc,
+                const Eigen::Vector4f& );
 
         void PushFrame(const RGBDFrame &frame);
 

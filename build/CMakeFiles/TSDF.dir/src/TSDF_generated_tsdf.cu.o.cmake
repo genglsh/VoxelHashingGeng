@@ -50,24 +50,26 @@
 # generated_cubin_file:STRING=<> File to generate.  This argument must be passed
 #                                                   in if build_cubin is true.
 
+cmake_policy(PUSH)
+cmake_policy(SET CMP0007 NEW)
 if(NOT generated_file)
   message(FATAL_ERROR "You must specify generated_file on the command line")
 endif()
 
 # Set these up as variables to make reading the generated file easier
-set(CMAKE_COMMAND "/usr/bin/cmake") # path
-set(source_file "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/tsdf.cu") # path
-set(NVCC_generated_dependency_file "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.NVCC-depend") # path
-set(cmake_dependency_file "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.depend") # path
-set(CUDA_make2cmake "/usr/share/cmake-3.5/Modules/FindCUDA/make2cmake.cmake") # path
-set(CUDA_parse_cubin "/usr/share/cmake-3.5/Modules/FindCUDA/parse_cubin.cmake") # path
+set(CMAKE_COMMAND "/usr/local/bin/cmake") # path
+set(source_file "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/tsdf.cu") # path
+set(NVCC_generated_dependency_file "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.NVCC-depend") # path
+set(cmake_dependency_file "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.depend") # path
+set(CUDA_make2cmake "/usr/local/share/cmake-3.15/Modules/FindCUDA/make2cmake.cmake") # path
+set(CUDA_parse_cubin "/usr/local/share/cmake-3.15/Modules/FindCUDA/parse_cubin.cmake") # path
 set(build_cubin OFF) # bool
 set(CUDA_HOST_COMPILER "/usr/bin/cc") # path
 # We won't actually use these variables for now, but we need to set this, in
 # order to force this file to be run again if it changes.
-set(generated_file_path "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/TSDF.dir/src/.") # path
-set(generated_file_internal "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/TSDF.dir/src/./TSDF_generated_tsdf.cu.o") # path
-set(generated_cubin_file_internal "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/TSDF.dir/src/./TSDF_generated_tsdf.cu.o.cubin.txt") # path
+set(generated_file_path "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/TSDF.dir/src/.") # path
+set(generated_file_internal "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/TSDF.dir/src/./TSDF_generated_tsdf.cu.o") # path
+set(generated_cubin_file_internal "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/TSDF.dir/src/./TSDF_generated_tsdf.cu.o.cubin.txt") # path
 
 set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda-9.0/bin/nvcc") # path
 set(CUDA_NVCC_FLAGS -O3;-use_fast_math ;; ) # list
@@ -77,9 +79,24 @@ set(CUDA_NVCC_FLAGS_MINSIZEREL  ; )
 set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
 set(nvcc_flags -m64;--std;c++11;-DTSDF_EXPORTS) # list
-set(CUDA_NVCC_INCLUDE_ARGS "-I/usr/local/cuda-9.0/include;-I/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF;-I/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/include;-I/usr/local/cuda-9.0/include") # list (needs to be in quotes to handle spaces properly).
+set(CUDA_NVCC_INCLUDE_DIRS "/usr/local/cuda-9.0/include;/usr/include/opencv;/usr/include;/home/gengshuai/Downloads/OpenNI2.3.0.61-Bate/2.3.0.61/Demo/UVCDemo/Linux/OrbbecStreamSample-Linux/OrbbecStreamSample-Linux/include;/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face;/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/include;/usr/local/cuda-9.0/include;/usr/include/vtk-6.2;/usr/include/freetype2;/usr/include/x86_64-linux-gnu/freetype2;/usr/include;/usr/include/jsoncpp;/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent;/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent/include;/usr/lib/openmpi/include;/usr/lib/openmpi/include/openmpi;/usr/include/python2.7;/usr/include/x86_64-linux-gnu;/usr/include/hdf5/serial;/usr/include/libxml2;/usr/include/tcl;/usr/local/include/pcl-1.8;/usr/local/include/eigen3;/usr/include;/usr/include/ni;/usr/include/vtk-6.2;/usr/include/freetype2;/usr/include/x86_64-linux-gnu/freetype2;/usr/include/jsoncpp;/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent;/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent/include;/usr/lib/openmpi/include;/usr/lib/openmpi/include/openmpi;/usr/include/python2.7;/usr/include/x86_64-linux-gnu;/usr/include/hdf5/serial;/usr/include/libxml2;/usr/include/tcl") # list (needs to be in quotes to handle spaces properly).
+set(CUDA_NVCC_COMPILE_DEFINITIONS [==[vtkFiltersFlowPaths_AUTOINIT=1(vtkFiltersParallelFlowPaths);vtkIOExodus_AUTOINIT=1(vtkIOParallelExodus);vtkIOGeometry_AUTOINIT=1(vtkIOMPIParallel);vtkIOImage_AUTOINIT=1(vtkIOMPIImage);vtkIOSQL_AUTOINIT=2(vtkIOMySQL,vtkIOPostgreSQL);vtkRenderingContext2D_AUTOINIT=1(vtkRenderingContextOpenGL);vtkRenderingCore_AUTOINIT=4(vtkInteractionStyle,vtkRenderingFreeType,vtkRenderingFreeTypeOpenGL,vtkRenderingOpenGL);vtkRenderingFreeType_AUTOINIT=2(vtkRenderingFreeTypeFontConfig,vtkRenderingMatplotlib);vtkRenderingLIC_AUTOINIT=1(vtkRenderingParallelLIC);vtkRenderingVolume_AUTOINIT=1(vtkRenderingVolumeOpenGL);DISABLE_OPENNI2;DISABLE_ENSENSO;DISABLE_DAVIDSDK;DISABLE_DSSDK;DISABLE_PCAP;DISABLE_PNG;DISABLE_LIBUSB_1_0;FLANN_STATIC;DISABLE_RSSDK;qh_QHpointer]==]) # list (needs to be in lua quotes see #16510 ).
 set(format_flag "-c") # string
 set(cuda_language_flag ) # list
+
+# Clean up list of include directories and add -I flags
+list(REMOVE_DUPLICATES CUDA_NVCC_INCLUDE_DIRS)
+set(CUDA_NVCC_INCLUDE_ARGS)
+foreach(dir ${CUDA_NVCC_INCLUDE_DIRS})
+  # Extra quotes are added around each flag to help nvcc parse out flags with spaces.
+  list(APPEND CUDA_NVCC_INCLUDE_ARGS "-I${dir}")
+endforeach()
+
+# Clean up list of compile definitions, add -D flags, and append to nvcc_flags
+list(REMOVE_DUPLICATES CUDA_NVCC_COMPILE_DEFINITIONS)
+foreach(def ${CUDA_NVCC_COMPILE_DEFINITIONS})
+  list(APPEND nvcc_flags "-D${def}")
+endforeach()
 
 if(build_cubin AND NOT generated_cubin_file)
   message(FATAL_ERROR "You must specify generated_cubin_file on the command line")
@@ -87,7 +104,7 @@ endif()
 
 # This is the list of host compilation flags.  It C or CXX should already have
 # been chosen by FindCUDA.cmake.
-set(CMAKE_HOST_FLAGS  -O3  -fPIC)
+set(CMAKE_HOST_FLAGS  -g  -fPIC)
 set(CMAKE_HOST_FLAGS_DEBUG -g)
 set(CMAKE_HOST_FLAGS_MINSIZEREL -Os -DNDEBUG)
 set(CMAKE_HOST_FLAGS_RELEASE -O3 -DNDEBUG)
@@ -103,7 +120,7 @@ string(TOUPPER "${build_configuration}" build_configuration)
 #message("CUDA_NVCC_HOST_COMPILER_FLAGS = ${CUDA_NVCC_HOST_COMPILER_FLAGS}")
 foreach(flag ${CMAKE_HOST_FLAGS} ${CMAKE_HOST_FLAGS_${build_configuration}})
   # Extra quotes are added around each flag to help nvcc parse out flags with spaces.
-  set(nvcc_host_compiler_flags "${nvcc_host_compiler_flags},\"${flag}\"")
+  string(APPEND nvcc_host_compiler_flags ",\"${flag}\"")
 endforeach()
 if (nvcc_host_compiler_flags)
   set(nvcc_host_compiler_flags "-Xcompiler" ${nvcc_host_compiler_flags})
@@ -116,7 +133,7 @@ list(APPEND CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS_${build_configuration}})
 list( FIND CUDA_NVCC_FLAGS "-ccbin" ccbin_found0 )
 list( FIND CUDA_NVCC_FLAGS "--compiler-bindir" ccbin_found1 )
 if( ccbin_found0 LESS 0 AND ccbin_found1 LESS 0 AND CUDA_HOST_COMPILER )
-  if (CUDA_HOST_COMPILER STREQUAL "$(VCInstallDir)bin" AND DEFINED CCBIN)
+  if (CUDA_HOST_COMPILER STREQUAL "" AND DEFINED CCBIN)
     set(CCBIN -ccbin "${CCBIN}")
   else()
     set(CCBIN -ccbin "${CUDA_HOST_COMPILER}")
@@ -172,18 +189,13 @@ cuda_execute_process(
 set(depends_CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS}")
 set(CUDA_VERSION 9.0)
 if(CUDA_VERSION VERSION_LESS "3.0")
-  cmake_policy(PUSH)
-  # CMake policy 0007 NEW states that empty list elements are not
-  # ignored.  I'm just setting it to avoid the warning that's printed.
-  cmake_policy(SET CMP0007 NEW)
-  # Note that this will remove all occurances of -G.
+  # Note that this will remove all occurrences of -G.
   list(REMOVE_ITEM depends_CUDA_NVCC_FLAGS "-G")
-  cmake_policy(POP)
 endif()
 
 # nvcc doesn't define __CUDACC__ for some reason when generating dependency files.  This
 # can cause incorrect dependencies when #including files based on this macro which is
-# defined in the generating passes of nvcc invokation.  We will go ahead and manually
+# defined in the generating passes of nvcc invocation.  We will go ahead and manually
 # define this for now until a future version fixes this bug.
 set(CUDACC_DEFINE -D__CUDACC__)
 
@@ -215,6 +227,7 @@ cuda_execute_process(
   COMMAND "${CMAKE_COMMAND}"
   -D "input_file:FILEPATH=${NVCC_generated_dependency_file}"
   -D "output_file:FILEPATH=${cmake_dependency_file}.tmp"
+  -D "verbose=${verbose}"
   -P "${CUDA_make2cmake}"
   )
 
@@ -296,3 +309,5 @@ if( build_cubin )
     )
 
 endif()
+
+cmake_policy(POP)

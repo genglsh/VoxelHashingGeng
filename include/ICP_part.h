@@ -14,13 +14,14 @@
 #include <string>
 #include <sstream>
 #include <zlib.h>
-#include <pcl/visualization/cloud_viewer.h>
 #include <unordered_map>
 #include <pcl/common/eigen.h>
 #include <pcl/features/normal_3d.h>
 #include <pcl/registration/icp_nl.h>
 #include <pcl/search/kdtree.h>
 #include <pcl/keypoints/iss_3d.h>
+#include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/ModelCoefficients.h>
 #include <assert.h>
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
@@ -50,7 +51,11 @@ namespace ark {
         bool  CVTimage2Point(const cv::Mat& image, int steph = 4, int stepw = 4, int xS = 0,
                             int yS = 0);
 
-        cv::Rect CVTimage2PointForeground(const cv::Mat& image,int steph = 4, int stepw = 4);
+        cv::Rect CVTimage2PointForeground(const cv::Mat& image, const float& depthV, int startW, int startH
+                ,int steph = 4, int stepw = 4);
+
+        bool CVTimage2PC(const cv::Mat& image, pcl::PointCloud<pcl::PointXYZ>::Ptr tem, int& numPC,
+                int stepw = 8, int steph = 8);
 
         bool CalculateAlignment(pcl::PointCloud<pcl::PointXYZ>::Ptr tem,
                 pcl::PointCloud<pcl::PointXYZ>::Ptr alignPC);
@@ -78,6 +83,9 @@ namespace ark {
     void Savetxt(PointCloud<PointXYZ>::Ptr pc1, const char* fileName);
 
     void open_eigen_mat(const char* name, Eigen::Matrix4f& init);
+
+    void getRidOfPlane(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud);
+
 
 }
 

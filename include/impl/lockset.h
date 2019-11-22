@@ -48,12 +48,12 @@ struct LockSet {
 		// no space
     assert(final_pos != -1);
 		
-		// check if already acquired (write)
-		for (int i=0; i<N; i++) {
-			if (locks[i] == &lock && i != final_pos) {
-        return true;
-			}
+	// check if already acquired (write)
+	for (int i=0; i<N; i++) {
+		if (locks[i] == &lock && i != final_pos) {
+			return true;
 		}
+	}
 
     // if not acquired, then we should switch it to LOCKED
 		// try to write
@@ -64,15 +64,15 @@ struct LockSet {
 		if (result == CLS_LOCKED) { // failed to acquire
 			// invalidate this lock
 			locks[final_pos] = 0;
-      return false;
+      		return false;
 		}
-    else if (result == CLS_FREE) { // acquired
+    	else if (result == CLS_FREE) { // acquired
 			return true;
 		}
-    else {
-      assert(false);
-      return false;
-    }
+    	else {
+      		assert(false);
+      		return false;
+    	}
 #else
     // FIXME: implement c++11 <atomic> or something
 		return true;
@@ -104,7 +104,7 @@ struct LockSet {
 				// no 2nd lock -- free this lock
 				_YieldLock(lock);
 				locks[i] = 0;
-        return;
+        		return;
 			}
 		}
 #endif

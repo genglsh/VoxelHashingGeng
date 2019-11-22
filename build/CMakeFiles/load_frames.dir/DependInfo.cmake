@@ -4,10 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/PointCloudGenerator.cpp" "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o"
-  "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/SaveFrame.cpp" "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o"
-  "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/main.cpp" "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/load_frames.dir/src/main.cpp.o"
-  "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/src/safecall.cpp" "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/load_frames.dir/src/safecall.cpp.o"
+  "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/PointCloudGenerator.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o"
+  "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/RgbPart.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/load_frames.dir/src/RgbPart.cpp.o"
+  "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/SaveFrame.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o"
+  "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/Utils.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/load_frames.dir/src/Utils.cpp.o"
+  "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/main.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/load_frames.dir/src/main.cpp.o"
+  "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/ridOfPlane.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o"
+  "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/safecall.cpp" "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/load_frames.dir/src/safecall.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -41,21 +44,21 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/usr/include/opencv"
+  "/home/gengshuai/Downloads/OpenNI2.3.0.61-Bate/2.3.0.61/Demo/UVCDemo/Linux/OrbbecStreamSample-Linux/OrbbecStreamSample-Linux/include"
   "../"
   "../include"
   "/usr/local/cuda-9.0/include"
-  "/usr/include/opencv"
   "/usr/include/vtk-6.2"
-  "/usr/include/x86_64-linux-gnu"
-  "/usr/include/hdf5/serial"
   "/usr/include/freetype2"
   "/usr/include/x86_64-linux-gnu/freetype2"
-  "/usr/include/python2.7"
   "/usr/include/jsoncpp"
   "/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent"
   "/usr/lib/openmpi/include/openmpi/opal/mca/event/libevent2021/libevent/include"
   "/usr/lib/openmpi/include"
   "/usr/lib/openmpi/include/openmpi"
+  "/usr/include/python2.7"
+  "/usr/include/hdf5/serial"
   "/usr/include/libxml2"
   "/usr/include/tcl"
   "/usr/local/include/pcl-1.8"
@@ -70,7 +73,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/gengshuai/Desktop/graduate/test/new/Voxel-Hashing-SDF/build/CMakeFiles/TSDF.dir/DependInfo.cmake"
+  "/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/TSDF.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

@@ -128,6 +128,8 @@ struct HashTableBase {
    * Read-only version -- does not do any locking */
 	__device__ __host__
 	Value &operator[](const Key &k) const {
+//		printf("只读状态\n");
+        //注释true;
 		auto it = this->tryfind(k, true);
 
     if (it == end()) {
@@ -139,6 +141,7 @@ struct HashTableBase {
 	/* for the user */
 	__device__ __host__
 	inline iterator find(const Key &k) const {
+	    //注释true
 		return this->tryfind(k, true);
 	}
 	/* for internal use -- where thread matters
@@ -219,6 +222,7 @@ struct HashTableBase {
 
 			if (it == fail()) {
 				// do nothing
+				//插入时读线程堵塞。
 			}
 			else if (it != end()) {
 				rv = &alloc[it->block_index];

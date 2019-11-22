@@ -9,7 +9,11 @@ namespace ark{
         this->lastRT = cv::Mat::eye(4, 4, CV_64F);
         this->ID = -1;
         detector = cv::FeatureDetector::create("ORB");
+//        detector = cv::ORB::create();
         descriptor = cv::DescriptorExtractor::create("ORB");
+//        descriptor = cv::ORB::create();
+//        cv::DenseFeatureDetector::create("SIFT");
+//        detector = cv::Feature2D::create("SIFT");
     }
 
     bool orbAlignment::setCurrentFrame(const RGBDFrame& crtFrame,int FrameID) {
@@ -142,7 +146,7 @@ namespace ark{
         cv::Mat cameraMatrix( 3, 3, CV_64F, camera_matrix_data);
         cv::Mat rvec, tvec, inliers, R;
         //原本最大次数为50次。
-        cv::solvePnPRansac(pts_obj, pts_img, cameraMatrix, cv::Mat(), rvec, tvec, false, 50, 1.0, 100, inliers );
+        cv::solvePnPRansac(pts_obj, pts_img, cameraMatrix, cv::Mat(), rvec, tvec, false, 300, 1.0, 100, inliers );
         // 求解pnp
 //        cv::solvePnP( pts_obj, pts_img, cameraMatrix, cv::Mat(), rvec, tvec, false);
 

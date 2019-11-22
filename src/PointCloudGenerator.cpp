@@ -94,11 +94,14 @@ namespace ark {
             cv::Mat Twc = mKeyFrame.mTcw.inv();
             // std::cout<<"运行到这"<<std::endl;
             std::cout<<Twc.at<float>(0,0)<<std::endl;
-            Reproject(currentKeyFrame.imRGB, currentKeyFrame.imDepth, Twc);
+            //这行东西没用目前，为了满足函数需求添加的参数。
+            Eigen::Vector4f tem(0,0,0,0);
+            Reproject(currentKeyFrame.imRGB, currentKeyFrame.imDepth, Twc, tem);
         }
     }
 
-    void PointCloudGenerator::Reproject(const cv::Mat &imRGB, const cv::Mat &imD, const cv::Mat &Tcw) {
+    void PointCloudGenerator::Reproject(const cv::Mat &imRGB, const cv::Mat &imD, const cv::Mat &Tcw,
+            const Eigen::Vector4f& planeParam) {
 
         float cam2base[16];
 
@@ -111,7 +114,8 @@ namespace ark {
         cam2base[15] = 1.0f;
 
         // std::cout << "TSDF processed" << std::endl;
-        mpGpuTsdfGenerator->processFrame((float *)imD.datastart, (unsigned char *)imRGB.datastart, cam2base);
+        mpGpuTsdfGenerator->processFrame((float *)imD.datastart, (unsigned char *)imRGB.datastart, cam2base,
+                planeParam);
         //std::cout << "TSDF processed" << std::endl;
         // std::cout<<"imD is "<<imD<<std::endl;
         // mpGpuTsdfGenerator->processFrame((float *)imD.datastart, (unsigned char *)imRGB.datastart, cam2base);
@@ -121,15 +125,17 @@ namespace ark {
         mpGpuTsdfGenerator->render();
     }
 
-    void PointCloudGenerator::SavePly(std::string filename) {
-        mpGpuTsdfGenerator->SavePLY(filename);
+    void PointCloudGenerator::SavePly(std::string filename, const cv::Rect& foreground) {
+        mpGpuTsdfGenerator->SavePLY(filename, foreground);
     }
 
     void PointCloudGenerator::PushFrame(const RGBDFrame &frame) {
 
         // fix bug c2w 和 w2c 搞混
         cv::Mat Tcw = frame.mTcw;
-        Reproject(frame.imRGB, frame.imDepth, Tcw);
+        //这行东西没用，为了满足参数需求添加的
+        Eigen::Vector4f tem(0,0,0,0);
+        Reproject(frame.imRGB, frame.imDepth, Tcw,tem);
     }
 
     void PointCloudGenerator::OnKeyFrameAvailable(const RGBDFrame &keyFrame) {

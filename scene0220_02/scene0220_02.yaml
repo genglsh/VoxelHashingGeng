@@ -58,7 +58,7 @@ Voxel.Origin.z: 0 #up
 # initial data
 #Voxel.Size: 0.036
 #Voxel.size: 6
-Voxel.Size: 8
+Voxel.Size: 2
 # initial TruncMargin
 # Voxel.TruncMargin: 0.18
 

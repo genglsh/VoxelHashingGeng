@@ -48,10 +48,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face
+CMAKE_SOURCE_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build
+CMAKE_BINARY_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -135,6 +135,33 @@ TSDF: cmake_check_build_system
 TSDF/fast:
 	$(MAKE) -f CMakeFiles/TSDF.dir/build.make CMakeFiles/TSDF.dir/build
 .PHONY : TSDF/fast
+
+src/FeatureCluster.o: src/FeatureCluster.cpp.o
+
+.PHONY : src/FeatureCluster.o
+
+# target to build an object file
+src/FeatureCluster.cpp.o:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.o
+.PHONY : src/FeatureCluster.cpp.o
+
+src/FeatureCluster.i: src/FeatureCluster.cpp.i
+
+.PHONY : src/FeatureCluster.i
+
+# target to preprocess a source file
+src/FeatureCluster.cpp.i:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.i
+.PHONY : src/FeatureCluster.cpp.i
+
+src/FeatureCluster.s: src/FeatureCluster.cpp.s
+
+.PHONY : src/FeatureCluster.s
+
+# target to generate assembly for a file
+src/FeatureCluster.cpp.s:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.s
+.PHONY : src/FeatureCluster.cpp.s
 
 src/PointCloudGenerator.o: src/PointCloudGenerator.cpp.o
 
@@ -244,6 +271,33 @@ src/Utils.cpp.s:
 	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/Utils.cpp.s
 .PHONY : src/Utils.cpp.s
 
+src/bundleAdjustion.o: src/bundleAdjustion.cpp.o
+
+.PHONY : src/bundleAdjustion.o
+
+# target to build an object file
+src/bundleAdjustion.cpp.o:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.o
+.PHONY : src/bundleAdjustion.cpp.o
+
+src/bundleAdjustion.i: src/bundleAdjustion.cpp.i
+
+.PHONY : src/bundleAdjustion.i
+
+# target to preprocess a source file
+src/bundleAdjustion.cpp.i:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.i
+.PHONY : src/bundleAdjustion.cpp.i
+
+src/bundleAdjustion.s: src/bundleAdjustion.cpp.s
+
+.PHONY : src/bundleAdjustion.s
+
+# target to generate assembly for a file
+src/bundleAdjustion.cpp.s:
+	$(MAKE) -f CMakeFiles/load_frames.dir/build.make CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.s
+.PHONY : src/bundleAdjustion.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -335,6 +389,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... load_frames"
 	@echo "... TSDF"
+	@echo "... src/FeatureCluster.o"
+	@echo "... src/FeatureCluster.i"
+	@echo "... src/FeatureCluster.s"
 	@echo "... src/PointCloudGenerator.o"
 	@echo "... src/PointCloudGenerator.i"
 	@echo "... src/PointCloudGenerator.s"
@@ -347,6 +404,9 @@ help:
 	@echo "... src/Utils.o"
 	@echo "... src/Utils.i"
 	@echo "... src/Utils.s"
+	@echo "... src/bundleAdjustion.o"
+	@echo "... src/bundleAdjustion.i"
+	@echo "... src/bundleAdjustion.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

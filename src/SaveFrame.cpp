@@ -9,6 +9,10 @@
 #include <sys/stat.h>
 #include <iostream>
 #include <fstream>
+#include <opencv2/core/cuda.hpp>
+#include <opencv2/imgproc.hpp>
+//#include <opencv2/cudaimg>
+//#include <opencv/>
 
 //#include <MathUtils.h>
 //#include <pcl/filters/statistical_outlier_removal.h>
@@ -18,6 +22,48 @@
 #include "SaveFrame.h"
 
 namespace ark {
+
+    void RenderDepthMap(const cv::Mat depthRaw, cv::Mat& depthImg){
+
+        const static int MAX_DEPTH_VALUE = 0xffff;
+        int width = 640, height = 480;
+        float* pDepthHist = new float[MAX_DEPTH_VALUE];
+        memset(pDepthHist, 0, MAX_DEPTH_VALUE * sizeof(float));
+
+        int numberOfPoints = 0;
+        unsigned short nvalue = 0;
+        for (int row = 0; row < height; row++){
+            for (int col = 0; col < width; col++){
+                nvalue = depthRaw.at<unsigned short>(row, col);
+                if (nvalue != 0){
+                    pDepthHist[nvalue] ++;
+                    numberOfPoints ++;
+                }
+            }
+        }
+
+        for (int i = 1; i < MAX_DEPTH_VALUE; i ++) {
+            pDepthHist[i] += pDepthHist[i - 1];
+        }
+
+        for (int i = 1; i < MAX_DEPTH_VALUE; i ++) {
+            if (pDepthHist[i] != 0) {
+                pDepthHist[i] = (numberOfPoints - pDepthHist[i]) / (float)numberOfPoints;
+            }
+        }
+
+
+        for (int row = 0; row < height; row++) {
+            uchar * showcell = (uchar *)depthImg.ptr<uchar>(row);
+            for (int col = 0; col < width; col++)
+            {
+                char depthValue = pDepthHist[depthRaw.at<unsigned short>(row, col)] * 255;
+                *showcell++ = 0;
+                *showcell++ = depthValue;
+                *showcell++ = depthValue;
+            }
+        }
+    }
 
     void createFolder(struct stat &info, std::string folderPath){
         if(stat( folderPath.c_str(), &info ) != 0 ) {
@@ -169,21 +215,40 @@ namespace ark {
         std::cout << frame.imRGB.rows << " rgb "<<frame.imRGB.cols <<std::endl;
         std::cout<<depthPath + std::to_string(frame.frameId) + ".png"<<std::endl;
         cv::Mat depth255 = cv::imread(depthPath + std::to_string(frame.frameId) + ".png",-1);
-        //当前参数设置情况下，未发现双边滤波有什么效果。
-//        cv::Mat depth255tem;
-//        depth255.convertTo(depth255tem, CV_32FC1);
-//        cv::Mat bilaterRes;
-//        cv::bilateralFilter(depth255tem, bilaterRes, 5, 50, 25);
-//        std::cout << depth255.rows << " depth "<<depth255.cols <<std::endl;
-        //std::cout << "type: " << depth255.type() << std::endl ;
-        //if(frame.frameId == 1)
-//        for(int x = 0;x <10;x++)
-//            std::cout << depth255.at<int8_t >(x,x) << " ";
-//        std::cout<<std::endl;
-        
 
-        depth255.convertTo(frame.imDepth, CV_32FC1);
-//        bilaterRes.convertTo(frame.imDepth, CV_32FC1);
+
+        //当前参数设置情况下，未发现双边滤波有什么效果。
+        cv::Mat depth255tem, bilaterRes(640, 480, CV_32FC1), depth8u(640, 480, CV_16UC1);
+
+        depth255.convertTo(depth255tem, CV_32FC1);
+
+        cv::bilateralFilter(depth255tem, bilaterRes, 5, 20, 20);
+//       cv::cuda::bilateralFilter
+//        std::cout << "begin" << std::endl;
+//        cv::Mat renderRes(480, 640, CV_16UC3);
+//
+//        bilaterRes.convertTo(depth8u, CV_16UC1);
+////        std::cout << "2" << std::endl;
+//        RenderDepthMap(depth8u, renderRes);
+////        std::cout << "3" << std::endl;
+//        cv::imshow("shungbain", renderRes);
+//
+//        std::cout << "end" << std::endl;
+//        cv::waitKey();
+//        cv::cuda::bilateralFilter
+//        depth255.convertTo(frame.imDepth, CV_32FC1);
+
+//        for(int h = 0; h < 480; h++) {
+//
+//            for(int w = 0; w < 640; w++) {
+//
+//                if(abs(depth255tem.at<float>(h, w) - bilaterRes.at<float>(h, w)) > 0)
+////                    std::cout << "change! " << std::endl;
+//                    assert(false);
+//            }
+//
+//        }
+        bilaterRes.convertTo(frame.imDepth, CV_32FC1);
         // 当前设置下的深度范围为 0-10 对应我们的最大范围。
         //frame.imDepth *= 0.056;
 //        frame.imDepth *= 0.0222;
@@ -208,7 +273,7 @@ namespace ark {
         //TCW FROM TEXT
 
         // * 从文件中读取旋转矩阵
-        float tcwArr[4][4];
+        double tcwArr[4][4];
         std::ifstream tcwFile;
         tcwFile.open(tcwPath + std::to_string(frame.frameId) + ".txt");
         for (int i = 0; i < 4; ++i) {
@@ -216,11 +281,11 @@ namespace ark {
                 tcwFile >> tcwArr[i][k];
             }
         }
-        cv::Mat tcw(4, 4, CV_32FC1, tcwArr);
+        cv::Mat tcw(4, 4, CV_64FC1, tcwArr);
 
         frame.mTcw = tcw;
 
-        return frame;
+        return std::move(frame);
     }
 
     RGBDFrame SaveFrame::frameLoadAuto(int frameId){

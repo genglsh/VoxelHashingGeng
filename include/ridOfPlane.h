@@ -26,9 +26,12 @@
 using namespace pcl;
 
 namespace ark{
-    int ridOfPlane(const cv::Mat& image, Eigen::Vector4f& param);
+//    int ridOfPlane(const cv::Mat& image, Eigen::Vector4f& param);
+    int ridOfPlane(const cv::Mat& image, Eigen::Vector4f& param, int, Eigen::Vector3f&);
 
     bool ridOfPlaneInDepth(cv::Mat& image, const Eigen::Vector4f& param);
+
+    float gaussFunction(uint x , uint y);
 }
 
 #endif //TSDF_RIDOFPLANE_H

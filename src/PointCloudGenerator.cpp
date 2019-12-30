@@ -116,6 +116,7 @@ namespace ark {
         // std::cout << "TSDF processed" << std::endl;
         mpGpuTsdfGenerator->processFrame((float *)imD.datastart, (unsigned char *)imRGB.datastart, cam2base,
                 planeParam);
+//        cout << cam2base << endl;
         //std::cout << "TSDF processed" << std::endl;
         // std::cout<<"imD is "<<imD<<std::endl;
         // mpGpuTsdfGenerator->processFrame((float *)imD.datastart, (unsigned char *)imRGB.datastart, cam2base);

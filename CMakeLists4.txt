@@ -41,10 +41,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Example)
 
 add_executable(ridPlane src/ridOfPlane.cpp
 #src/ICP_part.cpp
-                                                  src/RgbPart.cpp
-                                                  src/PointCloudGenerator.cpp
-                                                  src/SaveFrame.cpp
-                                                  src/safecall.cpp
                                                   src/Utils.cpp)
 
 target_link_libraries(ridPlane

@@ -9,7 +9,6 @@
 #include <mutex>
 #include <vector>
 
-
 #include <stdio.h>
 #include <sys/types.h>
 #include <dirent.h>
@@ -32,7 +31,9 @@
 #include "ObjectExtract.h"
 #include <iostream>
 #include "ridOfPlane.h"
-
+#include <FeatureCluster.h>
+//#include <opencv2/cudaimgproc.hpp>
+// opencv 版本问题。
 // 0.642468 -0.228258 0.731528 -507.952
 
 
@@ -70,10 +71,12 @@ std::thread *app;
 //ark::ICPPart *ICP;
 ark::orbAlignment *ORBAlignment;
 ark::RGBDFrame FirstFrame;
+//ark::Vocabulary* vocabulary;
 
 
 
-static const int kItemsToProduce  = 10;   // How many items we plan to produce.
+//static const int kItemsToProduce  = 30;   // How many items we plan to produce.
+static int kItemsToProduce = 30;
 
 struct ItemRepository {
     queue<ark::RGBDFrame> item_buffer; // 产品缓冲区, 配合 read_position 和 write_position 模型环形队列.
@@ -129,7 +132,7 @@ void onMouse(int event, int x, int y, int flags, void* param) {
 void GetROI(const ark::RGBDFrame& firstFrame, const float& depthV) {
     std::string windowName = "test";
 
-    cv::namedWindow(windowName, CV_WINDOW_AUTOSIZE | CV_WINDOW_KEEPRATIO);
+//    cv::namedWindow(windowName, CV_WINDOW_AUTOSIZE | CV_WINDOW_KEEPRATIO);
     cv::resizeWindow(windowName, 640, 480);
 
 
@@ -203,12 +206,19 @@ void FusionPart(ark::RGBDFrame& frame, int cnt){
 
 //    利用orb方法来做对齐。
 
+//    Eigen::Vector4f planeParam;
+//    ark::ridOfPlane(frame.imDepth, planeParam);
+
     Eigen::Vector4f planeParam;
-    ark::ridOfPlane(frame.imDepth, planeParam);
+    Eigen::Vector3f frustumCenter;
+//    printf("0\n");
+    ark::ridOfPlane(frame.imDepth, planeParam, frame.frameId, frustumCenter);
     //todo::直接在深度图上去背景。
 //    ark::ridOfPlaneInDepth(frame.imDepth, planeParam);
 
     printf("planeparam is %f %f %f %f\n", planeParam[0], planeParam[1], planeParam[2], planeParam[3]);
+
+    printf("frustumCenter is %f %f %f\n", frustumCenter[0], frustumCenter[1], frustumCenter[2]);
 
     bool setFlag = ORBAlignment->setCurrentFrame(frame, cnt);
     system_clock::time_point setFrameTime = system_clock::now();
@@ -231,8 +241,8 @@ void FusionPart(ark::RGBDFrame& frame, int cnt){
 //    cout << "depth 阈值 is " << ark::globalThresholdPM(frame.imDepth)<< endl;
 //    system_clock::time_point fbTime = system_clock::now();
     auto baTime = system_clock::now();
-    pcthreshold = ark::globalThresholdPM(frame.imDepth);
-    pointCloudGenerator->SetMaxDepth(pcthreshold);
+//    pcthreshold = ark::globalThresholdPM(frame.imDepth);
+//    pointCloudGenerator->SetMaxDepth(pcthreshold);
     auto bafTime = system_clock::now();
     ark::printTime(baTime, bafTime, "前后景分割处理时间");
 //    system_clock::time_point fbendTime = system_clock::now();
@@ -240,7 +250,6 @@ void FusionPart(ark::RGBDFrame& frame, int cnt){
 //    cout << "前后景分割处理时间为　" << (float)durationbf * microseconds::period::num / microseconds::period::den << "s"<< endl;
 
     frame.mTcw = (ORBAlignment->RT);
-    cout<< frame.mTcw;
 
 //    cv::imshow("rgb",frame.imRGB);
 //    cv::waitKey(0);
@@ -259,6 +268,8 @@ void FusionPart(ark::RGBDFrame& frame, int cnt){
     ark::printTime(cvtColorT, cvtColorA, "颜色转换时间");
 //    cv::Mat Twc = frame.mTcw.inv();
 //    pointCloudGenerator->PushFrame(frame); //OnKeyFrameAvailable(frame);
+
+    cout << "frame TCW is " << frame.mTcw << endl;
 
     pointCloudGenerator->Reproject(frame.imRGB, frame.imDepth, frame.mTcw, planeParam);
 
@@ -481,6 +492,9 @@ int ProducerTask(){
 void ProducerTask() {
     for (int i = 0; i < kItemsToProduce; ++i) {
         ark::RGBDFrame frame = saveFrame->frameLoad(i);
+
+        cout << "produce" << endl;
+        cout << frame.mTcw << endl;
         if (i == 0) {
 
             FirstFrame = frame;
@@ -496,7 +510,7 @@ void ConsumerTask() // 第一消费者任务，用来计算对齐矩阵
     while(1) {
         ark::RGBDFrame item = ConsumeItem(&gItemRepository); // 消费一个产品.
         printf("current frame id is %d\n", item.frameId);
-
+        cout << item.mTcw;
         //第一消费者 第二生产者。
 //        ProduceAlignPart(&gItemRepository, item, item.frameId);
         FusionPart(item, cntFrame);
@@ -689,7 +703,7 @@ void display_func() {
 
 void idle_func() {
     //空闲时间不做任何处理。
-//    glutPostRedisplay();
+    glutPostRedisplay();
 }
 
 void reshape_func(GLint width, GLint height) {
@@ -837,8 +851,9 @@ void motion_func(int x, int y) {
 }
 
 int main(int argc, char **argv) {
+    kItemsToProduce = std::atoi(argv[3]);
     std::cout << "here" << std::endl;
-    if (argc != 3) {
+    if (argc < 3) {
         cerr << endl << "Usage: ./load_frames path_to_frames path_to_settings" << endl;
         return 1;
     }
@@ -859,6 +874,7 @@ int main(int argc, char **argv) {
     std::cout << "here" << std::endl;
 //    ICP = new ark::ICPPart();
     ORBAlignment = new ark::orbAlignment();
+//    vocabulary = new ark::Vocabulary();
 
     //初始化ICP部分
 //    ICP = new ark::ICPPart();
@@ -885,6 +901,7 @@ int main(int argc, char **argv) {
     delete app;
 //    delete ICP;
     delete ORBAlignment;
+//    delete vocabulary;
 
     return EXIT_SUCCESS;
 }

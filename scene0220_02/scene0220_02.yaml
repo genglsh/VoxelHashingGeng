@@ -63,7 +63,7 @@ Voxel.Size: 2
 # Voxel.TruncMargin: 0.18
 
 #设置会不会存在问题,此处维度并不与实际维度相同。
-Voxel.TruncMargin: 40
+Voxel.TruncMargin: 10
 
 Voxel.Dim.x: 200
 

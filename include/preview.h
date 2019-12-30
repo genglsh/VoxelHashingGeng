@@ -164,7 +164,7 @@ long long current_timestamp() {
     long long milliseconds = te.tv_sec*1000LL + te.tv_usec/1000; // calculate milliseconds
     return milliseconds;
 }
-
+/*
 void captureImage(int flag, Mat& img, int num)
 {
 	std::vector<int> png_params;
@@ -186,7 +186,7 @@ void captureImage(int flag, Mat& img, int num)
 	sprintf(csName, "./Capture/%s_%d.png", fileName, num);
 	cv::imwrite(csName, img, png_params);
 }
-
+*/
 int waitForFrame(Mat& previewImg)
 {
 	if(isUvcCamera) {

@@ -43,10 +43,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face
+CMAKE_SOURCE_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build
+CMAKE_BINARY_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/load_frames.dir/depend.make
@@ -59,94 +59,120 @@ include CMakeFiles/load_frames.dir/flags.make
 
 CMakeFiles/load_frames.dir/src/main.cpp.o: CMakeFiles/load_frames.dir/flags.make
 CMakeFiles/load_frames.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/load_frames.dir/src/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/main.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/load_frames.dir/src/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/main.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/main.cpp
 
 CMakeFiles/load_frames.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/load_frames.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/main.cpp > CMakeFiles/load_frames.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/main.cpp > CMakeFiles/load_frames.dir/src/main.cpp.i
 
 CMakeFiles/load_frames.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/load_frames.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/main.cpp -o CMakeFiles/load_frames.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/main.cpp -o CMakeFiles/load_frames.dir/src/main.cpp.s
 
 CMakeFiles/load_frames.dir/src/RgbPart.cpp.o: CMakeFiles/load_frames.dir/flags.make
 CMakeFiles/load_frames.dir/src/RgbPart.cpp.o: ../src/RgbPart.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/load_frames.dir/src/RgbPart.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/RgbPart.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/RgbPart.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/load_frames.dir/src/RgbPart.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/RgbPart.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/RgbPart.cpp
 
 CMakeFiles/load_frames.dir/src/RgbPart.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/load_frames.dir/src/RgbPart.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/RgbPart.cpp > CMakeFiles/load_frames.dir/src/RgbPart.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/RgbPart.cpp > CMakeFiles/load_frames.dir/src/RgbPart.cpp.i
 
 CMakeFiles/load_frames.dir/src/RgbPart.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/load_frames.dir/src/RgbPart.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/RgbPart.cpp -o CMakeFiles/load_frames.dir/src/RgbPart.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/RgbPart.cpp -o CMakeFiles/load_frames.dir/src/RgbPart.cpp.s
 
 CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o: CMakeFiles/load_frames.dir/flags.make
 CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o: ../src/PointCloudGenerator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/PointCloudGenerator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/PointCloudGenerator.cpp
 
 CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/PointCloudGenerator.cpp > CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/PointCloudGenerator.cpp > CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.i
 
 CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/PointCloudGenerator.cpp -o CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/PointCloudGenerator.cpp -o CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.s
 
 CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o: CMakeFiles/load_frames.dir/flags.make
 CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o: ../src/SaveFrame.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/SaveFrame.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/SaveFrame.cpp
 
 CMakeFiles/load_frames.dir/src/SaveFrame.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/load_frames.dir/src/SaveFrame.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/SaveFrame.cpp > CMakeFiles/load_frames.dir/src/SaveFrame.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/SaveFrame.cpp > CMakeFiles/load_frames.dir/src/SaveFrame.cpp.i
 
 CMakeFiles/load_frames.dir/src/SaveFrame.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/load_frames.dir/src/SaveFrame.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/SaveFrame.cpp -o CMakeFiles/load_frames.dir/src/SaveFrame.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/SaveFrame.cpp -o CMakeFiles/load_frames.dir/src/SaveFrame.cpp.s
 
 CMakeFiles/load_frames.dir/src/safecall.cpp.o: CMakeFiles/load_frames.dir/flags.make
 CMakeFiles/load_frames.dir/src/safecall.cpp.o: ../src/safecall.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/load_frames.dir/src/safecall.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/safecall.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/safecall.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/load_frames.dir/src/safecall.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/safecall.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/safecall.cpp
 
 CMakeFiles/load_frames.dir/src/safecall.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/load_frames.dir/src/safecall.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/safecall.cpp > CMakeFiles/load_frames.dir/src/safecall.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/safecall.cpp > CMakeFiles/load_frames.dir/src/safecall.cpp.i
 
 CMakeFiles/load_frames.dir/src/safecall.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/load_frames.dir/src/safecall.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/safecall.cpp -o CMakeFiles/load_frames.dir/src/safecall.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/safecall.cpp -o CMakeFiles/load_frames.dir/src/safecall.cpp.s
 
 CMakeFiles/load_frames.dir/src/Utils.cpp.o: CMakeFiles/load_frames.dir/flags.make
 CMakeFiles/load_frames.dir/src/Utils.cpp.o: ../src/Utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/load_frames.dir/src/Utils.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/Utils.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/Utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/load_frames.dir/src/Utils.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/Utils.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/Utils.cpp
 
 CMakeFiles/load_frames.dir/src/Utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/load_frames.dir/src/Utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/Utils.cpp > CMakeFiles/load_frames.dir/src/Utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/Utils.cpp > CMakeFiles/load_frames.dir/src/Utils.cpp.i
 
 CMakeFiles/load_frames.dir/src/Utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/load_frames.dir/src/Utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/Utils.cpp -o CMakeFiles/load_frames.dir/src/Utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/Utils.cpp -o CMakeFiles/load_frames.dir/src/Utils.cpp.s
 
 CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o: CMakeFiles/load_frames.dir/flags.make
 CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o: ../src/ridOfPlane.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/ridOfPlane.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/ridOfPlane.cpp
 
 CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/ridOfPlane.cpp > CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/ridOfPlane.cpp > CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.i
 
 CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/src/ridOfPlane.cpp -o CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/ridOfPlane.cpp -o CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.s
+
+CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.o: CMakeFiles/load_frames.dir/flags.make
+CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.o: ../src/FeatureCluster.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/FeatureCluster.cpp
+
+CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/FeatureCluster.cpp > CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.i
+
+CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/FeatureCluster.cpp -o CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.s
+
+CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.o: CMakeFiles/load_frames.dir/flags.make
+CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.o: ../src/bundleAdjustion.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.o -c /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/bundleAdjustion.cpp
+
+CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/bundleAdjustion.cpp > CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.i
+
+CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/src/bundleAdjustion.cpp -o CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.s
 
 # Object files for target load_frames
 load_frames_OBJECTS = \
@@ -156,7 +182,9 @@ load_frames_OBJECTS = \
 "CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o" \
 "CMakeFiles/load_frames.dir/src/safecall.cpp.o" \
 "CMakeFiles/load_frames.dir/src/Utils.cpp.o" \
-"CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o"
+"CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o" \
+"CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.o" \
+"CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.o"
 
 # External object files for target load_frames
 load_frames_EXTERNAL_OBJECTS =
@@ -168,8 +196,11 @@ load_frames_EXTERNAL_OBJECTS =
 ../Example/load_frames: CMakeFiles/load_frames.dir/src/safecall.cpp.o
 ../Example/load_frames: CMakeFiles/load_frames.dir/src/Utils.cpp.o
 ../Example/load_frames: CMakeFiles/load_frames.dir/src/ridOfPlane.cpp.o
+../Example/load_frames: CMakeFiles/load_frames.dir/src/FeatureCluster.cpp.o
+../Example/load_frames: CMakeFiles/load_frames.dir/src/bundleAdjustion.cpp.o
 ../Example/load_frames: CMakeFiles/load_frames.dir/build.make
 ../Example/load_frames: ../lib/libTSDF.so
+../Example/load_frames: /usr/local/lib/libDBoW3.a
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.2.4.9
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_ts.so.2.4.9
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_superres.so.2.4.9
@@ -346,19 +377,9 @@ load_frames_EXTERNAL_OBJECTS =
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libboost_regex.so
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libcxsparse.so
 ../Example/load_frames: /usr/local/cuda-9.0/lib64/libcudart_static.a
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/librt.so
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_legacy.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_video.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.2.4.9
-../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_core.so.2.4.9
 ../Example/load_frames: /usr/local/lib/libpcl_common.so
 ../Example/load_frames: /usr/local/lib/libpcl_octree.so
 ../Example/load_frames: /usr/local/lib/libpcl_io.so
@@ -378,6 +399,18 @@ load_frames_EXTERNAL_OBJECTS =
 ../Example/load_frames: /usr/local/lib/libpcl_stereo.so
 ../Example/load_frames: /usr/local/lib/libpcl_outofcore.so
 ../Example/load_frames: /usr/local/lib/libpcl_people.so
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libcxsparse.so
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_legacy.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_video.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.2.4.9
+../Example/load_frames: /usr/lib/x86_64-linux-gnu/libopencv_core.so.2.4.9
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libvtkFiltersFlowPaths-6.2.so.6.2.0
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libvtkFiltersAMR-6.2.so.6.2.0
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libtheoraenc.so
@@ -476,7 +509,7 @@ load_frames_EXTERNAL_OBJECTS =
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libproj.so
 ../Example/load_frames: /usr/lib/x86_64-linux-gnu/libvtkCommonCore-6.2.so.6.2.0
 ../Example/load_frames: CMakeFiles/load_frames.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable ../Example/load_frames"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable ../Example/load_frames"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/load_frames.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -489,6 +522,6 @@ CMakeFiles/load_frames.dir/clean:
 .PHONY : CMakeFiles/load_frames.dir/clean
 
 CMakeFiles/load_frames.dir/depend:
-	cd /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/build/CMakeFiles/load_frames.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/build/CMakeFiles/load_frames.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/load_frames.dir/depend
 

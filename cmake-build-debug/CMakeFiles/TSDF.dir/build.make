@@ -43,10 +43,10 @@ RM = /home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -E remove
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face
+CMAKE_SOURCE_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug
+CMAKE_BINARY_DIR = /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/TSDF.dir/depend.make
@@ -60,23 +60,23 @@ include CMakeFiles/TSDF.dir/flags.make
 CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o: CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.depend
 CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o: CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.Debug.cmake
 CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o: ../src/tsdf.cu
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building NVCC (Device) object CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o"
-	cd /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles/TSDF.dir/src && /home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -E make_directory /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles/TSDF.dir/src/.
-	cd /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles/TSDF.dir/src && /home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -D verbose:BOOL=$(VERBOSE) -D build_configuration:STRING=Debug -D generated_file:STRING=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles/TSDF.dir/src/./TSDF_generated_tsdf.cu.o -D generated_cubin_file:STRING=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles/TSDF.dir/src/./TSDF_generated_tsdf.cu.o.cubin.txt -P /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.Debug.cmake
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building NVCC (Device) object CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o"
+	cd /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles/TSDF.dir/src && /home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -E make_directory /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles/TSDF.dir/src/.
+	cd /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles/TSDF.dir/src && /home/gengshuai/software/clion-2018.2.2/bin/cmake/linux/bin/cmake -D verbose:BOOL=$(VERBOSE) -D build_configuration:STRING=Debug -D generated_file:STRING=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles/TSDF.dir/src/./TSDF_generated_tsdf.cu.o -D generated_cubin_file:STRING=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles/TSDF.dir/src/./TSDF_generated_tsdf.cu.o.cubin.txt -P /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.Debug.cmake
 
 # Object files for target TSDF
 TSDF_OBJECTS =
 
 # External object files for target TSDF
 TSDF_EXTERNAL_OBJECTS = \
-"/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o"
+"/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o"
 
 ../lib/libTSDF.so: CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o
 ../lib/libTSDF.so: CMakeFiles/TSDF.dir/build.make
 ../lib/libTSDF.so: /usr/local/cuda/lib64/libcudart_static.a
 ../lib/libTSDF.so: /usr/lib/x86_64-linux-gnu/librt.so
 ../lib/libTSDF.so: CMakeFiles/TSDF.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library ../lib/libTSDF.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library ../lib/libTSDF.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TSDF.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -89,6 +89,6 @@ CMakeFiles/TSDF.dir/clean:
 .PHONY : CMakeFiles/TSDF.dir/clean
 
 CMakeFiles/TSDF.dir/depend: CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o
-	cd /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug /home/gengshuai/Desktop/positive/test/new/VoxelHashingGeng_face/cmake-build-debug/CMakeFiles/TSDF.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug /home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/cmake-build-debug/CMakeFiles/TSDF.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/TSDF.dir/depend
 

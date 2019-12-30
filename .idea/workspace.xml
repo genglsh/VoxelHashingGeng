@@ -13,19 +13,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="510b73dc-6014-49df-b686-543119f23ade" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/include/ridOfPlane.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/VoxelHashingGeng.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/FeatureCluster.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/bundleAdjustion.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.15.2/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/3.15.2/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.15.2/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/3.15.2/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.15.2/CompilerIdC/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/3.15.2/CompilerIdC/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.15.2/CompilerIdCXX/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/3.15.2/CompilerIdCXX/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.5.1/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.5.1/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.5.1/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.5.1/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.5.1/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.5.1/CompilerIdC/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/3.5.1/CompilerIdCXX/a.out" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/CMakeError.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/CMakeOutput.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/CMakeRuleHashes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/CMakeRuleHashes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/Makefile.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/Makefile2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/TSDF.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/TSDF.dir/build.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/TSDF.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/TSDF.dir/link.txt" afterDir="false" />
@@ -34,10 +40,12 @@
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.cmake.pre-gen" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.cmake.pre-gen" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.depend" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.depend" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/feature_tests.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/feature_tests.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/feature_tests.cxx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/DependInfo.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/cmake_clean.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/depend.internal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/flags.make" afterDir="false" />
@@ -46,39 +54,42 @@
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/src/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/src/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/src/safecall.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/Example/CMakeFiles/load_frames.dir/src/safecall.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/rgbAlign.dir/CXX.includecache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/rgbAlign.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/rgbAlign.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/rgbAlign.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/rgbAlign.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/rgbAlign.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/rgbAlign.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/rgbAlign.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example/CMakeFiles/rgbAlign.dir/progress.make" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Example/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/Example/cmake_install.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/load_frames" beforeDir="false" afterPath="$PROJECT_DIR$/Example/load_frames" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Example/model.ply" beforeDir="false" afterPath="$PROJECT_DIR$/Example/model.ply" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeCXXCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CompilerIdC/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CompilerIdCXX/a.out" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeError.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeRuleHashes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeRuleHashes.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/count.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/depend.internal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/flags.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/link.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.cmake.pre-gen" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.cmake.pre-gen" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.depend" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.depend" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/feature_tests.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/feature_tests.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/feature_tests.cxx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/DependInfo.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/build.make" afterDir="false" />
@@ -88,25 +99,15 @@
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/flags.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/link.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/PointCloudGenerator.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/SaveFrame.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/Utils.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/Utils.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/safecall.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/load_frames.dir/src/safecall.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/CXX.includecache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/DependInfo.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/build.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/cmake_clean.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/depend.internal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/depend.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/flags.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/link.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/progress.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/src/RgbPart.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/rgbAlign.dir/src/SlamBase.cpp.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/build/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/cmake_install.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.0/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.0/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.0/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.0/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.0/CompilerIdC/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.0/CompilerIdC/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.0/CompilerIdCXX/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.12.0/CompilerIdCXX/a.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
@@ -114,37 +115,26 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/link.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.Debug.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.Debug.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.cmake.pre-gen" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.cmake.pre-gen" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.depend" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TSDF.dir/src/TSDF_generated_tsdf.cu.o.depend" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/DependInfo.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/flags.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/load_frames.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rgbAlign.dir/DependInfo.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rgbAlign.dir/build.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rgbAlign.dir/cmake_clean.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rgbAlign.dir/depend.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rgbAlign.dir/flags.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rgbAlign.dir/link.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rgbAlign.dir/progress.make" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/TSDF.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/TSDF.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ICP_part.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ICP_part.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/PointCloudGenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/PointCloudGenerator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/SlamBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/SlamBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/impl/lockset.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/impl/lockset.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Utils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/preview.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/preview.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ridOfPlane.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ridOfPlane.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/tsdf.cuh" beforeDir="false" afterPath="$PROJECT_DIR$/include/tsdf.cuh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/vhashing.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/vhashing.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/libTSDF.so" beforeDir="false" afterPath="$PROJECT_DIR$/lib/libTSDF.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/0.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/RGB/0.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/RGB/1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/10.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/RGB/10.png" afterDir="false" />
@@ -160,14 +150,6 @@
       <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/RGB/2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/20.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/RGB/20.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/21.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/RGB/21.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/29.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/RGB/3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/RGB/4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/RGB/5.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/RGB/5.png" afterDir="false" />
@@ -192,14 +174,6 @@
       <change beforePath="$PROJECT_DIR$/scene0220_02/depth/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/depth/2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/depth/20.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/depth/20.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/depth/21.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/depth/21.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/depth/22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/depth/23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/depth/24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/depth/25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/depth/26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/depth/27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/depth/28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene0220_02/depth/29.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/depth/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/depth/3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/depth/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/depth/4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/depth/5.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/depth/5.png" afterDir="false" />
@@ -209,11 +183,39 @@
       <change beforePath="$PROJECT_DIR$/scene0220_02/depth/9.png" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/depth/9.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/depth/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/depth/Untitled.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scene0220_02/scene0220_02.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/scene0220_02.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ICP_part.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ICP_part.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/11.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/11.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/12.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/12.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/13.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/13.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/14.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/14.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/15.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/15.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/16.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/16.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/17.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/17.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/18.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/18.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/19.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/19.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/20.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/21.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/21.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/22.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/22.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/23.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/23.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/24.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/24.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/25.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/25.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/26.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/26.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scene0220_02/tcw/9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scene0220_02/tcw/9.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PointCloudGenerator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/PointCloudGenerator.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RgbPart.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/RgbPart.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SaveFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/SaveFrame.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ridOfPlane.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ridOfPlane.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tsdf.cu" beforeDir="false" afterPath="$PROJECT_DIR$/src/tsdf.cu" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/summary.txt" beforeDir="false" afterPath="$PROJECT_DIR$/summary.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -228,101 +230,142 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cpp" value="2" />
-          <entry key="cu" value="1" />
-          <entry key="py" value="1" />
-          <entry key="yaml" value="1" />
+          <entry key="cmake" value="1" />
+          <entry key="cpp" value="5" />
+          <entry key="cu" value="2" />
+          <entry key="h" value="9" />
+          <entry key="ply" value="4" />
+          <entry key="png" value="12" />
+          <entry key="py" value="2" />
+          <entry key="txt" value="2" />
+          <entry key="yaml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="ObjectiveC" value="3" />
-          <entry key="Python" value="1" />
-          <entry key="YAML" value="1" />
+          <entry key="CMakeLists.txt" value="1" />
+          <entry key="Image" value="12" />
+          <entry key="ObjectiveC" value="16" />
+          <entry key="PLAIN_TEXT" value="6" />
+          <entry key="Python" value="2" />
+          <entry key="YAML" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="txt" value="3" />
-          <entry key="yaml" value="1" />
+          <entry key="cpp" value="1307" />
+          <entry key="cu" value="1107" />
+          <entry key="h" value="223" />
+          <entry key="py" value="3" />
+          <entry key="txt" value="665" />
+          <entry key="yaml" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="3" />
-          <entry key="YAML" value="1" />
+          <entry key="ObjectiveC" value="2637" />
+          <entry key="PLAIN_TEXT" value="662" />
+          <entry key="Python" value="3" />
+          <entry key="YAML" value="7" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="118829127">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="17" />
+          <entry key="project.open.time.0" value="14" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="18" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="cpp" value="16" />
+          <entry key="cu" value="1" />
+          <entry key="h" value="9" />
+          <entry key="hpp" value="1" />
+          <entry key="ply" value="10" />
+          <entry key="py" value="2" />
+          <entry key="txt" value="7" />
+          <entry key="yaml" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CMakeLists.txt" value="4" />
+          <entry key="ObjectiveC" value="27" />
+          <entry key="PLAIN_TEXT" value="13" />
+          <entry key="Python" value="2" />
+          <entry key="YAML" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="cpp" value="2685" />
+          <entry key="cu" value="313" />
+          <entry key="h" value="827" />
+          <entry key="ply" value="7621" />
+          <entry key="py" value="4" />
+          <entry key="txt" value="167" />
+          <entry key="yaml" value="13" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="CMakeLists.txt" value="167" />
+          <entry key="ObjectiveC" value="3825" />
+          <entry key="PLAIN_TEXT" value="7621" />
+          <entry key="Python" value="4" />
+          <entry key="YAML" value="13" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+        <entry file="file://$PROJECT_DIR$/src/RgbPart.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1464">
-              <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="-1">
+              <caret line="336" column="3" selection-start-line="336" selection-start-column="3" selection-end-line="336" selection-end-column="3" />
               <folding>
-                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#9867#11460#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/tsdf.cu">
+        <entry file="file://$PROJECT_DIR$/src/SaveFrame.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="1323" column="48" selection-start-line="1323" selection-start-column="48" selection-end-line="1323" selection-end-column="48" />
+            <state relative-caret-position="311">
+              <caret line="224" column="64" selection-start-line="224" selection-start-column="64" selection-end-line="224" selection-end-column="64" />
               <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scene0220_02/scene0220_02.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/run.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#38#55#0" expanded="true" />
+                <element signature="e#334#363#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/RgbPart.cpp">
+        <entry file="file://$PROJECT_DIR$/Example/model31.ply">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="104" column="15" selection-start-line="104" selection-start-column="15" selection-end-line="104" selection-end-column="15" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-14">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -331,7 +374,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pro</find>
+      <find>EIGEN_MAKE_ALIGNED_OPERATOR_NEW</find>
+      <find>fusionPAr</find>
+      <find>fusionp</find>
+      <find>marchingCubeHashKernel</find>
+      <find>streamOutGPU2CPU</find>
+      <find>integr</find>
+      <find>align</find>
+      <find>voc</find>
+      <find>ransc</find>
+      <find>fusionpa</find>
+      <find>max IN</find>
+      <find>process</find>
+      <find>fusion</find>
+      <find>integrate</find>
+      <find>ProduceItem</find>
+      <find>IntegrateHashKernel</find>
+      <find>fusionPart</find>
+      <find>frustumCenter</find>
+      <find>processFRame</find>
+      <find>FusionPart</find>
+      <find>frame</find>
+      <find>marchingcube</find>
+      <find>tri2mesh</find>
+      <find>30</find>
+      <find>fusionpart</find>
+      <find>estimate_RT_ransac</find>
+      <find>call</find>
+      <find>passed_ratio</find>
+      <find>0.</find>
+      <find>max_dis</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -340,10 +412,26 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/tsdf.cu" />
+        <option value="$PROJECT_DIR$/summary.txt" />
+        <option value="$PROJECT_DIR$/include/vhashing.h" />
+        <option value="$PROJECT_DIR$/include/FeatureCluster.h" />
+        <option value="$PROJECT_DIR$/src/FeatureCluster.cpp" />
+        <option value="$PROJECT_DIR$/include/bundleAdjustion.h" />
+        <option value="$PROJECT_DIR$/include/Utils.h" />
+        <option value="$PROJECT_DIR$/src/bundleAdjustion.cpp" />
+        <option value="$PROJECT_DIR$/src/PointCloudGenerator.cpp" />
+        <option value="$PROJECT_DIR$/include/ridOfPlane.h" />
+        <option value="$PROJECT_DIR$/src/ridOfPlane.cpp" />
         <option value="$PROJECT_DIR$/scene0220_02/scene0220_02.yaml" />
+        <option value="$PROJECT_DIR$/src/tsdf.cu" />
+        <option value="$PROJECT_DIR$/include/preview.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/run.py" />
+        <option value="$PROJECT_DIR$/src/main.cpp" />
+        <option value="$PROJECT_DIR$/include/SlamBase.h" />
         <option value="$PROJECT_DIR$/src/RgbPart.cpp" />
+        <option value="$PROJECT_DIR$/src/SaveFrame.cpp" />
+        <option value="$PROJECT_DIR$/Example/model31.ply" />
       </list>
     </option>
   </component>
@@ -354,47 +442,49 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="110" />
-    <option name="y" value="138" />
-    <option name="width" value="1831" />
-    <option name="height" value="1018" />
+    <option name="x" value="417" />
+    <option name="y" value="114" />
+    <option name="width" value="1829" />
+    <option name="height" value="1010" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="TSDF" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VoxelHashingGeng_face" type="462c0819:PsiDirectoryNode" />
+              <item name="VoxelHashingGengshuai" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TSDF" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VoxelHashingGeng_face" type="462c0819:PsiDirectoryNode" />
+              <item name="VoxelHashingGengshuai" type="462c0819:PsiDirectoryNode" />
               <item name="include" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TSDF" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VoxelHashingGeng_face" type="462c0819:PsiDirectoryNode" />
+              <item name="VoxelHashingGengshuai" type="462c0819:PsiDirectoryNode" />
               <item name="scene0220_02" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TSDF" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VoxelHashingGeng_face" type="462c0819:PsiDirectoryNode" />
+              <item name="VoxelHashingGengshuai" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/gengshuai/Desktop/positive/test/new/VoxelHashingGengshuai/Example/model31.ply" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
@@ -443,37 +533,87 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1574417100534</updated>
-      <workItem from="1574417102812" duration="3835000" />
+      <workItem from="1574417102812" duration="39183000" />
+      <workItem from="1574851516651" duration="520000" />
+      <workItem from="1574852286234" duration="991000" />
+      <workItem from="1574908465238" duration="24548000" />
+      <workItem from="1575860414398" duration="13776000" />
+      <workItem from="1576207684092" duration="271000" />
+      <workItem from="1576208066111" duration="484000" />
+      <workItem from="1576208568686" duration="663000" />
+      <workItem from="1576218742316" duration="43000" />
+      <workItem from="1576230322177" duration="3257000" />
+      <workItem from="1576467871645" duration="3122000" />
+      <workItem from="1576659134988" duration="971000" />
+      <workItem from="1576671095313" duration="445000" />
+      <workItem from="1577070003799" duration="2077000" />
+      <workItem from="1577072270944" duration="978000" />
+      <workItem from="1577080923923" duration="3505000" />
+      <workItem from="1577088046477" duration="5710000" />
+      <workItem from="1577094302149" duration="7351000" />
+      <workItem from="1577158501027" duration="130000" />
+      <workItem from="1577262559382" duration="6000" />
+      <workItem from="1577265065725" duration="22005000" />
+      <workItem from="1577434397172" duration="14380000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3835000" />
+    <option name="totallyTimeSpent" value="144416000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13322277" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16639027" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.23952739" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="CMake" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.123523094" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3952739" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32975295" />
+      <window_info anchor="bottom" id="CMake" order="11" weight="0.2857143" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15975676" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.123523094" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.46938777" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="CMake" order="11" weight="0.50698173" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -482,56 +622,288 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
+    <entry file="file://$PROJECT_DIR$/summary.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="466">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/73.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/cmake_install.cmake">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/lock.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-130">
+          <caret line="12" column="2" lean-forward="true" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/hash_map.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="83" column="20" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/2dGauss.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/73RidPlane.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/impl/lockset.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2760">
+          <caret line="115" column="33" selection-start-line="115" selection-start-column="33" selection-end-line="115" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/vhashing.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="231" column="16" selection-start-line="231" selection-start-column="16" selection-end-line="231" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model3.ply">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model2.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model1.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model0.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file:///usr/include/x86_64-linux-gnu/bits/mathcalls.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="183" column="50" selection-start-line="183" selection-start-column="50" selection-end-line="183" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/FeatureCluster.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/bundleAdjustion.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1536">
+          <caret line="64" column="6" selection-start-line="64" selection-start-column="6" selection-end-line="64" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FeatureCluster.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists3.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists4.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils.cpp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/Utils.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1680">
+          <caret line="70" column="29" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/ridOfPlane.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="29" column="39" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scene0220_02/scene0220_02.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ridOfPlane.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6552">
+          <caret line="273" column="27" selection-start-line="273" selection-start-column="27" selection-end-line="273" selection-end-column="27" />
+          <folding>
+            <element signature="e#5431#5454#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PointCloudGenerator.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2112">
+          <caret line="88" column="38" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tsdf.cu">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32856">
+          <caret line="1369" column="41" selection-start-line="1369" selection-start-column="41" selection-end-line="1369" selection-end-column="41" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#149#183#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1464">
-          <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
+        <state relative-caret-position="2088">
+          <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scene0220_02/scene0220_02.yaml">
+    <entry file="file://$PROJECT_DIR$/include/preview.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+        <state relative-caret-position="4848">
+          <caret line="202" column="5" selection-start-line="202" selection-start-column="5" selection-end-line="202" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run.py">
+    <entry file="file://$PROJECT_DIR$/src/bundleAdjustion.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+        <state relative-caret-position="395">
+          <caret line="141" column="12" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/common.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="129" column="4" selection-start-line="129" selection-start-column="4" selection-end-line="129" selection-end-column="4" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#3619#3831#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tsdf.cu">
+    <entry file="file:///media/gengshuai/8e859ff5-c0b1-42ae-bf0e-9102ed601b72/Documents/env/opencv330/include/opencv4/opencv2/xfeatures2d/nonfree.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="1323" column="48" selection-start-line="1323" selection-start-column="48" selection-end-line="1323" selection-end-column="48" />
+        <state relative-caret-position="118">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="89" column="12" selection-start-line="89" selection-start-column="12" selection-end-line="89" selection-end-column="12" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/include/SlamBase.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+          <folding>
+            <element signature="e#134#152#0" expanded="true" />
+            <element signature="e#203#235#0" expanded="true" />
+            <element signature="e#282#308#0" expanded="true" />
+            <element signature="e#596#634#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model29.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model25.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model21.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model26.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model18.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model16.ply">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model33.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model32.ply">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/RgbPart.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="104" column="15" selection-start-line="104" selection-start-column="15" selection-end-line="104" selection-end-column="15" />
+        <state relative-caret-position="-1">
+          <caret line="336" column="3" selection-start-line="336" selection-start-column="3" selection-end-line="336" selection-end-column="3" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#9867#11460#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SaveFrame.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="224" column="64" selection-start-line="224" selection-start-column="64" selection-end-line="224" selection-end-column="64" />
+          <folding>
+            <element signature="e#38#55#0" expanded="true" />
+            <element signature="e#334#363#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Example/model31.ply">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-14">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>

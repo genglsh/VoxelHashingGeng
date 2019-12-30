@@ -73,6 +73,13 @@ namespace ark{
 //            this->imDepth = tem.imDepth.clone();
 //        }
     };
+
+    const float PLANE_TRUNCATION_VALUE = 4.0;
+
+    const float fx = 517.448;
+    const float fy = 517.448;
+    const float cx = 305.432;
+    const float cy = 250.411;
 }
 
 #endif //OPENARK_UTILS_H

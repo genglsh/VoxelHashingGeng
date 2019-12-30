@@ -44,9 +44,9 @@
 // #define BLOCK_PER_CHUNK 6
 #define MAX_CPU2GPU_BLOCKS 10000
 //#define MAX_CPU2GPU_BLOCKS 10000
-#define MAX_CHUNK_NUM 64
+#define MAX_CHUNK_NUM 32
 // #define MAX_CHUNK_NUM 128
-//#define CHUNK_RADIUS 3.0
+//#define CHUNK_RADIUS 2.0
 #define CHUNK_RADIUS 2.0
 
 #define MAXWEIGHT 20

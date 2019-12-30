@@ -257,16 +257,26 @@ struct HashTableBase {
 		Value* rv;//rv return valuef
 
 		iterator it = tryfind(k);
+		bool flag = false;
 
-		if (it == fail()) {
-			rv = 0;
+		while(!flag) {
+            if (it == fail()) {
+
+                //  rv = 0;
+                // 因为访问地址被锁所以直接return fail，感觉会造成问题。 最新修改
+                // rv = tryinsert(k, t);
+            }
+            else if (it != end()) {
+                flag = true;
+                rv = &alloc[it->block_index];
+            }
+            else /* it == end */ {
+                flag = true;
+                rv = real_insert(k, t);
+            }
+
 		}
-		else if (it != end()) {
-			rv = &alloc[it->block_index];
-		}
-		else /* it == end */ {
-			rv = real_insert(k, t);
-		}
+
 		if (rv) {
 			return &rv;
 		}

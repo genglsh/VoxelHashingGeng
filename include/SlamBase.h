@@ -78,8 +78,12 @@ namespace ark{
             cv::Ptr<cv::DescriptorExtractor> descriptor;
 //            cv::Ptr<cv::Feature2D> detector;
     };
+
+    bool estimate_RT(const std::vector<cv::Point3f> &srcPoints, const std::vector<cv::Point3f> &dstPoints,
+                     cv::Mat &R, cv::Mat &T);
+
+    bool estimate_RT_ransac(const std::vector<cv::Point3f> &srcPoints, const std::vector<cv::Point3f> &dstPoints,
+                            cv::Mat &R, cv::Mat &T, std::vector<int> &inliers, const int mini_matches = 3,
+                            const float matched_min_d = 1.0, const float accept_ratio = 0.5, const int max_iters = 100);
 }
 #endif //#define OPENARK_SLAMBASE_H
-
-
-
